@@ -131,6 +131,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/catalog/search": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Search Products
+         * @description Поиск с учётом опечаток (Meilisearch); порядок — по релевантности.
+         */
+        get: operations["apps_catalog_api_search_products"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/catalog/products/{slug}/related": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Related Products
+         * @description Похожие: сначала тот же бренд, затем та же категория в близком ценовом диапазоне.
+         */
+        get: operations["apps_catalog_api_related_products"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/currency/rates": {
         parameters: {
             query?: never;
@@ -205,6 +245,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/orders/lookup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Lookup Order
+         * @description Найти заказ по номеру и телефону — для страницы «Отследить заказ».
+         */
+        post: operations["apps_orders_api_lookup_order"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/orders/{token}": {
         parameters: {
             query?: never;
@@ -251,6 +311,80 @@ export interface paths {
         };
         /** Site Settings */
         get: operations["apps_content_api_site_settings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/pages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Pages
+         * @description Опубликованные страницы — для подвала и sitemap.
+         */
+        get: operations["apps_content_api_list_pages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/pages/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Page */
+        get: operations["apps_content_api_get_page"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/faq": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Faq */
+        get: operations["apps_content_api_list_faq"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/sitemap": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Sitemap
+         * @description Адреса для sitemap.xml витрины.
+         */
+        get: operations["apps_content_api_sitemap"];
         put?: never;
         post?: never;
         delete?: never;
@@ -727,6 +861,18 @@ export interface components {
              */
             website: string;
         };
+        /** OrderLookupOut */
+        OrderLookupOut: {
+            /** Token */
+            token: string;
+        };
+        /** OrderLookupIn */
+        OrderLookupIn: {
+            /** Number */
+            number: string;
+            /** Phone */
+            phone: string;
+        };
         /**
          * HomeSectionOut
          * @description Секция главной. Поля, не относящиеся к типу секции, пустые.
@@ -805,6 +951,56 @@ export interface components {
             announcement: string;
             /** Announcement Link */
             announcement_link: string;
+        };
+        /** PageLinkOut */
+        PageLinkOut: {
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Footer Group */
+            footer_group: string;
+        };
+        /** PageOut */
+        PageOut: {
+            /** Slug */
+            slug: string;
+            /** Title */
+            title: string;
+            /** Footer Group */
+            footer_group: string;
+            /** Content */
+            content: string;
+            /** Seo Description */
+            seo_description: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** FaqItemOut */
+        FaqItemOut: {
+            /** Question */
+            question: string;
+            /** Answer */
+            answer: string;
+        };
+        /** SitemapEntry */
+        SitemapEntry: {
+            /** Slug */
+            slug: string;
+            /** Updated At */
+            updated_at?: string | null;
+        };
+        /** SitemapOut */
+        SitemapOut: {
+            /** Products */
+            products: components["schemas"]["SitemapEntry"][];
+            /** Brands */
+            brands: components["schemas"]["SitemapEntry"][];
+            /** Pages */
+            pages: components["schemas"]["SitemapEntry"][];
         };
     };
     responses: never;
@@ -979,6 +1175,53 @@ export interface operations {
             };
         };
     };
+    apps_catalog_api_search_products: {
+        parameters: {
+            query: {
+                q: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductListOut"][];
+                };
+            };
+        };
+    };
+    apps_catalog_api_related_products: {
+        parameters: {
+            query?: {
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductListOut"][];
+                };
+            };
+        };
+    };
     apps_currency_api_get_rates: {
         parameters: {
             query?: never;
@@ -1076,6 +1319,39 @@ export interface operations {
             };
         };
     };
+    apps_orders_api_lookup_order: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrderLookupIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderLookupOut"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
     apps_orders_api_get_order: {
         parameters: {
             query?: never;
@@ -1134,6 +1410,88 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SiteSettingsOut"];
+                };
+            };
+        };
+    };
+    apps_content_api_list_pages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageLinkOut"][];
+                };
+            };
+        };
+    };
+    apps_content_api_get_page: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PageOut"];
+                };
+            };
+        };
+    };
+    apps_content_api_list_faq: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FaqItemOut"][];
+                };
+            };
+        };
+    };
+    apps_content_api_sitemap: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SitemapOut"];
                 };
             };
         };

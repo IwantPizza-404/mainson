@@ -72,10 +72,10 @@ SPEC_OPTIONS = {
 }
 
 DEMO_BRANDS = [
-    ("rolex", "Rolex", "Switzerland"),
-    ("omega", "Omega", "Switzerland"),
-    ("cartier", "Cartier", "France"),
-    ("tudor", "Tudor", "Switzerland"),
+    ("rolex", "Rolex", "Switzerland", "ролекс"),
+    ("omega", "Omega", "Switzerland", "омега"),
+    ("cartier", "Cartier", "France", "картье"),
+    ("tudor", "Tudor", "Switzerland", "тюдор, тудор"),
 ]
 
 # slug, brand, name, reference, price, old price, availability, condition, gender,
@@ -254,9 +254,15 @@ class Command(BaseCommand):
     def _seed_demo(self) -> None:
         watches = Category.objects.get(slug="watches")
         brands = {}
-        for position, (slug, name, country) in enumerate(DEMO_BRANDS):
+        for position, (slug, name, country, aliases) in enumerate(DEMO_BRANDS):
             brands[slug], _ = Brand.objects.update_or_create(
-                slug=slug, defaults={"name": name, "country": country, "position": position}
+                slug=slug,
+                defaults={
+                    "name": name,
+                    "country": country,
+                    "search_aliases": aliases,
+                    "position": position,
+                },
             )
 
         def option(kind: Kind, slug: str) -> SpecOption:

@@ -11,6 +11,8 @@ from .schemas import (
     CheckoutOptionsOut,
     ErrorOut,
     OrderIn,
+    OrderLookupIn,
+    OrderLookupOut,
     OrderOut,
     QuoteOut,
 )
@@ -89,6 +91,29 @@ def create_order(request, payload: OrderIn):
     return Status(201, order)
 
 
+def phone_digits(phone: str) -> str:
+    # Сравниваем последние 9 цифр: «+998 90 123-45-67» и «901234567» — один номер
+    return "".join(ch for ch in phone if ch.isdigit())[-9:]
+
+
+@router.post(
+    "/orders/lookup",
+    response={200: OrderLookupOut, 404: ErrorOut},
+    throttle=[AnonRateThrottle("20/h")],
+)
+def lookup_order(request, payload: OrderLookupIn):
+    """Найти заказ по номеру и телефону — для страницы «Отследить заказ»."""
+    number = payload.number.strip().upper()
+    if not number.startswith("MS-"):
+        number = f"MS-{number}"
+    order = Order.objects.filter(number=number).first()
+    if order is None or phone_digits(order.phone) != phone_digits(payload.phone):
+        # Одинаковый ответ: нельзя узнать, существует ли заказ с таким номером
+        return Status(404, {"detail": "Order not found."})
+    return Status(200, {"token": order.token})
+
+
+# Объявлен после /orders/lookup: иначе «lookup» совпал бы с {token}
 @router.get("/orders/{token}", response=OrderOut)
 def get_order(request, token: str):
     """Статус заказа для покупателя — по секретной ссылке, без регистрации."""

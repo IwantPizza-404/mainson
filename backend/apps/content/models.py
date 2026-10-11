@@ -1,12 +1,21 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.core.html import clean_html
 from apps.core.images import ALLOWED_EXTENSIONS, validate_image_size
 from apps.core.responsive import BANNER_VARIANTS, TILE_VARIANTS, ResponsiveImagesMixin
 
 IMAGE_VALIDATORS = [FileExtensionValidator(ALLOWED_EXTENSIONS), validate_image_size]
+
+
+def clean_translated_html(obj: models.Model, field: str) -> None:
+    """HTML из редактора очищается на всех языках: на сайт попадает только безопасная разметка."""
+    for code, _name in settings.LANGUAGES:
+        name = f"{field}_{code}"
+        setattr(obj, name, clean_html(getattr(obj, name, "") or ""))
 
 
 def validate_link(value: str) -> None:
@@ -174,3 +183,56 @@ class HomeSectionItem(ResponsiveImagesMixin, models.Model):
 
     def __str__(self) -> str:
         return self.title or f"#{self.position}"
+
+
+class Page(models.Model):
+    """Информационная страница: о нас, доставка и оплата, гарантия, возврат, политика и т.д."""
+
+    class FooterGroup(models.TextChoices):
+        CUSTOMERS = "customers", _("For customers")
+        ABOUT = "about", _("About")
+        LEGAL = "legal", _("Legal")
+
+    slug = models.SlugField(
+        _("address"), max_length=80, unique=True, help_text=_("maison.uz/<address>")
+    )
+    title = models.CharField(_("title"), max_length=150)
+    content = models.TextField(_("content"), blank=True)
+    footer_group = models.CharField(
+        _("footer column"), max_length=16, choices=FooterGroup.choices, blank=True
+    )
+    is_published = models.BooleanField(_("published"), default=False)
+    position = models.PositiveIntegerField(_("position"), default=0, db_index=True)
+    seo_description = models.CharField(_("SEO description"), max_length=320, blank=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("page")
+        verbose_name_plural = _("pages")
+        ordering = ["position", "id"]
+
+    def __str__(self) -> str:
+        return self.title
+
+    def save(self, *args, **kwargs) -> None:
+        clean_translated_html(self, "content")
+        super().save(*args, **kwargs)
+
+
+class FaqItem(models.Model):
+    question = models.CharField(_("question"), max_length=255)
+    answer = models.TextField(_("answer"))
+    is_published = models.BooleanField(_("published"), default=True)
+    position = models.PositiveIntegerField(_("position"), default=0, db_index=True)
+
+    class Meta:
+        verbose_name = _("question")
+        verbose_name_plural = _("FAQ")
+        ordering = ["position", "id"]
+
+    def __str__(self) -> str:
+        return self.question
+
+    def save(self, *args, **kwargs) -> None:
+        clean_translated_html(self, "answer")
+        super().save(*args, **kwargs)

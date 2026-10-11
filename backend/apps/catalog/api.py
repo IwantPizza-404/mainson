@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Literal
 
 from django.db.models import Count, Max, Min, Prefetch, Q
@@ -5,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from ninja import Query, Router
 from ninja.pagination import PageNumberPagination, paginate
 
+from . import search
 from .models import Brand, Category, Product, ProductImage, SpecOption, WatchSpecs
 from .schemas import (
     BrandOut,
@@ -124,3 +126,32 @@ def get_filters(request, brand: str | None = None):
         "strap_materials": used_options(SpecOption.Kind.STRAP_MATERIAL, "strap_material"),
         "price": price,
     }
+
+
+@router.get("/search", response=list[ProductListOut])
+def search_products(request, q: str = Query(..., min_length=2, max_length=100), limit: int = 24):
+    """Поиск с учётом опечаток (Meilisearch); порядок — по релевантности."""
+    ids = search.search_ids(q.strip(), min(max(limit, 1), 48))
+    products = published_products().in_bulk(ids)
+    return [products[pk] for pk in ids if pk in products]
+
+
+@router.get("/products/{slug}/related", response=list[ProductListOut])
+def related_products(request, slug: str, limit: int = 8):
+    """Похожие: сначала тот же бренд, затем та же категория в близком ценовом диапазоне."""
+    product = get_object_or_404(Product.objects.published(), slug=slug)
+    available = (
+        published_products()
+        .exclude(pk=product.pk)
+        .exclude(availability=Product.Availability.SOLD_OUT)
+    )
+    limit = min(max(limit, 1), 12)
+    same_brand = list(available.filter(brand_id=product.brand_id).order_by("-created_at")[:limit])
+    if len(same_brand) >= limit:
+        return same_brand
+    similar_price = available.filter(
+        category_id=product.category_id,
+        price__gte=product.price * Decimal("0.6"),
+        price__lte=product.price * Decimal("1.6"),
+    ).exclude(pk__in=[p.pk for p in same_brand])
+    return same_brand + list(similar_price.order_by("-created_at")[: limit - len(same_brand)])

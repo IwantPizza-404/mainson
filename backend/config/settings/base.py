@@ -252,6 +252,16 @@ UNFOLD = {
                         "link": reverse_lazy("admin:content_homesection_changelist"),
                     },
                     {
+                        "title": _("Pages"),
+                        "icon": "description",
+                        "link": reverse_lazy("admin:content_page_changelist"),
+                    },
+                    {
+                        "title": _("FAQ"),
+                        "icon": "help",
+                        "link": reverse_lazy("admin:content_faqitem_changelist"),
+                    },
+                    {
                         "title": _("Site settings"),
                         "icon": "settings",
                         "link": reverse_lazy("admin:content_sitesettings_changelist"),

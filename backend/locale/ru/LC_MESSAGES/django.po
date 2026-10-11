@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 23:07+0500\n"
+"POT-Creation-Date: 2026-10-11 23:19+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,8 @@ msgstr ""
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: apps/catalog/admin.py:27 apps/catalog/models.py:183
-#: apps/content/models.py:93
+#: apps/catalog/admin.py:27 apps/catalog/models.py:189
+#: apps/content/models.py:102
 msgid "products"
 msgstr "товары"
 
@@ -56,7 +56,7 @@ msgstr "Наличие"
 msgid "Attributes"
 msgstr "Характеристики"
 
-#: apps/catalog/admin.py:131
+#: apps/catalog/admin.py:131 apps/content/admin.py:102
 msgid "Publishing"
 msgstr "Публикация"
 
@@ -64,7 +64,7 @@ msgstr "Публикация"
 msgid "SEO"
 msgstr "SEO"
 
-#: apps/catalog/admin.py:152 apps/catalog/models.py:159
+#: apps/catalog/admin.py:152 apps/catalog/models.py:165
 msgid "availability"
 msgstr "наличие"
 
@@ -86,18 +86,18 @@ msgstr "Снять с публикации"
 msgid "Unpublished: %d"
 msgstr "Снято с публикации: %d"
 
-#: apps/catalog/apps.py:8 config/settings/base.py:225
+#: apps/catalog/apps.py:8 config/settings/base.py:222
 msgid "Catalog"
 msgstr "Каталог"
 
-#: apps/catalog/models.py:25 apps/catalog/models.py:45
-#: apps/catalog/models.py:86 apps/catalog/models.py:128
+#: apps/catalog/models.py:25 apps/catalog/models.py:51
+#: apps/catalog/models.py:92 apps/catalog/models.py:134
 #: apps/orders/models.py:29 apps/orders/models.py:95 apps/orders/models.py:174
 msgid "name"
 msgstr "название"
 
-#: apps/catalog/models.py:26 apps/catalog/models.py:46
-#: apps/catalog/models.py:87 apps/catalog/models.py:129
+#: apps/catalog/models.py:26 apps/catalog/models.py:52
+#: apps/catalog/models.py:93 apps/catalog/models.py:135
 msgid "slug"
 msgstr "адрес (slug)"
 
@@ -109,526 +109,586 @@ msgstr "логотип"
 msgid "country"
 msgstr "страна"
 
-#: apps/catalog/models.py:29 apps/catalog/models.py:133
+#: apps/catalog/models.py:29 apps/catalog/models.py:139
 #: apps/orders/models.py:30
 msgid "description"
 msgstr "описание"
 
-#: apps/catalog/models.py:30 apps/catalog/models.py:55
-#: apps/content/models.py:88 apps/orders/models.py:41
+#: apps/catalog/models.py:31
+msgid "search aliases"
+msgstr "варианты написания для поиска"
+
+#: apps/catalog/models.py:34
+msgid "Other spellings for search, comma-separated: ролекс, ролех"
+msgstr "Другие написания для поиска через запятую: ролекс, ролех"
+
+#: apps/catalog/models.py:36 apps/catalog/models.py:61
+#: apps/content/models.py:97 apps/orders/models.py:41
 msgid "active"
 msgstr "активен"
 
-#: apps/catalog/models.py:31 apps/catalog/models.py:56
-#: apps/catalog/models.py:88 apps/catalog/models.py:323
-#: apps/content/models.py:89 apps/content/models.py:168
+#: apps/catalog/models.py:37 apps/catalog/models.py:62
+#: apps/catalog/models.py:94 apps/catalog/models.py:329
+#: apps/content/models.py:98 apps/content/models.py:177
+#: apps/content/models.py:205 apps/content/models.py:226
 #: apps/orders/models.py:42
 msgid "position"
 msgstr "позиция"
 
-#: apps/catalog/models.py:34 apps/catalog/models.py:126
-#: apps/content/models.py:96 apps/orders/models.py:173
+#: apps/catalog/models.py:40 apps/catalog/models.py:132
+#: apps/content/models.py:105 apps/orders/models.py:173
 msgid "brand"
 msgstr "бренд"
 
-#: apps/catalog/models.py:35
+#: apps/catalog/models.py:41
 msgid "brands"
 msgstr "бренды"
 
-#: apps/catalog/models.py:49
+#: apps/catalog/models.py:55
 msgid "parent"
 msgstr "родительская категория"
 
-#: apps/catalog/models.py:59 apps/catalog/models.py:123
+#: apps/catalog/models.py:65 apps/catalog/models.py:129
 msgid "category"
 msgstr "категория"
 
-#: apps/catalog/models.py:60
+#: apps/catalog/models.py:66
 msgid "categories"
 msgstr "категории"
 
-#: apps/catalog/models.py:68
+#: apps/catalog/models.py:74
 msgid "Only one level of nesting is allowed."
 msgstr "Допускается только один уровень вложенности."
 
-#: apps/catalog/models.py:79
+#: apps/catalog/models.py:85
 msgid "Case material"
 msgstr "Материал корпуса"
 
-#: apps/catalog/models.py:80
+#: apps/catalog/models.py:86
 msgid "Strap material"
 msgstr "Материал ремешка"
 
-#: apps/catalog/models.py:81
+#: apps/catalog/models.py:87
 msgid "Dial color"
 msgstr "Цвет циферблата"
 
-#: apps/catalog/models.py:82
+#: apps/catalog/models.py:88
 msgid "Glass"
 msgstr "Стекло"
 
-#: apps/catalog/models.py:83
+#: apps/catalog/models.py:89
 msgid "Complication"
 msgstr "Функция"
 
-#: apps/catalog/models.py:85
+#: apps/catalog/models.py:91
 msgid "kind"
 msgstr "тип"
 
-#: apps/catalog/models.py:91
+#: apps/catalog/models.py:97
 msgid "specification option"
 msgstr "значение характеристики"
 
-#: apps/catalog/models.py:92
+#: apps/catalog/models.py:98
 msgid "specification options"
 msgstr "справочник характеристик"
 
-#: apps/catalog/models.py:109
+#: apps/catalog/models.py:115
 msgid "New"
 msgstr "Новые"
 
-#: apps/catalog/models.py:110 apps/content/models.py:79
+#: apps/catalog/models.py:116 apps/content/models.py:88
 msgid "Pre-owned"
 msgstr "С историей"
 
-#: apps/catalog/models.py:113
+#: apps/catalog/models.py:119
 msgid "In stock"
 msgstr "В наличии"
 
-#: apps/catalog/models.py:114
+#: apps/catalog/models.py:120
 msgid "On order"
 msgstr "Под заказ"
 
-#: apps/catalog/models.py:115
+#: apps/catalog/models.py:121
 msgid "Sold out"
 msgstr "Продано"
 
-#: apps/catalog/models.py:118
+#: apps/catalog/models.py:124
 msgid "Men"
 msgstr "Мужские"
 
-#: apps/catalog/models.py:119
+#: apps/catalog/models.py:125
 msgid "Women"
 msgstr "Женские"
 
-#: apps/catalog/models.py:120
+#: apps/catalog/models.py:126
 msgid "Unisex"
 msgstr "Унисекс"
 
-#: apps/catalog/models.py:131 apps/orders/models.py:175
+#: apps/catalog/models.py:137 apps/orders/models.py:175
 msgid "reference"
 msgstr "референс"
 
-#: apps/catalog/models.py:131
+#: apps/catalog/models.py:137
 msgid "Model reference"
 msgstr "Артикул модели"
 
-#: apps/catalog/models.py:137 apps/orders/admin.py:28 apps/orders/models.py:33
+#: apps/catalog/models.py:143 apps/orders/admin.py:28 apps/orders/models.py:33
 #: apps/orders/models.py:176
 msgid "price, USD"
 msgstr "цена, USD"
 
-#: apps/catalog/models.py:143
+#: apps/catalog/models.py:149
 msgid "old price, USD"
 msgstr "старая цена, USD"
 
-#: apps/catalog/models.py:148
+#: apps/catalog/models.py:154
 msgid "Crossed-out price shown for discounted items."
 msgstr "Зачёркнутая цена для товаров со скидкой."
 
-#: apps/catalog/models.py:152
+#: apps/catalog/models.py:158
 msgid "condition"
 msgstr "состояние"
 
-#: apps/catalog/models.py:155
+#: apps/catalog/models.py:161
 msgid "gender"
 msgstr "пол"
 
-#: apps/catalog/models.py:165
+#: apps/catalog/models.py:171
 msgid "stock quantity"
 msgstr "количество на складе"
 
-#: apps/catalog/models.py:167 apps/orders/models.py:180
+#: apps/catalog/models.py:173 apps/orders/models.py:180
 msgid "lead time, days"
 msgstr "срок поставки, дней"
 
-#: apps/catalog/models.py:170
+#: apps/catalog/models.py:176
 msgid "Delivery time for items on order."
 msgstr "Срок поставки для товаров под заказ."
 
-#: apps/catalog/models.py:173
+#: apps/catalog/models.py:179 apps/content/models.py:204
+#: apps/content/models.py:225
 msgid "published"
 msgstr "опубликован"
 
-#: apps/catalog/models.py:174
+#: apps/catalog/models.py:180
 msgid "featured"
 msgstr "рекомендуемый"
 
-#: apps/catalog/models.py:176
+#: apps/catalog/models.py:182
 msgid "SEO title"
 msgstr "SEO-заголовок"
 
-#: apps/catalog/models.py:177
+#: apps/catalog/models.py:183 apps/content/models.py:206
 msgid "SEO description"
 msgstr "SEO-описание"
 
-#: apps/catalog/models.py:182 apps/catalog/models.py:234
-#: apps/catalog/models.py:313 apps/orders/models.py:168
+#: apps/catalog/models.py:188 apps/catalog/models.py:240
+#: apps/catalog/models.py:319 apps/orders/models.py:168
 msgid "product"
 msgstr "товар"
 
-#: apps/catalog/models.py:207
+#: apps/catalog/models.py:213
 msgid "Old price must be greater than the price."
 msgstr "Старая цена должна быть больше текущей."
 
-#: apps/catalog/models.py:209
+#: apps/catalog/models.py:215
 msgid "Set the quantity for an item in stock."
 msgstr "Укажите количество для товара в наличии."
 
-#: apps/catalog/models.py:211
+#: apps/catalog/models.py:217
 msgid "Set the lead time for an item on order."
 msgstr "Укажите срок поставки для товара под заказ."
 
-#: apps/catalog/models.py:228
+#: apps/catalog/models.py:234
 msgid "Automatic"
 msgstr "Автоподзавод"
 
-#: apps/catalog/models.py:229
+#: apps/catalog/models.py:235
 msgid "Manual winding"
 msgstr "Ручной завод"
 
-#: apps/catalog/models.py:230
+#: apps/catalog/models.py:236
 msgid "Quartz"
 msgstr "Кварцевый"
 
-#: apps/catalog/models.py:231
+#: apps/catalog/models.py:237
 msgid "Solar"
 msgstr "Солнечная батарея"
 
-#: apps/catalog/models.py:237
+#: apps/catalog/models.py:243
 msgid "movement"
 msgstr "механизм"
 
-#: apps/catalog/models.py:238
+#: apps/catalog/models.py:244
 msgid "caliber"
 msgstr "калибр"
 
-#: apps/catalog/models.py:240
+#: apps/catalog/models.py:246
 msgid "power reserve, hours"
 msgstr "запас хода, ч"
 
-#: apps/catalog/models.py:245
+#: apps/catalog/models.py:251
 msgid "case material"
 msgstr "материал корпуса"
 
-#: apps/catalog/models.py:253
+#: apps/catalog/models.py:259
 msgid "case diameter, mm"
 msgstr "диаметр корпуса, мм"
 
-#: apps/catalog/models.py:256
+#: apps/catalog/models.py:262
 msgid "case thickness, mm"
 msgstr "толщина корпуса, мм"
 
-#: apps/catalog/models.py:260
+#: apps/catalog/models.py:266
 msgid "glass"
 msgstr "стекло"
 
-#: apps/catalog/models.py:268
+#: apps/catalog/models.py:274
 msgid "water resistance, m"
 msgstr "водозащита, м"
 
-#: apps/catalog/models.py:273
+#: apps/catalog/models.py:279
 msgid "dial color"
 msgstr "цвет циферблата"
 
-#: apps/catalog/models.py:282
+#: apps/catalog/models.py:288
 msgid "strap / bracelet material"
 msgstr "материал ремешка / браслета"
 
-#: apps/catalog/models.py:291
+#: apps/catalog/models.py:297
 msgid "complications"
 msgstr "функции"
 
-#: apps/catalog/models.py:297
+#: apps/catalog/models.py:303
 msgid "year"
 msgstr "год"
 
-#: apps/catalog/models.py:298
+#: apps/catalog/models.py:304
 msgid "original box"
 msgstr "оригинальная коробка"
 
-#: apps/catalog/models.py:299
+#: apps/catalog/models.py:305
 msgid "papers / warranty card"
 msgstr "документы / гарантийный талон"
 
-#: apps/catalog/models.py:301
+#: apps/catalog/models.py:307
 msgid "serial number"
 msgstr "серийный номер"
 
-#: apps/catalog/models.py:304 apps/catalog/models.py:305
+#: apps/catalog/models.py:310 apps/catalog/models.py:311
 msgid "watch specifications"
 msgstr "характеристики часов"
 
-#: apps/catalog/models.py:316 apps/catalog/models.py:336
-#: apps/content/models.py:107 apps/content/models.py:161
+#: apps/catalog/models.py:322 apps/catalog/models.py:342
+#: apps/content/models.py:116 apps/content/models.py:170
 msgid "image"
 msgstr "изображение"
 
-#: apps/catalog/models.py:322
+#: apps/catalog/models.py:328
 msgid "alt text"
 msgstr "альтернативный текст"
 
-#: apps/catalog/models.py:337
+#: apps/catalog/models.py:343
 msgid "images"
 msgstr "изображения"
 
-#: apps/content/admin.py:14
+#: apps/content/admin.py:16
 msgid "Contacts"
 msgstr "Контакты"
 
-#: apps/content/admin.py:15
+#: apps/content/admin.py:17
 msgid "Messengers"
 msgstr "Мессенджеры"
 
-#: apps/content/admin.py:17
+#: apps/content/admin.py:19
 msgid "Social networks"
 msgstr "Соцсети"
 
-#: apps/content/admin.py:25
+#: apps/content/admin.py:27
 msgid "Announcement bar"
 msgstr "Строка объявления"
 
-#: apps/content/admin.py:65 config/settings/base.py:228
+#: apps/content/admin.py:73 config/settings/base.py:225
 msgid "Products"
 msgstr "Товары"
 
-#: apps/content/admin.py:68
+#: apps/content/admin.py:76
 msgid "Banner"
 msgstr "Баннер"
 
-#: apps/content/apps.py:8 config/settings/base.py:250
+#: apps/content/apps.py:8 config/settings/base.py:247
 msgid "Content"
 msgstr "Контент"
 
-#: apps/content/models.py:15
+#: apps/content/models.py:24
 msgid "Use a path starting with “/” or a full https:// address."
 msgstr "Укажите путь, начинающийся с «/», или полный адрес https://"
 
-#: apps/content/models.py:21 apps/orders/models.py:96
+#: apps/content/models.py:30 apps/orders/models.py:96
 msgid "phone"
 msgstr "телефон"
 
-#: apps/content/models.py:22 apps/orders/models.py:97
+#: apps/content/models.py:31 apps/orders/models.py:97
 msgid "email"
 msgstr "email"
 
-#: apps/content/models.py:24
+#: apps/content/models.py:33
 msgid "Telegram username"
 msgstr "Username в Telegram"
 
-#: apps/content/models.py:24
+#: apps/content/models.py:33
 msgid "Without @"
 msgstr "Без @"
 
-#: apps/content/models.py:27
+#: apps/content/models.py:36
 msgid "WhatsApp number"
 msgstr "Номер WhatsApp"
 
-#: apps/content/models.py:27
+#: apps/content/models.py:36
 msgid "Digits only: 998901234567"
 msgstr "Только цифры: 998901234567"
 
-#: apps/content/models.py:29
+#: apps/content/models.py:38
 msgid "Instagram"
 msgstr "Instagram"
 
-#: apps/content/models.py:30
+#: apps/content/models.py:39
 msgid "Telegram channel"
 msgstr "Telegram-канал"
 
-#: apps/content/models.py:31
+#: apps/content/models.py:40
 msgid "Facebook"
 msgstr "Facebook"
 
-#: apps/content/models.py:32
+#: apps/content/models.py:41
 msgid "YouTube"
 msgstr "YouTube"
 
-#: apps/content/models.py:33 apps/orders/models.py:103
+#: apps/content/models.py:42 apps/content/models.py:197
+#: apps/orders/models.py:103
 msgid "address"
 msgstr "адрес"
 
-#: apps/content/models.py:34
+#: apps/content/models.py:43
 msgid "working hours"
 msgstr "часы работы"
 
-#: apps/content/models.py:36
+#: apps/content/models.py:45
 msgid "announcement"
 msgstr "объявление"
 
-#: apps/content/models.py:39
+#: apps/content/models.py:48
 msgid "Thin bar above the header, e.g. a promotion. Empty — hidden."
 msgstr "Узкая полоса над шапкой, например об акции. Пусто — скрыта."
 
-#: apps/content/models.py:42
+#: apps/content/models.py:51
 msgid "announcement link"
 msgstr "ссылка объявления"
 
-#: apps/content/models.py:46 apps/content/models.py:47
+#: apps/content/models.py:55 apps/content/models.py:56
 msgid "site settings"
 msgstr "настройки сайта"
 
-#: apps/content/models.py:50 config/settings/base.py:258
+#: apps/content/models.py:59 config/settings/base.py:265
 msgid "Site settings"
 msgstr "Настройки сайта"
 
-#: apps/content/models.py:68
+#: apps/content/models.py:77
 msgid "Hero slider"
 msgstr "Главный слайдер"
 
-#: apps/content/models.py:69
+#: apps/content/models.py:78
 msgid "Product carousel"
 msgstr "Карусель товаров"
 
-#: apps/content/models.py:70
+#: apps/content/models.py:79
 msgid "Brand logos"
 msgstr "Логотипы брендов"
 
-#: apps/content/models.py:71
+#: apps/content/models.py:80
 msgid "Tiles (e.g. For him / For her)"
 msgstr "Плитки (например, «Для него / Для неё»)"
 
-#: apps/content/models.py:72
+#: apps/content/models.py:81
 msgid "Wide banner"
 msgstr "Широкий баннер"
 
-#: apps/content/models.py:73
+#: apps/content/models.py:82
 msgid "Benefits bar"
 msgstr "Блок преимуществ"
 
-#: apps/content/models.py:76
+#: apps/content/models.py:85
 msgid "New arrivals"
 msgstr "Новинки"
 
-#: apps/content/models.py:77
+#: apps/content/models.py:86
 msgid "Featured"
 msgstr "Рекомендуемые"
 
-#: apps/content/models.py:78
+#: apps/content/models.py:87
 msgid "Discounted"
 msgstr "Со скидкой"
 
-#: apps/content/models.py:80
+#: apps/content/models.py:89
 msgid "Brand"
 msgstr "Бренд"
 
-#: apps/content/models.py:81
+#: apps/content/models.py:90
 msgid "Selected manually"
 msgstr "Выбранные вручную"
 
-#: apps/content/models.py:85
+#: apps/content/models.py:94
 msgid "type"
 msgstr "тип"
 
-#: apps/content/models.py:86 apps/content/models.py:155
+#: apps/content/models.py:95 apps/content/models.py:164
+#: apps/content/models.py:199
 msgid "title"
 msgstr "заголовок"
 
-#: apps/content/models.py:87
+#: apps/content/models.py:96
 msgid "subtitle"
 msgstr "подзаголовок"
 
-#: apps/content/models.py:99
+#: apps/content/models.py:108
 msgid "selected products"
 msgstr "выбранные товары"
 
-#: apps/content/models.py:102
+#: apps/content/models.py:111
 msgid "number of products"
 msgstr "количество товаров"
 
-#: apps/content/models.py:111 apps/content/models.py:165
+#: apps/content/models.py:120 apps/content/models.py:174
 msgid "image for phones"
 msgstr "изображение для телефонов"
 
-#: apps/content/models.py:115
+#: apps/content/models.py:124
 msgid "Optional vertical version for phones."
 msgstr "Необязательная вертикальная версия для телефонов."
 
-#: apps/content/models.py:118 apps/content/models.py:157
+#: apps/content/models.py:127 apps/content/models.py:166
 msgid "button label"
 msgstr "текст кнопки"
 
-#: apps/content/models.py:119 apps/content/models.py:158
+#: apps/content/models.py:128 apps/content/models.py:167
 msgid "link"
 msgstr "ссылка"
 
-#: apps/content/models.py:122
+#: apps/content/models.py:131
 msgid "home page section"
 msgstr "секция главной"
 
-#: apps/content/models.py:123
+#: apps/content/models.py:132
 msgid "home page"
 msgstr "главная страница"
 
-#: apps/content/models.py:132
+#: apps/content/models.py:141
 msgid "Choose which products to show."
 msgstr "Выберите, какие товары показывать."
 
-#: apps/content/models.py:134
+#: apps/content/models.py:143
 msgid "Choose a brand."
 msgstr "Выберите бренд."
 
-#: apps/content/models.py:136
+#: apps/content/models.py:145
 msgid "A banner needs an image."
 msgstr "Для баннера нужно изображение."
 
-#: apps/content/models.py:143
+#: apps/content/models.py:152
 msgid "Shield (authenticity)"
 msgstr "Щит (оригинальность)"
 
-#: apps/content/models.py:144
+#: apps/content/models.py:153
 msgid "Truck (delivery)"
 msgstr "Грузовик (доставка)"
 
-#: apps/content/models.py:145
+#: apps/content/models.py:154
 msgid "Globe (worldwide)"
 msgstr "Глобус (по всему миру)"
 
-#: apps/content/models.py:146
+#: apps/content/models.py:155
 msgid "Gem (premium)"
 msgstr "Бриллиант (премиум)"
 
-#: apps/content/models.py:147
+#: apps/content/models.py:156
 msgid "Headset (support)"
 msgstr "Гарнитура (поддержка)"
 
-#: apps/content/models.py:148
+#: apps/content/models.py:157
 msgid "Badge (warranty)"
 msgstr "Значок (гарантия)"
 
-#: apps/content/models.py:149
+#: apps/content/models.py:158
 msgid "Wallet (payment)"
 msgstr "Кошелёк (оплата)"
 
-#: apps/content/models.py:150
+#: apps/content/models.py:159
 msgid "Clock"
 msgstr "Часы"
 
-#: apps/content/models.py:156
+#: apps/content/models.py:165
 msgid "text"
 msgstr "текст"
 
-#: apps/content/models.py:159
+#: apps/content/models.py:168
 msgid "icon"
 msgstr "иконка"
 
-#: apps/content/models.py:171 apps/orders/models.py:183
+#: apps/content/models.py:180 apps/orders/models.py:183
 msgid "item"
 msgstr "позиция"
 
-#: apps/content/models.py:172 apps/orders/models.py:184
+#: apps/content/models.py:181 apps/orders/models.py:184
 msgid "items"
 msgstr "позиции"
+
+#: apps/content/models.py:192
+msgid "For customers"
+msgstr "Покупателям"
+
+#: apps/content/models.py:193
+msgid "About"
+msgstr "О компании"
+
+#: apps/content/models.py:194
+msgid "Legal"
+msgstr "Правовая информация"
+
+#: apps/content/models.py:197
+msgid "maison.uz/<address>"
+msgstr "maison.uz/<адрес>"
+
+#: apps/content/models.py:200
+msgid "content"
+msgstr "содержание"
+
+#: apps/content/models.py:202
+msgid "footer column"
+msgstr "колонка в подвале"
+
+#: apps/content/models.py:207 apps/core/models.py:9 apps/currency/models.py:41
+msgid "updated at"
+msgstr "изменён"
+
+#: apps/content/models.py:210
+msgid "page"
+msgstr "страница"
+
+#: apps/content/models.py:211
+msgid "pages"
+msgstr "страницы"
+
+#: apps/content/models.py:223 apps/content/models.py:229
+msgid "question"
+msgstr "вопрос"
+
+#: apps/content/models.py:224
+msgid "answer"
+msgstr "ответ"
+
+#: apps/content/models.py:230 config/settings/base.py:260
+msgid "FAQ"
+msgstr "Частые вопросы"
 
 #: apps/core/images.py:30
 #, python-format
@@ -638,10 +698,6 @@ msgstr "Размер изображения должен быть меньше %
 #: apps/core/models.py:8
 msgid "created at"
 msgstr "создан"
-
-#: apps/core/models.py:9 apps/currency/models.py:41
-msgid "updated at"
-msgstr "изменён"
 
 #: apps/currency/admin.py:24
 msgid "effective rate"
@@ -741,7 +797,7 @@ msgstr "написать покупателю"
 msgid "Call"
 msgstr "Позвонить"
 
-#: apps/orders/apps.py:8 config/settings/base.py:268
+#: apps/orders/apps.py:8 config/settings/base.py:275
 msgid "Orders"
 msgstr "Заказы"
 
@@ -901,58 +957,62 @@ msgstr "Некоторые товары в корзине изменились. 
 msgid "Cannot change status from “%(from)s” to “%(to)s”."
 msgstr "Нельзя изменить статус с «%(from)s» на «%(to)s»."
 
-#: config/settings/base.py:122
+#: config/settings/base.py:119
 msgid "English"
 msgstr "Английский"
 
-#: config/settings/base.py:123
+#: config/settings/base.py:120
 msgid "Uzbek"
 msgstr "Узбекский"
 
-#: config/settings/base.py:124
+#: config/settings/base.py:121
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings/base.py:233
+#: config/settings/base.py:230
 msgid "Brands"
 msgstr "Бренды"
 
-#: config/settings/base.py:238
+#: config/settings/base.py:235
 msgid "Categories"
 msgstr "Категории"
 
-#: config/settings/base.py:243
+#: config/settings/base.py:240
 msgid "Specification options"
 msgstr "Справочник характеристик"
 
-#: config/settings/base.py:253
+#: config/settings/base.py:250
 msgid "Home page"
 msgstr "Главная страница"
 
-#: config/settings/base.py:265
+#: config/settings/base.py:255
+msgid "Pages"
+msgstr "Страницы"
+
+#: config/settings/base.py:272
 msgid "Sales"
 msgstr "Продажи"
 
-#: config/settings/base.py:276
+#: config/settings/base.py:283
 msgid "Settings"
 msgstr "Настройки"
 
-#: config/settings/base.py:279
+#: config/settings/base.py:286
 msgid "Delivery methods"
 msgstr "Способы доставки"
 
-#: config/settings/base.py:284
+#: config/settings/base.py:291
 msgid "Exchange rates"
 msgstr "Курсы валют"
 
-#: config/settings/base.py:291
+#: config/settings/base.py:298
 msgid "Users & access"
 msgstr "Пользователи и доступ"
 
-#: config/settings/base.py:294
+#: config/settings/base.py:301
 msgid "Users"
 msgstr "Пользователи"
 
-#: config/settings/base.py:299
+#: config/settings/base.py:306
 msgid "Groups"
 msgstr "Группы"

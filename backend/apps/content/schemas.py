@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from ninja import Schema
 
 from apps.catalog.schemas import BrandOut, ProductListOut
@@ -58,3 +60,31 @@ class SiteSettingsOut(Schema):
     working_hours: str
     announcement: str
     announcement_link: str
+
+
+class PageLinkOut(Schema):
+    slug: str
+    title: str
+    footer_group: str
+
+
+class PageOut(PageLinkOut):
+    content: str
+    seo_description: str
+    updated_at: datetime
+
+
+class FaqItemOut(Schema):
+    question: str
+    answer: str
+
+
+class SitemapEntry(Schema):
+    slug: str
+    updated_at: datetime | None = None
+
+
+class SitemapOut(Schema):
+    products: list[SitemapEntry]
+    brands: list[SitemapEntry]
+    pages: list[SitemapEntry]

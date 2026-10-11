@@ -130,3 +130,12 @@ class ErrorOut(Schema):
 
 
 SUPPORTED_LANGUAGES = {code for code, _ in settings.LANGUAGES}
+
+
+class OrderLookupIn(Schema):
+    number: str = Field(min_length=4, max_length=20)
+    phone: str = Field(min_length=7, max_length=32)
+
+
+class OrderLookupOut(Schema):
+    token: str

@@ -5,8 +5,9 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationStackedInline
 from unfold.admin import ModelAdmin, StackedInline
+from unfold.contrib.forms.widgets import WysiwygWidget
 
-from .models import HomeSection, HomeSectionItem, SiteSettings
+from .models import FaqItem, HomeSection, HomeSectionItem, Page, SiteSettings
 
 
 @admin.register(SiteSettings)
@@ -85,3 +86,29 @@ class HomeSectionAdmin(ModelAdmin, TabbedTranslationAdmin):
         "button_label": "kind == 'banner'",
         "link": "kind == 'banner'",
     }
+
+
+@admin.register(Page)
+class PageAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ("title", "slug", "footer_group", "is_published", "updated_at")
+    list_filter = ("is_published", "footer_group")
+    search_fields = ("title", "slug")
+    prepopulated_fields = {"slug": ("title_en",)}
+    ordering_field = "position"
+    hide_ordering_field = True
+    formfield_overrides = {models.TextField: {"widget": WysiwygWidget}}
+    fieldsets = (
+        (None, {"fields": ("title", "slug", "content")}),
+        (_("Publishing"), {"fields": (("is_published", "footer_group"), "seo_description")}),
+    )
+
+
+@admin.register(FaqItem)
+class FaqItemAdmin(ModelAdmin, TabbedTranslationAdmin):
+    list_display = ("question", "is_published")
+    list_filter = ("is_published",)
+    search_fields = ("question",)
+    ordering_field = "position"
+    hide_ordering_field = True
+    formfield_overrides = {models.TextField: {"widget": WysiwygWidget}}
+    fields = ("question", "answer", "is_published")

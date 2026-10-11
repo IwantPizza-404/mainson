@@ -19,7 +19,7 @@ from .models import Brand, Category, Product, ProductImage, SpecOption, WatchSpe
 class BrandAdmin(ModelAdmin, TabbedTranslationAdmin):
     list_display = ("name", "country", "products_count", "is_active")
     list_filter = ("is_active",)
-    search_fields = ("name",)
+    search_fields = ("name", "search_aliases")
     prepopulated_fields = {"slug": ("name",)}
     ordering_field = "position"
     hide_ordering_field = True

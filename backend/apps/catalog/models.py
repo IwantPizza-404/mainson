@@ -27,6 +27,12 @@ class Brand(TimeStampedModel):
     logo = models.ImageField(_("logo"), upload_to="brands/", blank=True)
     country = models.CharField(_("country"), max_length=80, blank=True)
     description = models.TextField(_("description"), blank=True)
+    search_aliases = models.CharField(
+        _("search aliases"),
+        max_length=255,
+        blank=True,
+        help_text=_("Other spellings for search, comma-separated: ролекс, ролех"),
+    )
     is_active = models.BooleanField(_("active"), default=True)
     position = models.PositiveIntegerField(_("position"), default=0, db_index=True)
 

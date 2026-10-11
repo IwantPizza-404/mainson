@@ -1,10 +1,20 @@
 from django.db.models import Prefetch
+from django.shortcuts import get_object_or_404
 from ninja import Router
 
+from apps.catalog.api import brands_with_counts
+from apps.catalog.models import Product
 from apps.core.responsive import responsive_image
 
-from .models import HomeSection, HomeSectionItem, SiteSettings
-from .schemas import HomeSectionOut, SiteSettingsOut
+from .models import FaqItem, HomeSection, HomeSectionItem, Page, SiteSettings
+from .schemas import (
+    FaqItemOut,
+    HomeSectionOut,
+    PageLinkOut,
+    PageOut,
+    SitemapOut,
+    SiteSettingsOut,
+)
 from .services import brands_with_products, section_products
 
 router = Router(tags=["content"])
@@ -51,3 +61,29 @@ def home(request):
 @router.get("/settings", response=SiteSettingsOut)
 def site_settings(request):
     return SiteSettings.load()
+
+
+@router.get("/pages", response=list[PageLinkOut])
+def list_pages(request):
+    """Опубликованные страницы — для подвала и sitemap."""
+    return Page.objects.filter(is_published=True)
+
+
+@router.get("/pages/{slug}", response=PageOut)
+def get_page(request, slug: str):
+    return get_object_or_404(Page, slug=slug, is_published=True)
+
+
+@router.get("/faq", response=list[FaqItemOut])
+def list_faq(request):
+    return FaqItem.objects.filter(is_published=True)
+
+
+@router.get("/sitemap", response=SitemapOut)
+def sitemap(request):
+    """Адреса для sitemap.xml витрины."""
+    return {
+        "products": Product.objects.published().values("slug", "updated_at"),
+        "brands": brands_with_counts().values("slug"),
+        "pages": Page.objects.filter(is_published=True).values("slug", "updated_at"),
+    }

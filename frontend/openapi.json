@@ -487,6 +487,102 @@
         ]
       }
     },
+    "/api/v1/catalog/search": {
+      "get": {
+        "operationId": "apps_catalog_api_search_products",
+        "summary": "Search Products",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "maxLength": 100,
+              "minLength": 2,
+              "title": "Q",
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 24,
+              "title": "Limit",
+              "type": "integer"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProductListOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "Поиск с учётом опечаток (Meilisearch); порядок — по релевантности.",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/api/v1/catalog/products/{slug}/related": {
+      "get": {
+        "operationId": "apps_catalog_api_related_products",
+        "summary": "Related Products",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 8,
+              "title": "Limit",
+              "type": "integer"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProductListOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "Похожие: сначала тот же бренд, затем та же категория в близком ценовом диапазоне.",
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
     "/api/v1/currency/rates": {
       "get": {
         "operationId": "apps_currency_api_get_rates",
@@ -607,6 +703,49 @@
         }
       }
     },
+    "/api/v1/orders/lookup": {
+      "post": {
+        "operationId": "apps_orders_api_lookup_order",
+        "summary": "Lookup Order",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderLookupOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Найти заказ по номеру и телефону — для страницы «Отследить заказ».",
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderLookupIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
     "/api/v1/orders/{token}": {
       "get": {
         "operationId": "apps_orders_api_get_order",
@@ -683,6 +822,114 @@
             }
           }
         },
+        "tags": [
+          "content"
+        ]
+      }
+    },
+    "/api/v1/content/pages": {
+      "get": {
+        "operationId": "apps_content_api_list_pages",
+        "summary": "List Pages",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PageLinkOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "Опубликованные страницы — для подвала и sitemap.",
+        "tags": [
+          "content"
+        ]
+      }
+    },
+    "/api/v1/content/pages/{slug}": {
+      "get": {
+        "operationId": "apps_content_api_get_page",
+        "summary": "Get Page",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "content"
+        ]
+      }
+    },
+    "/api/v1/content/faq": {
+      "get": {
+        "operationId": "apps_content_api_list_faq",
+        "summary": "List Faq",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FaqItemOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "content"
+        ]
+      }
+    },
+    "/api/v1/content/sitemap": {
+      "get": {
+        "operationId": "apps_content_api_sitemap",
+        "summary": "Sitemap",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SitemapOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Адреса для sitemap.xml витрины.",
         "tags": [
           "content"
         ]
@@ -2172,6 +2419,41 @@
         "title": "OrderIn",
         "type": "object"
       },
+      "OrderLookupOut": {
+        "properties": {
+          "token": {
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "title": "OrderLookupOut",
+        "type": "object"
+      },
+      "OrderLookupIn": {
+        "properties": {
+          "number": {
+            "maxLength": 20,
+            "minLength": 4,
+            "title": "Number",
+            "type": "string"
+          },
+          "phone": {
+            "maxLength": 32,
+            "minLength": 7,
+            "title": "Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "number",
+          "phone"
+        ],
+        "title": "OrderLookupIn",
+        "type": "object"
+      },
       "HomeSectionOut": {
         "description": "Секция главной. Поля, не относящиеся к типу секции, пустые.",
         "properties": {
@@ -2427,6 +2709,143 @@
           "announcement_link"
         ],
         "title": "SiteSettingsOut",
+        "type": "object"
+      },
+      "PageLinkOut": {
+        "properties": {
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "footer_group": {
+            "title": "Footer Group",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "title",
+          "footer_group"
+        ],
+        "title": "PageLinkOut",
+        "type": "object"
+      },
+      "PageOut": {
+        "properties": {
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "footer_group": {
+            "title": "Footer Group",
+            "type": "string"
+          },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "seo_description": {
+            "title": "Seo Description",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "title",
+          "footer_group",
+          "content",
+          "seo_description",
+          "updated_at"
+        ],
+        "title": "PageOut",
+        "type": "object"
+      },
+      "FaqItemOut": {
+        "properties": {
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "answer": {
+            "title": "Answer",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "answer"
+        ],
+        "title": "FaqItemOut",
+        "type": "object"
+      },
+      "SitemapEntry": {
+        "properties": {
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "required": [
+          "slug"
+        ],
+        "title": "SitemapEntry",
+        "type": "object"
+      },
+      "SitemapOut": {
+        "properties": {
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/SitemapEntry"
+            },
+            "title": "Products",
+            "type": "array"
+          },
+          "brands": {
+            "items": {
+              "$ref": "#/components/schemas/SitemapEntry"
+            },
+            "title": "Brands",
+            "type": "array"
+          },
+          "pages": {
+            "items": {
+              "$ref": "#/components/schemas/SitemapEntry"
+            },
+            "title": "Pages",
+            "type": "array"
+          }
+        },
+        "required": [
+          "products",
+          "brands",
+          "pages"
+        ],
+        "title": "SitemapOut",
         "type": "object"
       }
     }

@@ -1,6 +1,6 @@
 from modeltranslation.translator import TranslationOptions, register
 
-from .models import HomeSection, HomeSectionItem, SiteSettings
+from .models import FaqItem, HomeSection, HomeSectionItem, Page, SiteSettings
 
 
 @register(SiteSettings)
@@ -16,3 +16,13 @@ class HomeSectionTranslationOptions(TranslationOptions):
 @register(HomeSectionItem)
 class HomeSectionItemTranslationOptions(TranslationOptions):
     fields = ("title", "text", "button_label")
+
+
+@register(Page)
+class PageTranslationOptions(TranslationOptions):
+    fields = ("title", "content", "seo_description")
+
+
+@register(FaqItem)
+class FaqItemTranslationOptions(TranslationOptions):
+    fields = ("question", "answer")
