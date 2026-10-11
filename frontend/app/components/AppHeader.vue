@@ -107,7 +107,8 @@ const announcementLink = useSiteLink()
 
       <!--
         Мега-меню: тёмная панель в цвет шапки. Ширина задана явно — иначе Nuxt UI меряет панель
-        по содержимому, а оно тянется по панели, и колонки обрезаются.
+        по содержимому, а оно тянется по панели, и колонки обрезаются. shrink-0 — панель лежит
+        во flex-контейнере шириной с меню и без этого сжималась бы до него.
       -->
       <UNavigationMenu
         :items="links"
@@ -116,7 +117,7 @@ const announcementLink = useSiteLink()
           link: 'text-xs uppercase tracking-[0.2em] text-white/80 hover:text-gold-500 data-[state=open]:text-gold-500',
           linkTrailingIcon: 'text-current',
           viewportWrapper: 'justify-center',
-          viewport: 'sm:w-[min(56rem,92vw)] sm:left-0 rounded-none bg-ink ring-0 border-t border-gold-500/40 shadow-2xl shadow-black/50',
+          viewport: 'shrink-0 sm:w-[min(56rem,92vw)] sm:left-0 rounded-none bg-ink ring-0 border-t border-gold-500/40 shadow-2xl shadow-black/50',
           content: 'w-full',
         }"
       >
