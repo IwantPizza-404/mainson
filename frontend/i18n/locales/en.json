@@ -17,7 +17,8 @@
     "rights": "All rights reserved.",
     "shop": "Shop",
     "contacts": "Contacts",
-    "visit": "Visit us"
+    "customers": "Customer service",
+    "about": "Maison"
   },
   "common": {
     "yes": "Yes",
@@ -58,7 +59,9 @@
     "leadTime": "{days} days",
     "soldOutHint": "This watch has been sold. Contact us and we will find a similar one.",
     "askQuestion": "Have a question?",
-    "questionMessage": "Hello! I have a question about {name} (ref. {ref}): {url}"
+    "questionMessage": "Hello! I have a question about {name} (ref. {ref}): {url}",
+    "zoom": "Open photos in full screen",
+    "related": "You may also like"
   },
   "specs": {
     "title": "Specifications",
@@ -153,5 +156,27 @@
     "count": "No watches | {n} watch | {n} watches",
     "pageTitle": "{name} watches",
     "pageDescription": "Authentic {name} watches with worldwide delivery."
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "empty": "Questions will appear here soon."
+  },
+  "contacts": {
+    "title": "Contacts",
+    "hours": "Working hours"
+  },
+  "track": {
+    "title": "Track your order",
+    "hint": "Enter the order number and the phone number used for the order.",
+    "number": "Order number",
+    "submit": "Find order",
+    "notFound": "Order not found. Check the number and phone."
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Brand, model or reference",
+    "nothing": "Nothing found",
+    "showAll": "Show all results",
+    "resultsFor": "Search: {q}"
   }
 }

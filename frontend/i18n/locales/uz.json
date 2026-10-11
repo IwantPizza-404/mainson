@@ -17,7 +17,8 @@
     "rights": "Barcha huquqlar himoyalangan.",
     "shop": "Do‘kon",
     "contacts": "Kontaktlar",
-    "visit": "Manzil"
+    "customers": "Xaridorlarga",
+    "about": "Maison"
   },
   "common": {
     "yes": "Ha",
@@ -58,7 +59,9 @@
     "leadTime": "{days} kun",
     "soldOutHint": "Bu soat sotilgan. Bizga yozing — o‘xshashini topib beramiz.",
     "askQuestion": "Savolingiz bormi?",
-    "questionMessage": "Assalomu alaykum! {name} (ref. {ref}) haqida savolim bor: {url}"
+    "questionMessage": "Assalomu alaykum! {name} (ref. {ref}) haqida savolim bor: {url}",
+    "zoom": "Rasmlarni to‘liq ekranda ochish",
+    "related": "Sizga yoqishi mumkin"
   },
   "specs": {
     "title": "Xususiyatlar",
@@ -153,5 +156,27 @@
     "count": "Soat yo‘q | {n} ta soat | {n} ta soat",
     "pageTitle": "{name} soatlari",
     "pageDescription": "Butun dunyo bo‘ylab yetkazib beriladigan original {name} soatlari."
+  },
+  "faq": {
+    "title": "Ko‘p beriladigan savollar",
+    "empty": "Tez orada bu yerda javoblar paydo bo‘ladi."
+  },
+  "contacts": {
+    "title": "Kontaktlar",
+    "hours": "Ish vaqti"
+  },
+  "track": {
+    "title": "Buyurtmani kuzatish",
+    "hint": "Buyurtma raqami va rasmiylashtirishda ko‘rsatilgan telefonni kiriting.",
+    "number": "Buyurtma raqami",
+    "submit": "Buyurtmani topish",
+    "notFound": "Buyurtma topilmadi. Raqam va telefonni tekshiring."
+  },
+  "search": {
+    "title": "Qidiruv",
+    "placeholder": "Brend, model yoki referens",
+    "nothing": "Hech narsa topilmadi",
+    "showAll": "Barcha natijalar",
+    "resultsFor": "Qidiruv: {q}"
   }
 }

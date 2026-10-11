@@ -11,6 +11,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Адрес API для серверного рендеринга (внутри сети) — NUXT_API_BASE
     apiBase: 'http://localhost:8000/api/v1',
+    // Разрешить индексацию поисковиками — только на продакшене (NUXT_INDEXABLE=true)
+    indexable: false,
     public: {
       // Адрес API для браузера — NUXT_PUBLIC_API_BASE
       apiBase: 'http://localhost:8000/api/v1',

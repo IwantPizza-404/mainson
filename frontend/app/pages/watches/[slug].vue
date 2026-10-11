@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProductDetail } from '~/types/catalog'
+import type { ProductDetail, ProductListItem } from '~/types/catalog'
 
 import { useCartStore } from '~/stores/cart'
 import { useSiteStore } from '~/stores/site'
@@ -44,6 +44,14 @@ function addToCart() {
   })
 }
 
+// Похожие — не блокируют отрисовку страницы
+const { data: related } = useLazyAsyncData(
+  () => `related:${slug.value}`,
+  () => api<ProductListItem[]>(`/catalog/products/${slug.value}/related`),
+  { watch: [locale], default: () => [], server: false },
+)
+
+const galleryOpen = ref(false)
 const activeImage = ref(0)
 const images = computed(() => product.value?.images ?? [])
 const mainImage = computed(() => images.value[activeImage.value])
@@ -83,6 +91,43 @@ const questionMessage = computed(() => {
 const telegramLink = computed(() => site.telegramLink(questionMessage.value))
 const whatsappLink = computed(() => site.whatsappLink(questionMessage.value))
 
+// Разметка Product: Google показывает цену и наличие прямо в выдаче
+const schemaAvailability: Record<string, string> = {
+  in_stock: 'https://schema.org/InStock',
+  on_order: 'https://schema.org/PreOrder',
+  sold_out: 'https://schema.org/SoldOut',
+}
+useHead({
+  script: computed(() => {
+    const p = product.value
+    if (!p) return []
+    return [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: `${p.brand.name} ${p.name}`,
+          sku: p.reference || undefined,
+          mpn: p.reference || undefined,
+          brand: { '@type': 'Brand', name: p.brand.name },
+          description: p.seo_description || p.description || undefined,
+          image: p.images.map((i) => i.large),
+          offers: {
+            '@type': 'Offer',
+            url: `${config.public.siteUrl}${localePath(`/watches/${p.slug}`)}`,
+            priceCurrency: 'USD',
+            price: p.price,
+            availability: schemaAvailability[p.availability.value],
+            itemCondition:
+              p.condition.value === 'pre_owned' ? 'https://schema.org/UsedCondition' : 'https://schema.org/NewCondition',
+          },
+        }),
+      },
+    ]
+  }),
+})
+
 useSeoMeta({
   title: () => product.value?.seo_title || `${product.value?.brand.name} ${product.value?.name}`,
   description: () => product.value?.seo_description || product.value?.description.slice(0, 160),
@@ -97,7 +142,13 @@ useSeoMeta({
     <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
       <!-- Галерея -->
       <div>
-        <div class="aspect-square overflow-hidden bg-neutral-100">
+        <button
+          type="button"
+          class="relative block aspect-square w-full cursor-zoom-in overflow-hidden bg-neutral-100"
+          :disabled="!images.length"
+          :aria-label="t('product.zoom')"
+          @click="galleryOpen = true"
+        >
           <ProductPicture
             v-if="mainImage"
             :key="mainImage.url"
@@ -108,7 +159,8 @@ useSeoMeta({
             class="h-full w-full object-cover"
           />
           <CatalogWatchPlaceholder v-else :brand="product.brand.name" />
-        </div>
+          <UIcon v-if="images.length" name="i-lucide-maximize-2" class="absolute right-3 bottom-3 size-5 text-white drop-shadow" />
+        </button>
         <div v-if="images.length > 1" class="mt-3 grid grid-cols-5 gap-2">
           <button
             v-for="(image, index) in images"
@@ -181,5 +233,27 @@ useSeoMeta({
         </section>
       </div>
     </div>
+
+    <!-- Полноэкранная галерея: крупные фото, листание свайпом и стрелками -->
+    <UModal v-model:open="galleryOpen" fullscreen :title="product.name" :ui="{ body: 'flex items-center bg-black p-0 sm:p-0' }">
+      <template #body>
+        <UCarousel
+          v-slot="{ item }"
+          :items="images"
+          :start-index="activeImage"
+          arrows
+          dots
+          class="w-full"
+          :ui="{ item: 'flex h-[calc(100dvh-8rem)] items-center justify-center', dots: 'bottom-4', dot: 'bg-white/40 data-[state=active]:bg-white' }"
+        >
+          <img :src="item.large" :alt="item.alt || product.name" class="max-h-full max-w-full object-contain">
+        </UCarousel>
+      </template>
+    </UModal>
+
+    <section v-if="related.length" class="mt-24">
+      <h2 class="mb-8 font-serif text-3xl md:text-4xl">{{ t('product.related') }}</h2>
+      <CatalogProductCarousel :products="related" />
+    </section>
   </UContainer>
 </template>

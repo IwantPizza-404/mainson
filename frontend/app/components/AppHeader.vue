@@ -110,6 +110,7 @@ const announcementLink = useSiteLink()
       </UNavigationMenu>
 
       <template #right>
+        <SearchModal />
         <CurrencySwitcher />
         <LanguageSwitcher />
         <UChip :text="cart.count" :show="cart.count > 0" size="3xl" color="primary" inset>

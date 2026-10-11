@@ -1,19 +1,22 @@
 import { defineStore } from 'pinia'
-import type { Brand, SiteSettings } from '~/types/catalog'
+import type { Brand, PageLink, SiteSettings } from '~/types/catalog'
 
 /** Настройки сайта (контакты, соцсети) и бренды для меню — грузятся один раз при SSR. */
 export const useSiteStore = defineStore('site', () => {
   const settings = ref<SiteSettings | null>(null)
   const brands = ref<Brand[]>([])
+  const pages = ref<PageLink[]>([])
 
   async function load() {
     const api = useApi()
-    const [settingsResult, brandsResult] = await Promise.allSettled([
+    const [settingsResult, brandsResult, pagesResult] = await Promise.allSettled([
       api<SiteSettings>('/content/settings'),
       api<Brand[]>('/catalog/brands'),
+      api<PageLink[]>('/content/pages'),
     ])
     if (settingsResult.status === 'fulfilled') settings.value = settingsResult.value
     if (brandsResult.status === 'fulfilled') brands.value = brandsResult.value
+    if (pagesResult.status === 'fulfilled') pages.value = pagesResult.value
   }
 
   const telegramLink = (text?: string) =>
@@ -26,5 +29,5 @@ export const useSiteStore = defineStore('site', () => {
       ? `https://wa.me/${settings.value.whatsapp_number}${text ? `?text=${encodeURIComponent(text)}` : ''}`
       : null
 
-  return { settings, brands, load, telegramLink, whatsappLink }
+  return { settings, brands, pages, load, telegramLink, whatsappLink }
 })
