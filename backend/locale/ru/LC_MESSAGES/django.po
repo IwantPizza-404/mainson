@@ -198,7 +198,7 @@ msgstr "Новые"
 
 #: apps/catalog/models.py:116 apps/content/models.py:88
 msgid "Pre-owned"
-msgstr "С историей"
+msgstr "Pre-owned"
 
 #: apps/catalog/models.py:119
 msgid "In stock"

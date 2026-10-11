@@ -34,21 +34,50 @@ const menuColumns = computed(() => [
 
 const topBrands = computed(() => site.brands.slice(0, 12))
 
+// Активный пункт считаем сами: по умолчанию ссылка активна по пути без учёта параметров,
+// и «Pre-owned» (/watches?condition=pre_owned) подсвечивалась бы на всём каталоге
+const route = useRoute()
+const routeBaseName = useRouteBaseName()
+const section = computed(() => {
+  const name = String(routeBaseName(route) ?? '')
+  const condition = ([] as unknown[]).concat(route.query.condition ?? [])
+  if (name === 'watches' && condition.includes('pre_owned')) return 'preowned'
+  if (name.startsWith('watches')) return 'watches'
+  if (name.startsWith('brands')) return 'brands'
+  return null
+})
+
+// exactQuery отключает встроенную проверку Nuxt UI (она сравнивает только путь);
+// цвет задаём классом — у пункта с выпадающим меню нет атрибута data-active
+const navItem = (key: string, item: NavigationMenuItem): NavigationMenuItem => ({
+  ...item,
+  exactQuery: true,
+  active: section.value === key,
+  class: section.value === key ? 'text-gold-500' : undefined,
+})
+
 const links = computed<NavigationMenuItem[]>(() => [
-  { label: t('nav.watches'), to: watches(), slot: 'watches' as const },
-  { label: t('nav.brands'), to: localePath('/brands') },
-  { label: t('nav.preowned'), to: watches({ condition: 'pre_owned' }) },
+  navItem('watches', { label: t('nav.watches'), to: watches(), slot: 'watches' as const }),
+  navItem('brands', { label: t('nav.brands'), to: localePath('/brands') }),
+  navItem('preowned', { label: t('nav.preowned'), to: watches({ condition: 'pre_owned' }) }),
 ])
 
 // Мобильное меню — простой вертикальный список
 const mobileLinks = computed<NavigationMenuItem[]>(() => [
-  { label: t('nav.watches'), to: watches(), children: menuColumns.value.flatMap((c) => c.links) },
+  {
+    label: t('nav.watches'),
+    active: section.value === 'watches',
+    children: menuColumns.value.flatMap((c) => c.links).map((link) => ({ ...link, exactQuery: true })),
+  },
   {
     label: t('nav.brands'),
-    to: localePath('/brands'),
-    children: site.brands.map((b) => ({ label: b.name, to: localePath(`/brands/${b.slug}`) })),
+    active: section.value === 'brands',
+    children: [
+      { label: t('brands.all'), to: localePath('/brands'), exact: true },
+      ...site.brands.map((b) => ({ label: b.name, to: localePath(`/brands/${b.slug}`) })),
+    ],
   },
-  { label: t('nav.preowned'), to: watches({ condition: 'pre_owned' }) },
+  { label: t('nav.preowned'), to: watches({ condition: 'pre_owned' }), active: section.value === 'preowned' },
 ])
 
 const announcementLink = useSiteLink()
@@ -125,7 +154,18 @@ const announcementLink = useSiteLink()
       </template>
 
       <template #body>
-        <UNavigationMenu :items="mobileLinks" orientation="vertical" class="-mx-2.5" />
+        <!-- Мобильное меню на тёмном фоне: без светлых плашек у активных пунктов -->
+        <UNavigationMenu
+          :items="mobileLinks"
+          orientation="vertical"
+          class="-mx-2.5"
+          :ui="{
+            link: 'py-3 text-base text-white/80 before:bg-transparent hover:text-gold-500 hover:before:bg-white/5 data-active:text-gold-500 data-active:before:bg-transparent',
+            linkTrailingIcon: 'text-white/50',
+            childList: 'border-white/10',
+            childLink: 'text-white/70 hover:text-gold-500 data-active:text-gold-500',
+          }"
+        />
       </template>
     </UHeader>
   </div>

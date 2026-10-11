@@ -196,7 +196,7 @@ msgstr "Yangi"
 
 #: apps/catalog/models.py:116 apps/content/models.py:88
 msgid "Pre-owned"
-msgstr "Ishlatilgan"
+msgstr "Pre-owned"
 
 #: apps/catalog/models.py:119
 msgid "In stock"

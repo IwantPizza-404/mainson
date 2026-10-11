@@ -51,9 +51,9 @@ SECTIONS = [
     ]},
     {"kind": "brands", **tr("Our brands", "Наши бренды", "Brendlarimiz", "title")},
     {"kind": "products", "product_source": "pre_owned", "limit": 8,
-     **tr("Pre-owned", "С историей", "Ishlatilgan", "title"),
-     **tr("Inspected watches with history", "Проверенные часы с историей",
-          "Tekshirilgan, tarixga ega soatlar", "subtitle")},
+     **tr("Pre-owned", "Pre-owned", "Pre-owned", "title"),
+     **tr("Inspected watches from previous owners", "Проверенные часы от предыдущих владельцев",
+          "Oldingi egalaridan tekshirilgan soatlar", "subtitle")},
 ]
 
 

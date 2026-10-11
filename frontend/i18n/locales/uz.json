@@ -2,7 +2,7 @@
   "nav": {
     "watches": "Soatlar",
     "brands": "Brendlar",
-    "preowned": "Ishlatilgan",
+    "preowned": "Pre-owned",
     "offers": "Takliflar"
   },
   "home": {
@@ -26,7 +26,7 @@
   },
   "catalog": {
     "title": "Soatlar",
-    "description": "Original hashamatli soatlar: yangi va ishlatilgan, mavjud va buyurtma asosida.",
+    "description": "Original hashamatli soatlar: yangi va pre-owned, mavjud va buyurtma asosida.",
     "found": "Hech narsa topilmadi | {n} ta soat topildi | {n} ta soat topildi",
     "empty": "Tanlangan filtrlar bo‘yicha hech narsa topilmadi",
     "pagination": "Sahifalar",
