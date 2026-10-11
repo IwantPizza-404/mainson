@@ -38,8 +38,12 @@ def test_wishlist_add_remove_and_merge(auth_client):
     ProductFactory(slug="b")
     ProductFactory(slug="draft", is_published=False)
 
-    assert [p["slug"] for p in post(auth_client, "/api/v1/account/wishlist", {"slug": "a"}).json()] == ["a"]
-    merged = post(auth_client, "/api/v1/account/wishlist/merge", {"slugs": ["a", "b", "draft", "nope"]}).json()
+    assert [
+        p["slug"] for p in post(auth_client, "/api/v1/account/wishlist", {"slug": "a"}).json()
+    ] == ["a"]
+    merged = post(
+        auth_client, "/api/v1/account/wishlist/merge", {"slugs": ["a", "b", "draft", "nope"]}
+    ).json()
     assert sorted(p["slug"] for p in merged) == ["a", "b"]
 
     assert auth_client.delete("/api/v1/account/wishlist/a").status_code == 204
@@ -55,7 +59,10 @@ def test_wishlist_requires_login(client):
 
 def test_back_in_stock_alert_fires_once(auth_client, tg, django_capture_on_commit_callbacks):
     product = ProductFactory(
-        slug="sold", name_ru="Сабмаринер", availability=Product.Availability.SOLD_OUT, stock_quantity=0
+        slug="sold",
+        name_ru="Сабмаринер",
+        availability=Product.Availability.SOLD_OUT,
+        stock_quantity=0,
     )
     assert post(auth_client, "/api/v1/account/alerts", {"product": "sold"}).status_code == 201
 
@@ -87,7 +94,10 @@ def test_alert_validation(auth_client):
     ProductFactory(slug="x")
 
     assert post(auth_client, "/api/v1/account/alerts", {}).status_code == 400
-    assert post(auth_client, "/api/v1/account/alerts", {"product": "x", "brand": "rolex"}).status_code == 400
+    assert (
+        post(auth_client, "/api/v1/account/alerts", {"product": "x", "brand": "rolex"}).status_code
+        == 400
+    )
     first = post(auth_client, "/api/v1/account/alerts", {"brand": "rolex"}).json()
     again = post(auth_client, "/api/v1/account/alerts", {"brand": "rolex"}).json()
     assert first["id"] == again["id"]  # без дублей
@@ -157,7 +167,9 @@ def make_order(customer, watch, pickup) -> Order:
     return order
 
 
-def test_order_status_messages_with_tracking(customer, tg, watch, pickup, django_capture_on_commit_callbacks):
+def test_order_status_messages_with_tracking(
+    customer, tg, watch, pickup, django_capture_on_commit_callbacks
+):
     order = make_order(customer, watch, pickup)
     tg.sent.clear()  # уведомление менеджеру о новом заказе не считаем
 
@@ -171,32 +183,53 @@ def test_order_status_messages_with_tracking(customer, tg, watch, pickup, django
     customer_messages = [m for m in tg.sent if m["chat_id"] == 111]
     assert len(customer_messages) == 3
     assert "BTS123456" in customer_messages[-1]["text"]
-    assert f"/ru/order/{order.token}" in customer_messages[-1]["reply_markup"]["inline_keyboard"][0][0]["url"]
+    assert (
+        f"/ru/order/{order.token}"
+        in customer_messages[-1]["reply_markup"]["inline_keyboard"][0][0]["url"]
+    )
 
 
-def test_collection_shows_completed_orders(auth_client, customer, watch, pickup, django_capture_on_commit_callbacks):
+def test_collection_shows_completed_orders(
+    auth_client, customer, watch, pickup, django_capture_on_commit_callbacks
+):
     order = make_order(customer, watch, pickup)
     assert auth_client.get("/api/v1/account/collection").json() == []
 
-    for status in (Order.Status.CONFIRMED, Order.Status.PAID, Order.Status.SHIPPED, Order.Status.COMPLETED):
+    for status in (
+        Order.Status.CONFIRMED,
+        Order.Status.PAID,
+        Order.Status.SHIPPED,
+        Order.Status.COMPLETED,
+    ):
         change_status(order, status)
     order.items.update(serial_number="SN-1", warranty_until="2031-01-01")
 
     item = auth_client.get("/api/v1/account/collection").json()[0]
-    assert (item["serial_number"], item["warranty_until"], item["product_slug"]) == ("SN-1", "2031-01-01", "watch")
+    assert (item["serial_number"], item["warranty_until"], item["product_slug"]) == (
+        "SN-1",
+        "2031-01-01",
+        "watch",
+    )
 
 
 # --- «Найдите мне часы» --------------------------------------------------------------------
 
 
-def test_watch_request_flow(auth_client, customer, tg, settings, django_capture_on_commit_callbacks):
+def test_watch_request_flow(
+    auth_client, customer, tg, settings, django_capture_on_commit_callbacks
+):
     settings.TELEGRAM_MANAGER_CHAT_ID = "manager"
 
     with django_capture_on_commit_callbacks(execute=True):
         response = post(
             auth_client,
             "/api/v1/account/requests",
-            {"brand": "Patek Philippe", "reference": "5711", "budget": "90000", "comment": "Синий циферблат"},
+            {
+                "brand": "Patek Philippe",
+                "reference": "5711",
+                "budget": "90000",
+                "comment": "Синий циферблат",
+            },
         )
     assert response.status_code == 201
     assert tg.last["chat_id"] == "manager" and "5711" in tg.last["text"]
@@ -214,4 +247,9 @@ def test_watch_request_flow(auth_client, customer, tg, settings, django_capture_
 
 def test_watch_request_validation(auth_client):
     assert post(auth_client, "/api/v1/account/requests", {"brand": "X"}).status_code == 422
-    assert post(auth_client, "/api/v1/account/requests", {"brand": "Rolex", "condition": "bad"}).status_code == 422
+    assert (
+        post(
+            auth_client, "/api/v1/account/requests", {"brand": "Rolex", "condition": "bad"}
+        ).status_code
+        == 422
+    )
