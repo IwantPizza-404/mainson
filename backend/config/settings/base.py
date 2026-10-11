@@ -1,0 +1,243 @@
+"""Общие настройки для всех окружений. Окружение-специфичное — в dev/prod/test."""
+
+from pathlib import Path
+
+import environ
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / ".env")
+
+SECRET_KEY = env("DJANGO_SECRET_KEY")
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=[])
+
+# --- Приложения -------------------------------------------------------------
+
+UNFOLD_APPS = [
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
+]
+
+DJANGO_APPS = [
+    # modeltranslation должен идти до django.contrib.admin
+    "modeltranslation",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+]
+
+THIRD_PARTY_APPS = [
+    "corsheaders",
+    "storages",
+]
+
+LOCAL_APPS = [
+    "apps.core",
+    "apps.catalog",
+]
+
+INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "config.urls"
+WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
+# --- База данных и кэш -------------------------------------------------------
+
+DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("DB_CONN_MAX_AGE", default=60)
+
+REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": REDIS_URL,
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# --- Пароли -----------------------------------------------------------------
+
+AUTH_PASSWORD_VALIDATORS = [
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+]
+
+# --- Языки ------------------------------------------------------------------
+
+LANGUAGE_CODE = "en"
+LANGUAGES = [
+    ("en", _("English")),
+    ("uz", _("Uzbek")),
+    ("ru", _("Russian")),
+]
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
+MODELTRANSLATION_FALLBACK_LANGUAGES = ("en",)
+LOCALE_PATHS = [BASE_DIR / "locale"]
+
+TIME_ZONE = "Asia/Tashkent"
+USE_I18N = True
+USE_TZ = True
+
+# --- Валюты -----------------------------------------------------------------
+
+# Цены хранятся в базовой валюте; остальные — пересчёт по курсу для отображения.
+BASE_CURRENCY = "USD"
+DISPLAY_CURRENCIES = ["USD", "UZS", "EUR", "RUB"]
+
+# --- Статика и медиа ---------------------------------------------------------
+
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+AWS_STORAGE_BUCKET_NAME = env("S3_BUCKET", default="")
+AWS_S3_ENDPOINT_URL = env("S3_ENDPOINT_URL", default=None)
+AWS_S3_CUSTOM_DOMAIN = env("S3_CUSTOM_DOMAIN", default=None)
+AWS_ACCESS_KEY_ID = env("S3_ACCESS_KEY", default="")
+AWS_SECRET_ACCESS_KEY = env("S3_SECRET_KEY", default="")
+AWS_QUERYSTRING_AUTH = False
+AWS_DEFAULT_ACL = None
+AWS_S3_FILE_OVERWRITE = False
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage"
+        if AWS_STORAGE_BUCKET_NAME
+        else "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
+}
+
+# --- CORS (витрина Nuxt) -----------------------------------------------------
+
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+
+# --- Celery -----------------------------------------------------------------
+
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default=REDIS_URL)
+CELERY_RESULT_BACKEND = None
+CELERY_TASK_ACKS_LATE = True
+CELERY_TASK_REJECT_ON_WORKER_LOST = True
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1
+CELERY_TIMEZONE = TIME_ZONE
+
+# --- Внешние сервисы ----------------------------------------------------------
+
+MEILISEARCH_URL = env("MEILISEARCH_URL", default="http://localhost:7700")
+MEILISEARCH_API_KEY = env("MEILISEARCH_API_KEY", default="")
+
+# --- Логирование -------------------------------------------------------------
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {"format": "%(asctime)s %(levelname)s %(name)s: %(message)s"},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "default"},
+    },
+    "root": {"handlers": ["console"], "level": env("LOG_LEVEL", default="INFO")},
+}
+
+# --- Админка (Unfold) --------------------------------------------------------
+
+UNFOLD = {
+    "SITE_TITLE": "Maison",
+    "SITE_HEADER": "Maison",
+    "SITE_SYMBOL": "watch",
+    "SHOW_LANGUAGES": True,
+    "SHOW_HISTORY": True,
+    "SIDEBAR": {
+        "show_search": True,
+        "show_all_applications": False,
+        "navigation": [
+            {
+                "title": _("Catalog"),
+                "items": [
+                    {
+                        "title": _("Products"),
+                        "icon": "watch",
+                        "link": reverse_lazy("admin:catalog_product_changelist"),
+                    },
+                    {
+                        "title": _("Brands"),
+                        "icon": "sell",
+                        "link": reverse_lazy("admin:catalog_brand_changelist"),
+                    },
+                    {
+                        "title": _("Categories"),
+                        "icon": "category",
+                        "link": reverse_lazy("admin:catalog_category_changelist"),
+                    },
+                    {
+                        "title": _("Specification options"),
+                        "icon": "tune",
+                        "link": reverse_lazy("admin:catalog_specoption_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Users & access"),
+                "items": [
+                    {
+                        "title": _("Users"),
+                        "icon": "person",
+                        "link": reverse_lazy("admin:auth_user_changelist"),
+                    },
+                    {
+                        "title": _("Groups"),
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                    },
+                ],
+            },
+        ],
+    },
+}

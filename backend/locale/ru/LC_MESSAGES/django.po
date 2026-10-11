@@ -1,0 +1,422 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 21:33+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: apps/catalog/admin.py:27 apps/catalog/models.py:170
+msgid "products"
+msgstr "товары"
+
+#: apps/catalog/admin.py:59
+msgid "Movement"
+msgstr "Механизм"
+
+#: apps/catalog/admin.py:61
+msgid "Case"
+msgstr "Корпус"
+
+#: apps/catalog/admin.py:69
+msgid "Dial & strap"
+msgstr "Циферблат и ремешок"
+
+#: apps/catalog/admin.py:71
+msgid "Set & provenance"
+msgstr "Комплект и происхождение"
+
+#: apps/catalog/admin.py:85
+msgid "preview"
+msgstr "превью"
+
+#: apps/catalog/admin.py:125
+msgid "Price"
+msgstr "Цена"
+
+#: apps/catalog/admin.py:127
+msgid "Availability"
+msgstr "Наличие"
+
+#: apps/catalog/admin.py:130
+msgid "Attributes"
+msgstr "Характеристики"
+
+#: apps/catalog/admin.py:131
+msgid "Publishing"
+msgstr "Публикация"
+
+#: apps/catalog/admin.py:133
+msgid "SEO"
+msgstr "SEO"
+
+#: apps/catalog/admin.py:152 apps/catalog/models.py:146
+msgid "availability"
+msgstr "наличие"
+
+#: apps/catalog/admin.py:162
+msgid "Publish selected"
+msgstr "Опубликовать выбранные"
+
+#: apps/catalog/admin.py:165
+#, python-format
+msgid "Published: %d"
+msgstr "Опубликовано: %d"
+
+#: apps/catalog/admin.py:167
+msgid "Unpublish selected"
+msgstr "Снять с публикации"
+
+#: apps/catalog/admin.py:170
+#, python-format
+msgid "Unpublished: %d"
+msgstr "Снято с публикации: %d"
+
+#: apps/catalog/apps.py:8 config/settings/base.py:202
+msgid "Catalog"
+msgstr "Каталог"
+
+#: apps/catalog/models.py:12 apps/catalog/models.py:32
+#: apps/catalog/models.py:73 apps/catalog/models.py:115
+msgid "name"
+msgstr "название"
+
+#: apps/catalog/models.py:13 apps/catalog/models.py:33
+#: apps/catalog/models.py:74 apps/catalog/models.py:116
+msgid "slug"
+msgstr "адрес (slug)"
+
+#: apps/catalog/models.py:14
+msgid "logo"
+msgstr "логотип"
+
+#: apps/catalog/models.py:15
+msgid "country"
+msgstr "страна"
+
+#: apps/catalog/models.py:16 apps/catalog/models.py:120
+msgid "description"
+msgstr "описание"
+
+#: apps/catalog/models.py:17 apps/catalog/models.py:42
+msgid "active"
+msgstr "активен"
+
+#: apps/catalog/models.py:18 apps/catalog/models.py:43
+#: apps/catalog/models.py:75 apps/catalog/models.py:304
+msgid "position"
+msgstr "позиция"
+
+#: apps/catalog/models.py:21 apps/catalog/models.py:113
+msgid "brand"
+msgstr "бренд"
+
+#: apps/catalog/models.py:22
+msgid "brands"
+msgstr "бренды"
+
+#: apps/catalog/models.py:36
+msgid "parent"
+msgstr "родительская категория"
+
+#: apps/catalog/models.py:46 apps/catalog/models.py:110
+msgid "category"
+msgstr "категория"
+
+#: apps/catalog/models.py:47
+msgid "categories"
+msgstr "категории"
+
+#: apps/catalog/models.py:55
+msgid "Only one level of nesting is allowed."
+msgstr "Допускается только один уровень вложенности."
+
+#: apps/catalog/models.py:66
+msgid "Case material"
+msgstr "Материал корпуса"
+
+#: apps/catalog/models.py:67
+msgid "Strap material"
+msgstr "Материал ремешка"
+
+#: apps/catalog/models.py:68
+msgid "Dial color"
+msgstr "Цвет циферблата"
+
+#: apps/catalog/models.py:69
+msgid "Glass"
+msgstr "Стекло"
+
+#: apps/catalog/models.py:70
+msgid "Complication"
+msgstr "Функция"
+
+#: apps/catalog/models.py:72
+msgid "kind"
+msgstr "тип"
+
+#: apps/catalog/models.py:78
+msgid "specification option"
+msgstr "значение характеристики"
+
+#: apps/catalog/models.py:79
+msgid "specification options"
+msgstr "справочник характеристик"
+
+#: apps/catalog/models.py:96
+msgid "New"
+msgstr "Новые"
+
+#: apps/catalog/models.py:97
+msgid "Pre-owned"
+msgstr "С историей"
+
+#: apps/catalog/models.py:100
+msgid "In stock"
+msgstr "В наличии"
+
+#: apps/catalog/models.py:101
+msgid "On order"
+msgstr "Под заказ"
+
+#: apps/catalog/models.py:102
+msgid "Sold out"
+msgstr "Продано"
+
+#: apps/catalog/models.py:105
+msgid "Men"
+msgstr "Мужские"
+
+#: apps/catalog/models.py:106
+msgid "Women"
+msgstr "Женские"
+
+#: apps/catalog/models.py:107
+msgid "Unisex"
+msgstr "Унисекс"
+
+#: apps/catalog/models.py:118
+msgid "reference"
+msgstr "референс"
+
+#: apps/catalog/models.py:118
+msgid "Model reference"
+msgstr "Артикул модели"
+
+#: apps/catalog/models.py:124
+msgid "price, USD"
+msgstr "цена, USD"
+
+#: apps/catalog/models.py:130
+msgid "old price, USD"
+msgstr "старая цена, USD"
+
+#: apps/catalog/models.py:135
+msgid "Crossed-out price shown for discounted items."
+msgstr "Зачёркнутая цена для товаров со скидкой."
+
+#: apps/catalog/models.py:139
+msgid "condition"
+msgstr "состояние"
+
+#: apps/catalog/models.py:142
+msgid "gender"
+msgstr "пол"
+
+#: apps/catalog/models.py:152
+msgid "stock quantity"
+msgstr "количество на складе"
+
+#: apps/catalog/models.py:154
+msgid "lead time, days"
+msgstr "срок поставки, дней"
+
+#: apps/catalog/models.py:157
+msgid "Delivery time for items on order."
+msgstr "Срок поставки для товаров под заказ."
+
+#: apps/catalog/models.py:160
+msgid "published"
+msgstr "опубликован"
+
+#: apps/catalog/models.py:161
+msgid "featured"
+msgstr "рекомендуемый"
+
+#: apps/catalog/models.py:163
+msgid "SEO title"
+msgstr "SEO-заголовок"
+
+#: apps/catalog/models.py:164
+msgid "SEO description"
+msgstr "SEO-описание"
+
+#: apps/catalog/models.py:169 apps/catalog/models.py:221
+#: apps/catalog/models.py:300
+msgid "product"
+msgstr "товар"
+
+#: apps/catalog/models.py:194
+msgid "Old price must be greater than the price."
+msgstr "Старая цена должна быть больше текущей."
+
+#: apps/catalog/models.py:196
+msgid "Set the quantity for an item in stock."
+msgstr "Укажите количество для товара в наличии."
+
+#: apps/catalog/models.py:198
+msgid "Set the lead time for an item on order."
+msgstr "Укажите срок поставки для товара под заказ."
+
+#: apps/catalog/models.py:215
+msgid "Automatic"
+msgstr "Автоподзавод"
+
+#: apps/catalog/models.py:216
+msgid "Manual winding"
+msgstr "Ручной завод"
+
+#: apps/catalog/models.py:217
+msgid "Quartz"
+msgstr "Кварцевый"
+
+#: apps/catalog/models.py:218
+msgid "Solar"
+msgstr "Солнечная батарея"
+
+#: apps/catalog/models.py:224
+msgid "movement"
+msgstr "механизм"
+
+#: apps/catalog/models.py:225
+msgid "caliber"
+msgstr "калибр"
+
+#: apps/catalog/models.py:227
+msgid "power reserve, hours"
+msgstr "запас хода, ч"
+
+#: apps/catalog/models.py:232
+msgid "case material"
+msgstr "материал корпуса"
+
+#: apps/catalog/models.py:240
+msgid "case diameter, mm"
+msgstr "диаметр корпуса, мм"
+
+#: apps/catalog/models.py:243
+msgid "case thickness, mm"
+msgstr "толщина корпуса, мм"
+
+#: apps/catalog/models.py:247
+msgid "glass"
+msgstr "стекло"
+
+#: apps/catalog/models.py:255
+msgid "water resistance, m"
+msgstr "водозащита, м"
+
+#: apps/catalog/models.py:260
+msgid "dial color"
+msgstr "цвет циферблата"
+
+#: apps/catalog/models.py:269
+msgid "strap / bracelet material"
+msgstr "материал ремешка / браслета"
+
+#: apps/catalog/models.py:278
+msgid "complications"
+msgstr "функции"
+
+#: apps/catalog/models.py:284
+msgid "year"
+msgstr "год"
+
+#: apps/catalog/models.py:285
+msgid "original box"
+msgstr "оригинальная коробка"
+
+#: apps/catalog/models.py:286
+msgid "papers / warranty card"
+msgstr "документы / гарантийный талон"
+
+#: apps/catalog/models.py:288
+msgid "serial number"
+msgstr "серийный номер"
+
+#: apps/catalog/models.py:291 apps/catalog/models.py:292
+msgid "watch specifications"
+msgstr "характеристики часов"
+
+#: apps/catalog/models.py:302 apps/catalog/models.py:307
+msgid "image"
+msgstr "изображение"
+
+#: apps/catalog/models.py:303
+msgid "alt text"
+msgstr "альтернативный текст"
+
+#: apps/catalog/models.py:308
+msgid "images"
+msgstr "изображения"
+
+#: apps/core/models.py:8
+msgid "created at"
+msgstr "создан"
+
+#: apps/core/models.py:9
+msgid "updated at"
+msgstr "изменён"
+
+#: config/settings/base.py:113
+msgid "English"
+msgstr "Английский"
+
+#: config/settings/base.py:114
+msgid "Uzbek"
+msgstr "Узбекский"
+
+#: config/settings/base.py:115
+msgid "Russian"
+msgstr "Русский"
+
+#: config/settings/base.py:205
+msgid "Products"
+msgstr "Товары"
+
+#: config/settings/base.py:210
+msgid "Brands"
+msgstr "Бренды"
+
+#: config/settings/base.py:215
+msgid "Categories"
+msgstr "Категории"
+
+#: config/settings/base.py:220
+msgid "Specification options"
+msgstr "Справочник характеристик"
+
+#: config/settings/base.py:227
+msgid "Users & access"
+msgstr "Пользователи и доступ"
+
+#: config/settings/base.py:230
+msgid "Users"
+msgstr "Пользователи"
+
+#: config/settings/base.py:235
+msgid "Groups"
+msgstr "Группы"

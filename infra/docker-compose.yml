@@ -1,0 +1,45 @@
+# Локальная инфраструктура для разработки: БД, кэш/очереди, поиск, почта.
+name: maison
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: maison
+      POSTGRES_USER: maison
+      POSTGRES_PASSWORD: maison
+    ports: ["5433:5432"]  # 5433 — чтобы не конфликтовать с локальным Postgres
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U maison"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.4-alpine
+    ports: ["6379:6379"]
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.16
+    environment:
+      MEILI_MASTER_KEY: dev-master-key
+      MEILI_ENV: development
+      MEILI_NO_ANALYTICS: "true"
+    ports: ["7700:7700"]
+    volumes: [meili-data:/meili_data]
+
+  mailpit:
+    image: axllent/mailpit:v1.27
+    ports:
+      - "1025:1025"  # SMTP
+      - "8025:8025"  # веб-интерфейс писем
+
+volumes:
+  postgres-data:
+  redis-data:
+  meili-data:

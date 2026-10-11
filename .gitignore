@@ -1,0 +1,27 @@
+# Секреты
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+backend/media/
+backend/staticfiles/
+
+# Node / Nuxt — см. также frontend/.gitignore
+node_modules/
+
+# Системное
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.log
+
+# Скомпилированные переводы (собираются make messages / при деплое)
+*.mo

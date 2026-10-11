@@ -1,0 +1,63 @@
+[project]
+name = "maison-backend"
+version = "0.1.0"
+description = "Maison (maison.uz) — backend (Django)"
+authors = [
+    { name = "re1kon", email = "human.1513@proton.me" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "boto3>=1.43.111",
+    "celery[redis]>=5.6.3",
+    "django>=5.2,<5.3",
+    "django-cors-headers>=4.9.0",
+    "django-environ>=0.14.0",
+    "django-modeltranslation>=0.20.6",
+    "django-ninja>=1.7.1",
+    "django-storages>=1.14.6",
+    "django-unfold>=0.108.0",
+    "gunicorn>=26.2.0",
+    "pillow>=12.3.0",
+    "psycopg[binary]>=3.3.6",
+    "redis>=6.4.0",
+    "whitenoise>=6.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "django-stubs>=6.1.2",
+    "factory-boy>=3.3.3",
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-django>=4.14.0",
+    "ruff>=0.17.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["**/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "DJ", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003", "RUF012"]  # RUF00x — кириллица в комментариях
+
+[tool.mypy]
+python_version = "3.13"
+plugins = ["mypy_django_plugin.main"]
+ignore_missing_imports = true
+exclude = ["migrations/"]
+# modeltranslation подменяет менеджеры моделей в рантайме — django-stubs их не видит
+disable_error_code = ["django-manager-missing"]
+
+[tool.django-stubs]
+django_settings_module = "config.settings.test"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = ["test_*.py", "tests.py"]
+addopts = "-q --reuse-db"
+filterwarnings = ["ignore:No directory at:UserWarning"]

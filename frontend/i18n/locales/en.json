@@ -1,0 +1,7 @@
+{
+  "nav": { "watches": "Watches", "brands": "Brands", "preowned": "Pre-owned", "offers": "Offers" },
+  "home": { "title": "Luxury watches", "subtitle": "Authentic timepieces with worldwide delivery" },
+  "currency": "Currency",
+  "language": "Language",
+  "footer": { "rights": "All rights reserved." }
+}
