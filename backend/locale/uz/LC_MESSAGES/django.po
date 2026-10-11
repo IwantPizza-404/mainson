@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 22:06+0500\n"
+"POT-Creation-Date: 2026-10-11 22:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,12 +83,13 @@ msgstr "Nashrdan olish"
 msgid "Unpublished: %d"
 msgstr "Nashrdan olindi: %d"
 
-#: apps/catalog/apps.py:8 config/settings/base.py:212
+#: apps/catalog/apps.py:8 config/settings/base.py:221
 msgid "Catalog"
 msgstr "Katalog"
 
 #: apps/catalog/models.py:25 apps/catalog/models.py:45
 #: apps/catalog/models.py:86 apps/catalog/models.py:128
+#: apps/orders/models.py:29 apps/orders/models.py:95 apps/orders/models.py:171
 msgid "name"
 msgstr "nomi"
 
@@ -101,24 +102,27 @@ msgstr "manzil (slug)"
 msgid "logo"
 msgstr "logotip"
 
-#: apps/catalog/models.py:28
+#: apps/catalog/models.py:28 apps/orders/models.py:101
 msgid "country"
 msgstr "mamlakat"
 
 #: apps/catalog/models.py:29 apps/catalog/models.py:133
+#: apps/orders/models.py:30
 msgid "description"
 msgstr "tavsif"
 
-#: apps/catalog/models.py:30 apps/catalog/models.py:55
+#: apps/catalog/models.py:30 apps/catalog/models.py:55 apps/orders/models.py:41
 msgid "active"
 msgstr "faol"
 
 #: apps/catalog/models.py:31 apps/catalog/models.py:56
 #: apps/catalog/models.py:88 apps/catalog/models.py:323
+#: apps/orders/models.py:42
 msgid "position"
 msgstr "tartib"
 
 #: apps/catalog/models.py:34 apps/catalog/models.py:126
+#: apps/orders/models.py:170
 msgid "brand"
 msgstr "brend"
 
@@ -206,7 +210,7 @@ msgstr "Ayollar uchun"
 msgid "Unisex"
 msgstr "Uniseks"
 
-#: apps/catalog/models.py:131
+#: apps/catalog/models.py:131 apps/orders/models.py:172
 msgid "reference"
 msgstr "referens"
 
@@ -214,7 +218,8 @@ msgstr "referens"
 msgid "Model reference"
 msgstr "Model artikuli"
 
-#: apps/catalog/models.py:137
+#: apps/catalog/models.py:137 apps/orders/admin.py:28 apps/orders/models.py:33
+#: apps/orders/models.py:173
 msgid "price, USD"
 msgstr "narx, USD"
 
@@ -238,7 +243,7 @@ msgstr "jins"
 msgid "stock quantity"
 msgstr "ombordagi soni"
 
-#: apps/catalog/models.py:167
+#: apps/catalog/models.py:167 apps/orders/models.py:179
 msgid "lead time, days"
 msgstr "yetkazib berish muddati, kun"
 
@@ -263,7 +268,7 @@ msgid "SEO description"
 msgstr "SEO tavsif"
 
 #: apps/catalog/models.py:182 apps/catalog/models.py:234
-#: apps/catalog/models.py:313
+#: apps/catalog/models.py:313 apps/orders/models.py:165
 msgid "product"
 msgstr "mahsulot"
 
@@ -404,7 +409,7 @@ msgstr "Kurslarni yuklab bo‘lmadi: %s"
 
 #: apps/currency/apps.py:8
 msgid "Currencies"
-msgstr "referens"
+msgstr "Valyutalar"
 
 #: apps/currency/models.py:15
 msgid "currency"
@@ -435,11 +440,10 @@ msgid "Added to the rate, e.g. to cover conversion costs."
 msgstr "Kursga qo‘shiladi, masalan konvertatsiya xarajatlarini qoplash uchun."
 
 #: apps/currency/models.py:40
-#| msgid "updated at"
 msgid "rate date"
-msgstr "o‘zgartirilgan"
+msgstr "kurs sanasi"
 
-#: apps/currency/models.py:44
+#: apps/currency/models.py:44 apps/orders/models.py:119
 msgid "exchange rate"
 msgstr "valyuta kursi"
 
@@ -447,50 +451,274 @@ msgstr "valyuta kursi"
 msgid "exchange rates"
 msgstr "valyuta kurslari"
 
-#: config/settings/base.py:116
+#: apps/orders/admin.py:30
+msgid "by manager"
+msgstr "menejer hisoblaydi"
+
+#: apps/orders/admin.py:110
+msgid "Customer"
+msgstr "Xaridor"
+
+#: apps/orders/admin.py:120
+msgid "Delivery"
+msgstr "Yetkazib berish"
+
+#: apps/orders/admin.py:121
+msgid "Amount"
+msgstr "Summa"
+
+#: apps/orders/admin.py:143 apps/orders/models.py:92
+msgid "status"
+msgstr "holat"
+
+#: apps/orders/admin.py:147
+msgid "total"
+msgstr "jami"
+
+#: apps/orders/admin.py:151 apps/orders/models.py:117
+msgid "display currency"
+msgstr "xaridor valyutasi"
+
+#: apps/orders/admin.py:157
+msgid "write to customer"
+msgstr "xaridorga yozish"
+
+#: apps/orders/admin.py:165
+msgid "Call"
+msgstr "Qo‘ng‘iroq qilish"
+
+#: apps/orders/apps.py:8 config/settings/base.py:249
+msgid "Orders"
+msgstr "Buyurtmalar"
+
+#: apps/orders/models.py:16
+msgid "Enter a phone number in international format."
+msgstr "Telefon raqamini xalqaro formatda kiriting."
+
+#: apps/orders/models.py:24
+msgid "Pickup"
+msgstr "Olib ketish"
+
+#: apps/orders/models.py:25
+msgid "Within Uzbekistan"
+msgstr "O‘zbekiston bo‘ylab"
+
+#: apps/orders/models.py:26
+msgid "International"
+msgstr "Xalqaro"
+
+#: apps/orders/models.py:28
+msgid "code"
+msgstr "kod"
+
+#: apps/orders/models.py:31
+msgid "scope"
+msgstr "hudud"
+
+#: apps/orders/models.py:39
+msgid "Leave empty if the cost is calculated by a manager."
+msgstr "Narxni menejer hisoblasa, bo‘sh qoldiring."
+
+#: apps/orders/models.py:45
+msgid "delivery method"
+msgstr "yetkazib berish usuli"
+
+#: apps/orders/models.py:46
+msgid "delivery methods"
+msgstr "yetkazib berish usullari"
+
+#: apps/orders/models.py:66
+msgctxt "order status"
+msgid "New"
+msgstr "Yangi"
+
+#: apps/orders/models.py:67
+msgctxt "order status"
+msgid "Confirmed"
+msgstr "Tasdiqlangan"
+
+#: apps/orders/models.py:68
+msgctxt "order status"
+msgid "Paid"
+msgstr "To‘langan"
+
+#: apps/orders/models.py:69
+msgctxt "order status"
+msgid "Shipped"
+msgstr "Jo‘natilgan"
+
+#: apps/orders/models.py:70
+msgctxt "order status"
+msgid "Completed"
+msgstr "Bajarilgan"
+
+#: apps/orders/models.py:71
+msgctxt "order status"
+msgid "Cancelled"
+msgstr "Bekor qilingan"
+
+#: apps/orders/models.py:76
+msgid "Phone call"
+msgstr "Qo‘ng‘iroq"
+
+#: apps/orders/models.py:88
+msgid "number"
+msgstr "raqam"
+
+#: apps/orders/models.py:96
+msgid "phone"
+msgstr "telefon"
+
+#: apps/orders/models.py:97
+msgid "email"
+msgstr "email"
+
+#: apps/orders/models.py:99
+msgid "preferred contact"
+msgstr "aloqa usuli"
+
+#: apps/orders/models.py:102
+msgid "city"
+msgstr "shahar"
+
+#: apps/orders/models.py:103
+msgid "address"
+msgstr "manzil"
+
+#: apps/orders/models.py:104
+msgid "comment"
+msgstr "izoh"
+
+#: apps/orders/models.py:107
+msgid "delivery"
+msgstr "yetkazib berish"
+
+#: apps/orders/models.py:111
+msgid "delivery, USD"
+msgstr "yetkazib berish, USD"
+
+#: apps/orders/models.py:113
+msgid "items, USD"
+msgstr "mahsulotlar, USD"
+
+#: apps/orders/models.py:114
+msgid "total, USD"
+msgstr "jami, USD"
+
+#: apps/orders/models.py:121
+msgid "language"
+msgstr "til"
+
+#: apps/orders/models.py:123
+msgid "manager note"
+msgstr "menejer izohi"
+
+#: apps/orders/models.py:126
+msgid "order"
+msgstr "buyurtma"
+
+#: apps/orders/models.py:127
+msgid "orders"
+msgstr "buyurtmalar"
+
+#: apps/orders/models.py:175
+msgid "quantity"
+msgstr "soni"
+
+#: apps/orders/models.py:178
+msgid "on order"
+msgstr "buyurtma asosida"
+
+#: apps/orders/models.py:182
+msgid "item"
+msgstr "pozitsiya"
+
+#: apps/orders/models.py:183
+msgid "items"
+msgstr "pozitsiyalar"
+
+#: apps/orders/services.py:75
+msgid "This item is no longer available."
+msgstr "Bu mahsulot endi mavjud emas."
+
+#: apps/orders/services.py:79
+msgid "Sold out."
+msgstr "Sotilgan."
+
+#: apps/orders/services.py:81
+#, python-format
+msgid "Only %(n)s available."
+msgstr "Faqat %(n)s dona mavjud."
+
+#: apps/orders/services.py:108
+msgid "The cart is empty."
+msgstr "Savat bo‘sh."
+
+#: apps/orders/services.py:112
+msgid "This delivery method is not available for the selected country."
+msgstr "Bu yetkazib berish usuli tanlangan mamlakat uchun mavjud emas."
+
+#: apps/orders/services.py:116
+msgid "Some items in the cart have changed. Please review the cart."
+msgstr "Savatdagi ba’zi mahsulotlar o‘zgardi. Savatni tekshiring."
+
+#: apps/orders/services.py:184
+#, python-format
+msgid "Cannot change status from “%(from)s” to “%(to)s”."
+msgstr "Holatni «%(from)s» dan «%(to)s» ga o‘zgartirib bo‘lmaydi."
+
+#: config/settings/base.py:118
 msgid "English"
 msgstr "Inglizcha"
 
-#: config/settings/base.py:117
+#: config/settings/base.py:119
 msgid "Uzbek"
 msgstr "O‘zbekcha"
 
-#: config/settings/base.py:118
+#: config/settings/base.py:120
 msgid "Russian"
 msgstr "Ruscha"
 
-#: config/settings/base.py:215
+#: config/settings/base.py:224
 msgid "Products"
 msgstr "Mahsulotlar"
 
-#: config/settings/base.py:220
+#: config/settings/base.py:229
 msgid "Brands"
 msgstr "Brendlar"
 
-#: config/settings/base.py:225
+#: config/settings/base.py:234
 msgid "Categories"
 msgstr "Kategoriyalar"
 
-#: config/settings/base.py:230
+#: config/settings/base.py:239
 msgid "Specification options"
 msgstr "Xususiyatlar ma’lumotnomasi"
 
-#: config/settings/base.py:237
+#: config/settings/base.py:246
+msgid "Sales"
+msgstr "Savdo"
+
+#: config/settings/base.py:257
 msgid "Settings"
 msgstr "Sozlamalar"
 
-#: config/settings/base.py:240
+#: config/settings/base.py:260
+msgid "Delivery methods"
+msgstr "Yetkazib berish usullari"
+
+#: config/settings/base.py:265
 msgid "Exchange rates"
 msgstr "Valyuta kurslari"
 
-#: config/settings/base.py:247
+#: config/settings/base.py:272
 msgid "Users & access"
 msgstr "Foydalanuvchilar va ruxsatlar"
 
-#: config/settings/base.py:250
+#: config/settings/base.py:275
 msgid "Users"
 msgstr "Foydalanuvchilar"
 
-#: config/settings/base.py:255
+#: config/settings/base.py:280
 msgid "Groups"
 msgstr "Guruhlar"

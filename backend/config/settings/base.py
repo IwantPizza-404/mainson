@@ -37,6 +37,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "ninja",
+    "django_countries",
     "corsheaders",
     "storages",
 ]
@@ -45,6 +46,7 @@ LOCAL_APPS = [
     "apps.core",
     "apps.catalog",
     "apps.currency",
+    "apps.orders",
 ]
 
 INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -179,6 +181,13 @@ CELERY_BEAT_SCHEDULE = {
 
 # --- Внешние сервисы ----------------------------------------------------------
 
+# Публичный адрес бэкенда — для ссылок на админку в уведомлениях
+BACKEND_URL = env("BACKEND_URL", default="http://localhost:8000")
+
+# Уведомления менеджеру о заказах: бот @BotFather и id чата (личного или группы)
+TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
+TELEGRAM_MANAGER_CHAT_ID = env("TELEGRAM_MANAGER_CHAT_ID", default="")
+
 MEILISEARCH_URL = env("MEILISEARCH_URL", default="http://localhost:7700")
 MEILISEARCH_API_KEY = env("MEILISEARCH_API_KEY", default="")
 
@@ -234,8 +243,24 @@ UNFOLD = {
                 ],
             },
             {
+                "title": _("Sales"),
+                "items": [
+                    {
+                        "title": _("Orders"),
+                        "icon": "receipt_long",
+                        "link": reverse_lazy("admin:orders_order_changelist"),
+                        "badge": "apps.orders.admin.new_orders_badge",
+                    },
+                ],
+            },
+            {
                 "title": _("Settings"),
                 "items": [
+                    {
+                        "title": _("Delivery methods"),
+                        "icon": "local_shipping",
+                        "link": reverse_lazy("admin:orders_deliverymethod_changelist"),
+                    },
                     {
                         "title": _("Exchange rates"),
                         "icon": "currency_exchange",

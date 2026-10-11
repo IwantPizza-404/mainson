@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 22:06+0500\n"
+"POT-Creation-Date: 2026-10-11 22:13+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,12 +85,13 @@ msgstr "Снять с публикации"
 msgid "Unpublished: %d"
 msgstr "Снято с публикации: %d"
 
-#: apps/catalog/apps.py:8 config/settings/base.py:212
+#: apps/catalog/apps.py:8 config/settings/base.py:221
 msgid "Catalog"
 msgstr "Каталог"
 
 #: apps/catalog/models.py:25 apps/catalog/models.py:45
 #: apps/catalog/models.py:86 apps/catalog/models.py:128
+#: apps/orders/models.py:29 apps/orders/models.py:95 apps/orders/models.py:171
 msgid "name"
 msgstr "название"
 
@@ -103,24 +104,27 @@ msgstr "адрес (slug)"
 msgid "logo"
 msgstr "логотип"
 
-#: apps/catalog/models.py:28
+#: apps/catalog/models.py:28 apps/orders/models.py:101
 msgid "country"
 msgstr "страна"
 
 #: apps/catalog/models.py:29 apps/catalog/models.py:133
+#: apps/orders/models.py:30
 msgid "description"
 msgstr "описание"
 
-#: apps/catalog/models.py:30 apps/catalog/models.py:55
+#: apps/catalog/models.py:30 apps/catalog/models.py:55 apps/orders/models.py:41
 msgid "active"
 msgstr "активен"
 
 #: apps/catalog/models.py:31 apps/catalog/models.py:56
 #: apps/catalog/models.py:88 apps/catalog/models.py:323
+#: apps/orders/models.py:42
 msgid "position"
 msgstr "позиция"
 
 #: apps/catalog/models.py:34 apps/catalog/models.py:126
+#: apps/orders/models.py:170
 msgid "brand"
 msgstr "бренд"
 
@@ -208,7 +212,7 @@ msgstr "Женские"
 msgid "Unisex"
 msgstr "Унисекс"
 
-#: apps/catalog/models.py:131
+#: apps/catalog/models.py:131 apps/orders/models.py:172
 msgid "reference"
 msgstr "референс"
 
@@ -216,7 +220,8 @@ msgstr "референс"
 msgid "Model reference"
 msgstr "Артикул модели"
 
-#: apps/catalog/models.py:137
+#: apps/catalog/models.py:137 apps/orders/admin.py:28 apps/orders/models.py:33
+#: apps/orders/models.py:173
 msgid "price, USD"
 msgstr "цена, USD"
 
@@ -240,7 +245,7 @@ msgstr "пол"
 msgid "stock quantity"
 msgstr "количество на складе"
 
-#: apps/catalog/models.py:167
+#: apps/catalog/models.py:167 apps/orders/models.py:179
 msgid "lead time, days"
 msgstr "срок поставки, дней"
 
@@ -265,7 +270,7 @@ msgid "SEO description"
 msgstr "SEO-описание"
 
 #: apps/catalog/models.py:182 apps/catalog/models.py:234
-#: apps/catalog/models.py:313
+#: apps/catalog/models.py:313 apps/orders/models.py:165
 msgid "product"
 msgstr "товар"
 
@@ -406,7 +411,7 @@ msgstr "Не удалось загрузить курсы: %s"
 
 #: apps/currency/apps.py:8
 msgid "Currencies"
-msgstr "референс"
+msgstr "Валюты"
 
 #: apps/currency/models.py:15
 msgid "currency"
@@ -437,11 +442,10 @@ msgid "Added to the rate, e.g. to cover conversion costs."
 msgstr "Добавляется к курсу, например чтобы покрыть расходы на конвертацию."
 
 #: apps/currency/models.py:40
-#| msgid "updated at"
 msgid "rate date"
-msgstr "изменён"
+msgstr "дата курса"
 
-#: apps/currency/models.py:44
+#: apps/currency/models.py:44 apps/orders/models.py:119
 msgid "exchange rate"
 msgstr "курс валюты"
 
@@ -449,50 +453,274 @@ msgstr "курс валюты"
 msgid "exchange rates"
 msgstr "курсы валют"
 
-#: config/settings/base.py:116
+#: apps/orders/admin.py:30
+msgid "by manager"
+msgstr "рассчитывает менеджер"
+
+#: apps/orders/admin.py:110
+msgid "Customer"
+msgstr "Покупатель"
+
+#: apps/orders/admin.py:120
+msgid "Delivery"
+msgstr "Доставка"
+
+#: apps/orders/admin.py:121
+msgid "Amount"
+msgstr "Сумма"
+
+#: apps/orders/admin.py:143 apps/orders/models.py:92
+msgid "status"
+msgstr "статус"
+
+#: apps/orders/admin.py:147
+msgid "total"
+msgstr "итого"
+
+#: apps/orders/admin.py:151 apps/orders/models.py:117
+msgid "display currency"
+msgstr "валюта покупателя"
+
+#: apps/orders/admin.py:157
+msgid "write to customer"
+msgstr "написать покупателю"
+
+#: apps/orders/admin.py:165
+msgid "Call"
+msgstr "Позвонить"
+
+#: apps/orders/apps.py:8 config/settings/base.py:249
+msgid "Orders"
+msgstr "Заказы"
+
+#: apps/orders/models.py:16
+msgid "Enter a phone number in international format."
+msgstr "Введите телефон в международном формате."
+
+#: apps/orders/models.py:24
+msgid "Pickup"
+msgstr "Самовывоз"
+
+#: apps/orders/models.py:25
+msgid "Within Uzbekistan"
+msgstr "По Узбекистану"
+
+#: apps/orders/models.py:26
+msgid "International"
+msgstr "Международная"
+
+#: apps/orders/models.py:28
+msgid "code"
+msgstr "код"
+
+#: apps/orders/models.py:31
+msgid "scope"
+msgstr "зона"
+
+#: apps/orders/models.py:39
+msgid "Leave empty if the cost is calculated by a manager."
+msgstr "Оставьте пустым, если стоимость рассчитывает менеджер."
+
+#: apps/orders/models.py:45
+msgid "delivery method"
+msgstr "способ доставки"
+
+#: apps/orders/models.py:46
+msgid "delivery methods"
+msgstr "способы доставки"
+
+#: apps/orders/models.py:66
+msgctxt "order status"
+msgid "New"
+msgstr "Новый"
+
+#: apps/orders/models.py:67
+msgctxt "order status"
+msgid "Confirmed"
+msgstr "Подтверждён"
+
+#: apps/orders/models.py:68
+msgctxt "order status"
+msgid "Paid"
+msgstr "Оплачен"
+
+#: apps/orders/models.py:69
+msgctxt "order status"
+msgid "Shipped"
+msgstr "Отправлен"
+
+#: apps/orders/models.py:70
+msgctxt "order status"
+msgid "Completed"
+msgstr "Выполнен"
+
+#: apps/orders/models.py:71
+msgctxt "order status"
+msgid "Cancelled"
+msgstr "Отменён"
+
+#: apps/orders/models.py:76
+msgid "Phone call"
+msgstr "Звонок"
+
+#: apps/orders/models.py:88
+msgid "number"
+msgstr "номер"
+
+#: apps/orders/models.py:96
+msgid "phone"
+msgstr "телефон"
+
+#: apps/orders/models.py:97
+msgid "email"
+msgstr "email"
+
+#: apps/orders/models.py:99
+msgid "preferred contact"
+msgstr "способ связи"
+
+#: apps/orders/models.py:102
+msgid "city"
+msgstr "город"
+
+#: apps/orders/models.py:103
+msgid "address"
+msgstr "адрес"
+
+#: apps/orders/models.py:104
+msgid "comment"
+msgstr "комментарий"
+
+#: apps/orders/models.py:107
+msgid "delivery"
+msgstr "доставка"
+
+#: apps/orders/models.py:111
+msgid "delivery, USD"
+msgstr "доставка, USD"
+
+#: apps/orders/models.py:113
+msgid "items, USD"
+msgstr "товары, USD"
+
+#: apps/orders/models.py:114
+msgid "total, USD"
+msgstr "итого, USD"
+
+#: apps/orders/models.py:121
+msgid "language"
+msgstr "язык"
+
+#: apps/orders/models.py:123
+msgid "manager note"
+msgstr "заметка менеджера"
+
+#: apps/orders/models.py:126
+msgid "order"
+msgstr "заказ"
+
+#: apps/orders/models.py:127
+msgid "orders"
+msgstr "заказы"
+
+#: apps/orders/models.py:175
+msgid "quantity"
+msgstr "количество"
+
+#: apps/orders/models.py:178
+msgid "on order"
+msgstr "под заказ"
+
+#: apps/orders/models.py:182
+msgid "item"
+msgstr "позиция"
+
+#: apps/orders/models.py:183
+msgid "items"
+msgstr "позиции"
+
+#: apps/orders/services.py:75
+msgid "This item is no longer available."
+msgstr "Этот товар больше недоступен."
+
+#: apps/orders/services.py:79
+msgid "Sold out."
+msgstr "Продано."
+
+#: apps/orders/services.py:81
+#, python-format
+msgid "Only %(n)s available."
+msgstr "Доступно только %(n)s шт."
+
+#: apps/orders/services.py:108
+msgid "The cart is empty."
+msgstr "Корзина пуста."
+
+#: apps/orders/services.py:112
+msgid "This delivery method is not available for the selected country."
+msgstr "Этот способ доставки недоступен для выбранной страны."
+
+#: apps/orders/services.py:116
+msgid "Some items in the cart have changed. Please review the cart."
+msgstr "Некоторые товары в корзине изменились. Проверьте корзину."
+
+#: apps/orders/services.py:184
+#, python-format
+msgid "Cannot change status from “%(from)s” to “%(to)s”."
+msgstr "Нельзя изменить статус с «%(from)s» на «%(to)s»."
+
+#: config/settings/base.py:118
 msgid "English"
 msgstr "Английский"
 
-#: config/settings/base.py:117
+#: config/settings/base.py:119
 msgid "Uzbek"
 msgstr "Узбекский"
 
-#: config/settings/base.py:118
+#: config/settings/base.py:120
 msgid "Russian"
 msgstr "Русский"
 
-#: config/settings/base.py:215
+#: config/settings/base.py:224
 msgid "Products"
 msgstr "Товары"
 
-#: config/settings/base.py:220
+#: config/settings/base.py:229
 msgid "Brands"
 msgstr "Бренды"
 
-#: config/settings/base.py:225
+#: config/settings/base.py:234
 msgid "Categories"
 msgstr "Категории"
 
-#: config/settings/base.py:230
+#: config/settings/base.py:239
 msgid "Specification options"
 msgstr "Справочник характеристик"
 
-#: config/settings/base.py:237
+#: config/settings/base.py:246
+msgid "Sales"
+msgstr "Продажи"
+
+#: config/settings/base.py:257
 msgid "Settings"
 msgstr "Настройки"
 
-#: config/settings/base.py:240
+#: config/settings/base.py:260
+msgid "Delivery methods"
+msgstr "Способы доставки"
+
+#: config/settings/base.py:265
 msgid "Exchange rates"
 msgstr "Курсы валют"
 
-#: config/settings/base.py:247
+#: config/settings/base.py:272
 msgid "Users & access"
 msgstr "Пользователи и доступ"
 
-#: config/settings/base.py:250
+#: config/settings/base.py:275
 msgid "Users"
 msgstr "Пользователи"
 
-#: config/settings/base.py:255
+#: config/settings/base.py:280
 msgid "Groups"
 msgstr "Группы"

@@ -460,6 +460,136 @@
           "currency"
         ]
       }
+    },
+    "/api/v1/cart/quote": {
+      "post": {
+        "operationId": "apps_orders_api_quote_cart",
+        "summary": "Quote Cart",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Актуальные цены и наличие для корзины (корзина хранится на клиенте).",
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/checkout/options": {
+      "get": {
+        "operationId": "apps_orders_api_checkout_options",
+        "summary": "Checkout Options",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckoutOptionsOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      }
+    },
+    "/api/v1/orders": {
+      "post": {
+        "operationId": "apps_orders_api_create_order",
+        "summary": "Create Order",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "orders"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/orders/{token}": {
+      "get": {
+        "operationId": "apps_orders_api_get_order",
+        "summary": "Get Order",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "schema": {
+              "title": "Token",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Статус заказа для покупателя — по секретной ссылке, без регистрации.",
+        "tags": [
+          "orders"
+        ]
+      }
     }
   },
   "components": {
@@ -1408,6 +1538,536 @@
           "updated_at"
         ],
         "title": "RatesOut",
+        "type": "object"
+      },
+      "CartLineOut": {
+        "properties": {
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "quantity": {
+            "title": "Quantity",
+            "type": "integer"
+          },
+          "max_quantity": {
+            "title": "Max Quantity",
+            "type": "integer"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand"
+          },
+          "reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          },
+          "compare_at_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Compare At Price"
+          },
+          "availability": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability"
+          },
+          "lead_time_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead Time Days"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "line_total": {
+            "title": "Line Total",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "quantity",
+          "max_quantity",
+          "error",
+          "name",
+          "brand",
+          "reference",
+          "price",
+          "compare_at_price",
+          "availability",
+          "lead_time_days",
+          "image",
+          "line_total"
+        ],
+        "title": "CartLineOut",
+        "type": "object"
+      },
+      "QuoteOut": {
+        "properties": {
+          "lines": {
+            "items": {
+              "$ref": "#/components/schemas/CartLineOut"
+            },
+            "title": "Lines",
+            "type": "array"
+          },
+          "subtotal": {
+            "title": "Subtotal",
+            "type": "string"
+          },
+          "is_valid": {
+            "title": "Is Valid",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "lines",
+          "subtotal",
+          "is_valid"
+        ],
+        "title": "QuoteOut",
+        "type": "object"
+      },
+      "CartIn": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CartItemIn"
+            },
+            "maxItems": 50,
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "CartIn",
+        "type": "object"
+      },
+      "CartItemIn": {
+        "properties": {
+          "slug": {
+            "maxLength": 220,
+            "title": "Slug",
+            "type": "string"
+          },
+          "quantity": {
+            "maximum": 20,
+            "minimum": 1,
+            "title": "Quantity",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "slug",
+          "quantity"
+        ],
+        "title": "CartItemIn",
+        "type": "object"
+      },
+      "CheckoutOptionsOut": {
+        "properties": {
+          "delivery_methods": {
+            "items": {
+              "$ref": "#/components/schemas/DeliveryMethodOut"
+            },
+            "title": "Delivery Methods",
+            "type": "array"
+          },
+          "countries": {
+            "items": {
+              "$ref": "#/components/schemas/CountryOut"
+            },
+            "title": "Countries",
+            "type": "array"
+          },
+          "home_country": {
+            "title": "Home Country",
+            "type": "string"
+          }
+        },
+        "required": [
+          "delivery_methods",
+          "countries",
+          "home_country"
+        ],
+        "title": "CheckoutOptionsOut",
+        "type": "object"
+      },
+      "CountryOut": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "name"
+        ],
+        "title": "CountryOut",
+        "type": "object"
+      },
+      "DeliveryMethodOut": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "scope": {
+            "title": "Scope",
+            "type": "string"
+          },
+          "price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "description",
+          "scope",
+          "price"
+        ],
+        "title": "DeliveryMethodOut",
+        "type": "object"
+      },
+      "OrderItemOut": {
+        "properties": {
+          "brand": {
+            "title": "Brand",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "price": {
+            "title": "Price",
+            "type": "string"
+          },
+          "quantity": {
+            "title": "Quantity",
+            "type": "integer"
+          },
+          "on_order": {
+            "title": "On Order",
+            "type": "boolean"
+          },
+          "lead_time_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead Time Days"
+          }
+        },
+        "required": [
+          "brand",
+          "name",
+          "reference",
+          "price",
+          "quantity",
+          "on_order",
+          "lead_time_days"
+        ],
+        "title": "OrderItemOut",
+        "type": "object"
+      },
+      "OrderOut": {
+        "properties": {
+          "number": {
+            "title": "Number",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "status_label": {
+            "title": "Status Label",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/OrderItemOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "delivery_method": {
+            "title": "Delivery Method",
+            "type": "string"
+          },
+          "delivery_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Delivery Price"
+          },
+          "subtotal": {
+            "title": "Subtotal",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "exchange_rate": {
+            "title": "Exchange Rate",
+            "type": "string"
+          },
+          "contact_method": {
+            "title": "Contact Method",
+            "type": "string"
+          }
+        },
+        "required": [
+          "number",
+          "token",
+          "status",
+          "status_label",
+          "created_at",
+          "items",
+          "delivery_method",
+          "delivery_price",
+          "subtotal",
+          "total",
+          "currency",
+          "exchange_rate",
+          "contact_method"
+        ],
+        "title": "OrderOut",
+        "type": "object"
+      },
+      "ErrorOut": {
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "string"
+          }
+        },
+        "required": [
+          "detail"
+        ],
+        "title": "ErrorOut",
+        "type": "object"
+      },
+      "ContactMethod": {
+        "enum": [
+          "telegram",
+          "whatsapp",
+          "phone"
+        ],
+        "title": "ContactMethod",
+        "type": "string"
+      },
+      "OrderIn": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CartItemIn"
+            },
+            "maxItems": 50,
+            "title": "Items",
+            "type": "array"
+          },
+          "customer_name": {
+            "maxLength": 150,
+            "minLength": 2,
+            "title": "Customer Name",
+            "type": "string"
+          },
+          "phone": {
+            "pattern": "^\\+?[0-9 ()-]{7,20}$",
+            "title": "Phone",
+            "type": "string"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "contact_method": {
+            "$ref": "#/components/schemas/ContactMethod"
+          },
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "title": "Country",
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 120,
+            "minLength": 2,
+            "title": "City",
+            "type": "string"
+          },
+          "address": {
+            "default": "",
+            "maxLength": 255,
+            "title": "Address",
+            "type": "string"
+          },
+          "comment": {
+            "default": "",
+            "maxLength": 2000,
+            "title": "Comment",
+            "type": "string"
+          },
+          "delivery_method": {
+            "title": "Delivery Method",
+            "type": "string"
+          },
+          "currency": {
+            "default": "USD",
+            "maxLength": 3,
+            "title": "Currency",
+            "type": "string"
+          },
+          "website": {
+            "default": "",
+            "title": "Website",
+            "type": "string"
+          }
+        },
+        "required": [
+          "items",
+          "customer_name",
+          "phone",
+          "contact_method",
+          "country",
+          "city",
+          "delivery_method"
+        ],
+        "title": "OrderIn",
         "type": "object"
       }
     }

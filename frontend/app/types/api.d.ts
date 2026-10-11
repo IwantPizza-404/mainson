@@ -132,6 +132,80 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/cart/quote": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Quote Cart
+         * @description Актуальные цены и наличие для корзины (корзина хранится на клиенте).
+         */
+        post: operations["apps_orders_api_quote_cart"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/checkout/options": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Checkout Options */
+        get: operations["apps_orders_api_checkout_options"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create Order */
+        post: operations["apps_orders_api_create_order"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/orders/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Order
+         * @description Статус заказа для покупателя — по секретной ссылке, без регистрации.
+         */
+        get: operations["apps_orders_api_get_order"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -420,6 +494,181 @@ export interface components {
             /** Updated At */
             updated_at: string | null;
         };
+        /** CartLineOut */
+        CartLineOut: {
+            /** Slug */
+            slug: string;
+            /** Quantity */
+            quantity: number;
+            /** Max Quantity */
+            max_quantity: number;
+            /** Error */
+            error: string | null;
+            /** Name */
+            name: string | null;
+            /** Brand */
+            brand: string | null;
+            /** Reference */
+            reference: string | null;
+            /** Price */
+            price: string | null;
+            /** Compare At Price */
+            compare_at_price: string | null;
+            /** Availability */
+            availability: string | null;
+            /** Lead Time Days */
+            lead_time_days: number | null;
+            image: components["schemas"]["ImageOut"] | null;
+            /** Line Total */
+            line_total: string;
+        };
+        /** QuoteOut */
+        QuoteOut: {
+            /** Lines */
+            lines: components["schemas"]["CartLineOut"][];
+            /** Subtotal */
+            subtotal: string;
+            /** Is Valid */
+            is_valid: boolean;
+        };
+        /** CartIn */
+        CartIn: {
+            /** Items */
+            items: components["schemas"]["CartItemIn"][];
+        };
+        /** CartItemIn */
+        CartItemIn: {
+            /** Slug */
+            slug: string;
+            /** Quantity */
+            quantity: number;
+        };
+        /** CheckoutOptionsOut */
+        CheckoutOptionsOut: {
+            /** Delivery Methods */
+            delivery_methods: components["schemas"]["DeliveryMethodOut"][];
+            /** Countries */
+            countries: components["schemas"]["CountryOut"][];
+            /** Home Country */
+            home_country: string;
+        };
+        /** CountryOut */
+        CountryOut: {
+            /** Code */
+            code: string;
+            /** Name */
+            name: string;
+        };
+        /** DeliveryMethodOut */
+        DeliveryMethodOut: {
+            /** Code */
+            code: string;
+            /** Name */
+            name: string;
+            /** Description */
+            description: string;
+            /** Scope */
+            scope: string;
+            /** Price */
+            price: string | null;
+        };
+        /** OrderItemOut */
+        OrderItemOut: {
+            /** Brand */
+            brand: string;
+            /** Name */
+            name: string;
+            /** Reference */
+            reference: string;
+            /** Price */
+            price: string;
+            /** Quantity */
+            quantity: number;
+            /** On Order */
+            on_order: boolean;
+            /** Lead Time Days */
+            lead_time_days: number | null;
+        };
+        /** OrderOut */
+        OrderOut: {
+            /** Number */
+            number: string;
+            /** Token */
+            token: string;
+            /** Status */
+            status: string;
+            /** Status Label */
+            status_label: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Items */
+            items: components["schemas"]["OrderItemOut"][];
+            /** Delivery Method */
+            delivery_method: string;
+            /** Delivery Price */
+            delivery_price: string | null;
+            /** Subtotal */
+            subtotal: string;
+            /** Total */
+            total: string;
+            /** Currency */
+            currency: string;
+            /** Exchange Rate */
+            exchange_rate: string;
+            /** Contact Method */
+            contact_method: string;
+        };
+        /** ErrorOut */
+        ErrorOut: {
+            /** Detail */
+            detail: string;
+        };
+        /**
+         * ContactMethod
+         * @enum {string}
+         */
+        ContactMethod: "telegram" | "whatsapp" | "phone";
+        /** OrderIn */
+        OrderIn: {
+            /** Items */
+            items: components["schemas"]["CartItemIn"][];
+            /** Customer Name */
+            customer_name: string;
+            /** Phone */
+            phone: string;
+            /** Email */
+            email?: string | null;
+            contact_method: components["schemas"]["ContactMethod"];
+            /** Country */
+            country: string;
+            /** City */
+            city: string;
+            /**
+             * Address
+             * @default
+             */
+            address: string;
+            /**
+             * Comment
+             * @default
+             */
+            comment: string;
+            /** Delivery Method */
+            delivery_method: string;
+            /**
+             * Currency
+             * @default USD
+             */
+            currency: string;
+            /**
+             * Website
+             * @default
+             */
+            website: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -585,6 +834,105 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["RatesOut"];
+                };
+            };
+        };
+    };
+    apps_orders_api_quote_cart: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CartIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteOut"];
+                };
+            };
+        };
+    };
+    apps_orders_api_checkout_options: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CheckoutOptionsOut"];
+                };
+            };
+        };
+    };
+    apps_orders_api_create_order: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrderIn"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_orders_api_get_order: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderOut"];
                 };
             };
         };
