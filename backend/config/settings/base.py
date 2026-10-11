@@ -291,6 +291,17 @@ UNFOLD = {
                         "link": reverse_lazy("admin:orders_order_changelist"),
                         "badge": "apps.orders.admin.new_orders_badge",
                     },
+                    {
+                        "title": _("Customers"),
+                        "icon": "group",
+                        "link": reverse_lazy("admin:accounts_customer_changelist"),
+                    },
+                    {
+                        "title": _("Watch requests"),
+                        "icon": "search",
+                        "link": reverse_lazy("admin:accounts_watchrequest_changelist"),
+                        "badge": "apps.accounts.admin.new_requests_badge",
+                    },
                 ],
             },
             {

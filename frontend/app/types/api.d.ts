@@ -393,6 +393,307 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/methods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Auth Methods */
+        get: operations["apps_accounts_api_auth_methods"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/telegram/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Telegram Start */
+        post: operations["apps_accounts_api_telegram_start"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/sms/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Sms Start */
+        post: operations["apps_accounts_api_sms_start"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Verify */
+        post: operations["apps_accounts_api_verify"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/logout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Logout */
+        post: operations["apps_accounts_api_logout"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Me */
+        get: operations["apps_accounts_api_me"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Me */
+        patch: operations["apps_accounts_api_update_me"];
+        trace?: never;
+    };
+    "/api/v1/account/addresses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Addresses */
+        get: operations["apps_accounts_api_list_addresses"];
+        put?: never;
+        /** Create Address */
+        post: operations["apps_accounts_api_create_address"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/addresses/{address_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** Update Address */
+        put: operations["apps_accounts_api_update_address"];
+        post?: never;
+        /** Delete Address */
+        delete: operations["apps_accounts_api_delete_address"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** My Orders */
+        get: operations["apps_accounts_api_my_orders"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/wishlist": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Wishlist */
+        get: operations["apps_accounts_api_wishlist"];
+        put?: never;
+        /** Add To Wishlist */
+        post: operations["apps_accounts_api_add_to_wishlist"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/wishlist/merge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Merge Wishlist
+         * @description Избранное, собранное до входа (хранилось в браузере), переносится в аккаунт.
+         */
+        post: operations["apps_accounts_api_merge_wishlist"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/wishlist/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Remove From Wishlist */
+        delete: operations["apps_accounts_api_remove_from_wishlist"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/alerts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Alerts */
+        get: operations["apps_accounts_api_list_alerts"];
+        put?: never;
+        /** Create Alert */
+        post: operations["apps_accounts_api_create_alert"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/alerts/{alert_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Alert */
+        delete: operations["apps_accounts_api_delete_alert"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Requests */
+        get: operations["apps_accounts_api_list_requests"];
+        put?: never;
+        /** Create Request */
+        post: operations["apps_accounts_api_create_request"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/account/collection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Collection
+         * @description Купленные часы: позиции выполненных заказов.
+         */
+        get: operations["apps_accounts_api_collection"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/telegram/webhook": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Telegram Webhook */
+        post: operations["apps_accounts_api_telegram_webhook"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -812,6 +1113,8 @@ export interface components {
             exchange_rate: string;
             /** Contact Method */
             contact_method: string;
+            /** Tracking Number */
+            tracking_number: string;
         };
         /** ErrorOut */
         ErrorOut: {
@@ -855,6 +1158,11 @@ export interface components {
              * @default USD
              */
             currency: string;
+            /**
+             * Save Address
+             * @default false
+             */
+            save_address: boolean;
             /**
              * Website
              * @default
@@ -1001,6 +1309,249 @@ export interface components {
             brands: components["schemas"]["SitemapEntry"][];
             /** Pages */
             pages: components["schemas"]["SitemapEntry"][];
+        };
+        /** AuthMethodsOut */
+        AuthMethodsOut: {
+            /** Telegram */
+            telegram: boolean;
+            /** Sms */
+            sms: boolean;
+        };
+        /** TelegramStartOut */
+        TelegramStartOut: {
+            /** Token */
+            token: string;
+            /** Bot Url */
+            bot_url: string;
+        };
+        /** TokenOut */
+        TokenOut: {
+            /** Token */
+            token: string;
+        };
+        /** SmsStartIn */
+        SmsStartIn: {
+            /** Phone */
+            phone: string;
+        };
+        /** CustomerOut */
+        CustomerOut: {
+            /** Phone */
+            phone: string;
+            /** Name */
+            name: string;
+            /** Email */
+            email: string;
+            /** Telegram Username */
+            telegram_username: string;
+            /** Has Telegram */
+            has_telegram: boolean;
+            /** Language */
+            language: string;
+            /** Currency */
+            currency: string;
+            /** Notify Telegram */
+            notify_telegram: boolean;
+        };
+        /** VerifyIn */
+        VerifyIn: {
+            /** Token */
+            token: string;
+            /** Code */
+            code: string;
+        };
+        /** CustomerUpdateIn */
+        CustomerUpdateIn: {
+            /** Name */
+            name?: string | null;
+            /** Email */
+            email?: string | null;
+            /** Language */
+            language?: string | null;
+            /** Currency */
+            currency?: string | null;
+            /** Notify Telegram */
+            notify_telegram?: boolean | null;
+        };
+        /** AddressOut */
+        AddressOut: {
+            /** Country */
+            country: string;
+            /** City */
+            city: string;
+            /**
+             * Address
+             * @default
+             */
+            address: string;
+            /**
+             * Is Default
+             * @default false
+             */
+            is_default: boolean;
+            /** Id */
+            id: number;
+        };
+        /** AddressIn */
+        AddressIn: {
+            /** Country */
+            country: string;
+            /** City */
+            city: string;
+            /**
+             * Address
+             * @default
+             */
+            address: string;
+            /**
+             * Is Default
+             * @default false
+             */
+            is_default: boolean;
+        };
+        /** OrderSummaryOut */
+        OrderSummaryOut: {
+            /** Number */
+            number: string;
+            /** Token */
+            token: string;
+            /** Status */
+            status: string;
+            /** Status Label */
+            status_label: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Total */
+            total: string;
+            /** Currency */
+            currency: string;
+            /** Exchange Rate */
+            exchange_rate: string;
+            /** Items Count */
+            items_count: number;
+        };
+        /** SlugIn */
+        SlugIn: {
+            /** Slug */
+            slug: string;
+        };
+        /** SlugsIn */
+        SlugsIn: {
+            /** Slugs */
+            slugs: string[];
+        };
+        /** AlertOut */
+        AlertOut: {
+            /** Id */
+            id: number;
+            /** Kind */
+            kind: string;
+            /** Product Slug */
+            product_slug: string | null;
+            /** Brand Slug */
+            brand_slug: string | null;
+            /** Title */
+            title: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Notified At */
+            notified_at: string | null;
+        };
+        /**
+         * AlertIn
+         * @description Подписка на модель (product) или на бренд (brand) — что-то одно.
+         */
+        AlertIn: {
+            /** Product */
+            product?: string | null;
+            /** Brand */
+            brand?: string | null;
+        };
+        /** WatchRequestOut */
+        WatchRequestOut: {
+            /** Id */
+            id: number;
+            /** Brand */
+            brand: string;
+            /** Model */
+            model: string;
+            /** Reference */
+            reference: string;
+            /** Condition */
+            condition: string;
+            /** Budget */
+            budget: string | null;
+            /** Comment */
+            comment: string;
+            /** Status */
+            status: string;
+            /** Status Label */
+            status_label: string;
+            /** Reply */
+            reply: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** WatchRequestIn */
+        WatchRequestIn: {
+            /** Brand */
+            brand: string;
+            /**
+             * Model
+             * @default
+             */
+            model: string;
+            /**
+             * Reference
+             * @default
+             */
+            reference: string;
+            /**
+             * Condition
+             * @default any
+             */
+            condition: string;
+            /** Budget */
+            budget?: number | string | null;
+            /**
+             * Comment
+             * @default
+             */
+            comment: string;
+        };
+        /** CollectionItemOut */
+        CollectionItemOut: {
+            /** Brand */
+            brand: string;
+            /** Name */
+            name: string;
+            /** Reference */
+            reference: string;
+            /** Serial Number */
+            serial_number: string;
+            /** Warranty Until */
+            warranty_until: string | null;
+            /**
+             * Purchased At
+             * Format: date-time
+             */
+            purchased_at: string;
+            /** Order Number */
+            order_number: string;
+            /** Order Token */
+            order_token: string;
+            /** Product Slug */
+            product_slug: string | null;
+            image: components["schemas"]["ImageOut"] | null;
         };
     };
     responses: never;
@@ -1493,6 +2044,578 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["SitemapOut"];
                 };
+            };
+        };
+    };
+    apps_accounts_api_auth_methods: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthMethodsOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_telegram_start: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TelegramStartOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_sms_start: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SmsStartIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_verify: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VerifyIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_logout: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    apps_accounts_api_me: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_update_me: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CustomerUpdateIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CustomerOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_list_addresses: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AddressOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_create_address: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddressIn"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AddressOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_update_address: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                address_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddressIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AddressOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_delete_address: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                address_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    apps_accounts_api_my_orders: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrderSummaryOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_wishlist: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductListOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_add_to_wishlist: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SlugIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductListOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_merge_wishlist: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SlugsIn"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductListOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_remove_from_wishlist: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    apps_accounts_api_list_alerts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_create_alert: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AlertIn"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AlertOut"];
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_delete_alert: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                alert_id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description No Content */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    apps_accounts_api_list_requests: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WatchRequestOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_create_request: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["WatchRequestIn"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WatchRequestOut"];
+                };
+            };
+        };
+    };
+    apps_accounts_api_collection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CollectionItemOut"][];
+                };
+            };
+        };
+    };
+    apps_accounts_api_telegram_webhook: {
+        parameters: {
+            query?: never;
+            header?: {
+                "X-Telegram-Bot-Api-Secret-Token"?: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    [key: string]: unknown;
+                };
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Forbidden */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

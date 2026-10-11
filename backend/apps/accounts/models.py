@@ -6,6 +6,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from django_countries import countries
 from django_countries.fields import CountryField
 
@@ -187,3 +188,122 @@ class LoginRequest(models.Model):
         if not self.code_hash or not updated:
             return False
         return secrets.compare_digest(self.code_hash, hash_secret(code.strip()))
+
+
+class WishlistItem(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="wishlist")
+    product = models.ForeignKey("catalog.Product", on_delete=models.CASCADE, related_name="+")
+    # Цена, о которой покупатель уже знает: уведомляем, только если новая цена ниже
+    known_price = models.DecimalField(max_digits=12, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("favourite")
+        verbose_name_plural = _("favourites")
+        ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(fields=["customer", "product"], name="uniq_wishlist_item"),
+        ]
+
+    def __str__(self) -> str:
+        return str(self.product)
+
+
+class StockAlert(models.Model):
+    """«Сообщить о поступлении»: на модель (один раз) или на бренд (каждое поступление)."""
+
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="alerts")
+    product = models.ForeignKey(
+        "catalog.Product",
+        verbose_name=_("product"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    brand = models.ForeignKey(
+        "catalog.Brand",
+        verbose_name=_("brand"),
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="+",
+    )
+    is_active = models.BooleanField(_("active"), default=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    notified_at = models.DateTimeField(_("last notification"), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _("stock alert")
+        verbose_name_plural = _("stock alerts")
+        ordering = ["-created_at"]
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(product__isnull=False, brand__isnull=True)
+                | models.Q(product__isnull=True, brand__isnull=False),
+                name="stockalert_product_xor_brand",
+            ),
+            models.UniqueConstraint(
+                fields=["customer", "product"],
+                condition=models.Q(is_active=True),
+                name="uniq_active_product_alert",
+            ),
+            models.UniqueConstraint(
+                fields=["customer", "brand"],
+                condition=models.Q(is_active=True),
+                name="uniq_active_brand_alert",
+            ),
+        ]
+
+    def __str__(self) -> str:
+        return str(self.product or self.brand)
+
+
+class WatchRequest(models.Model):
+    """«Найдите мне часы»: заявка на модель, которой нет в каталоге."""
+
+    class Status(models.TextChoices):
+        NEW = "new", pgettext_lazy("watch request", "New")
+        SEARCHING = "searching", _("Searching")
+        OFFERED = "offered", _("Offer sent")
+        CLOSED = "closed", _("Closed")
+
+    class Condition(models.TextChoices):
+        ANY = "any", _("Any")
+        NEW = "new", pgettext_lazy("watch condition", "New")
+        PRE_OWNED = "pre_owned", _("Pre-owned")
+
+    customer = models.ForeignKey(
+        Customer,
+        verbose_name=_("customer"),
+        on_delete=models.CASCADE,
+        related_name="watch_requests",
+    )
+    brand = models.CharField(_("brand"), max_length=120)
+    model = models.CharField(_("model"), max_length=150, blank=True)
+    reference = models.CharField(_("reference"), max_length=80, blank=True)
+    condition = models.CharField(
+        _("condition"), max_length=16, choices=Condition.choices, default=Condition.ANY
+    )
+    budget = models.DecimalField(
+        _("budget, USD"), max_digits=12, decimal_places=2, null=True, blank=True
+    )
+    comment = models.TextField(_("comment"), blank=True)
+    status = models.CharField(
+        _("status"), max_length=16, choices=Status.choices, default=Status.NEW, db_index=True
+    )
+    reply = models.TextField(
+        _("reply to customer"),
+        blank=True,
+        help_text=_("Visible to the customer and sent to Telegram."),
+    )
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("watch request")
+        verbose_name_plural = _("watch requests")
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return " ".join(filter(None, [self.brand, self.model, self.reference]))

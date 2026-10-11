@@ -934,6 +934,810 @@
           "content"
         ]
       }
+    },
+    "/api/v1/auth/methods": {
+      "get": {
+        "operationId": "apps_accounts_api_auth_methods",
+        "summary": "Auth Methods",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMethodsOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/telegram/start": {
+      "post": {
+        "operationId": "apps_accounts_api_telegram_start",
+        "summary": "Telegram Start",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelegramStartOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/auth/sms/start": {
+      "post": {
+        "operationId": "apps_accounts_api_sms_start",
+        "summary": "Sms Start",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsStartIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/auth/verify": {
+      "post": {
+        "operationId": "apps_accounts_api_verify",
+        "summary": "Verify",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyIn"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "apps_accounts_api_logout",
+        "summary": "Logout",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/account/me": {
+      "get": {
+        "operationId": "apps_accounts_api_me",
+        "summary": "Me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "apps_accounts_api_update_me",
+        "summary": "Update Me",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/addresses": {
+      "get": {
+        "operationId": "apps_accounts_api_list_addresses",
+        "summary": "List Addresses",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AddressOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "apps_accounts_api_create_address",
+        "summary": "Create Address",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/addresses/{address_id}": {
+      "put": {
+        "operationId": "apps_accounts_api_update_address",
+        "summary": "Update Address",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address_id",
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "apps_accounts_api_delete_address",
+        "summary": "Delete Address",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "address_id",
+            "schema": {
+              "title": "Address Id",
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/orders": {
+      "get": {
+        "operationId": "apps_accounts_api_my_orders",
+        "summary": "My Orders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OrderSummaryOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/wishlist": {
+      "get": {
+        "operationId": "apps_accounts_api_wishlist",
+        "summary": "Wishlist",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProductListOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "apps_accounts_api_add_to_wishlist",
+        "summary": "Add To Wishlist",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProductListOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SlugIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/wishlist/merge": {
+      "post": {
+        "operationId": "apps_accounts_api_merge_wishlist",
+        "summary": "Merge Wishlist",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ProductListOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "Избранное, собранное до входа (хранилось в браузере), переносится в аккаунт.",
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SlugsIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/wishlist/{slug}": {
+      "delete": {
+        "operationId": "apps_accounts_api_remove_from_wishlist",
+        "summary": "Remove From Wishlist",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/alerts": {
+      "get": {
+        "operationId": "apps_accounts_api_list_alerts",
+        "summary": "List Alerts",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AlertOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "apps_accounts_api_create_alert",
+        "summary": "Create Alert",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlertIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/alerts/{alert_id}": {
+      "delete": {
+        "operationId": "apps_accounts_api_delete_alert",
+        "summary": "Delete Alert",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "alert_id",
+            "schema": {
+              "title": "Alert Id",
+              "type": "integer"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/requests": {
+      "get": {
+        "operationId": "apps_accounts_api_list_requests",
+        "summary": "List Requests",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WatchRequestOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "apps_accounts_api_create_request",
+        "summary": "Create Request",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WatchRequestOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "account"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WatchRequestIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/collection": {
+      "get": {
+        "operationId": "apps_accounts_api_collection",
+        "summary": "Collection",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CollectionItemOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "description": "Купленные часы: позиции выполненных заказов.",
+        "tags": [
+          "account"
+        ],
+        "security": [
+          {
+            "CustomerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/telegram/webhook": {
+      "post": {
+        "operationId": "apps_accounts_api_telegram_webhook",
+        "summary": "Telegram Webhook",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Telegram-Bot-Api-Secret-Token",
+            "schema": {
+              "default": "",
+              "title": "X-Telegram-Bot-Api-Secret-Token",
+              "type": "string"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "tags": [
+          "telegram"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": true,
+                "title": "Payload",
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        }
+      }
     }
   },
   "components": {
@@ -2289,6 +3093,10 @@
           "contact_method": {
             "title": "Contact Method",
             "type": "string"
+          },
+          "tracking_number": {
+            "title": "Tracking Number",
+            "type": "string"
           }
         },
         "required": [
@@ -2304,7 +3112,8 @@
           "total",
           "currency",
           "exchange_rate",
-          "contact_method"
+          "contact_method",
+          "tracking_number"
         ],
         "title": "OrderOut",
         "type": "object"
@@ -2400,6 +3209,11 @@
             "maxLength": 3,
             "title": "Currency",
             "type": "string"
+          },
+          "save_address": {
+            "default": false,
+            "title": "Save Address",
+            "type": "boolean"
           },
           "website": {
             "default": "",
@@ -2847,6 +3661,669 @@
         ],
         "title": "SitemapOut",
         "type": "object"
+      },
+      "AuthMethodsOut": {
+        "properties": {
+          "telegram": {
+            "title": "Telegram",
+            "type": "boolean"
+          },
+          "sms": {
+            "title": "Sms",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "telegram",
+          "sms"
+        ],
+        "title": "AuthMethodsOut",
+        "type": "object"
+      },
+      "TelegramStartOut": {
+        "properties": {
+          "token": {
+            "title": "Token",
+            "type": "string"
+          },
+          "bot_url": {
+            "title": "Bot Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "bot_url"
+        ],
+        "title": "TelegramStartOut",
+        "type": "object"
+      },
+      "TokenOut": {
+        "properties": {
+          "token": {
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "title": "TokenOut",
+        "type": "object"
+      },
+      "SmsStartIn": {
+        "properties": {
+          "phone": {
+            "maxLength": 32,
+            "minLength": 7,
+            "title": "Phone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone"
+        ],
+        "title": "SmsStartIn",
+        "type": "object"
+      },
+      "CustomerOut": {
+        "properties": {
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "telegram_username": {
+            "title": "Telegram Username",
+            "type": "string"
+          },
+          "has_telegram": {
+            "title": "Has Telegram",
+            "type": "boolean"
+          },
+          "language": {
+            "title": "Language",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "notify_telegram": {
+            "title": "Notify Telegram",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "phone",
+          "name",
+          "email",
+          "telegram_username",
+          "has_telegram",
+          "language",
+          "currency",
+          "notify_telegram"
+        ],
+        "title": "CustomerOut",
+        "type": "object"
+      },
+      "VerifyIn": {
+        "properties": {
+          "token": {
+            "maxLength": 64,
+            "title": "Token",
+            "type": "string"
+          },
+          "code": {
+            "maxLength": 6,
+            "minLength": 6,
+            "pattern": "^\\d{6}$",
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token",
+          "code"
+        ],
+        "title": "VerifyIn",
+        "type": "object"
+      },
+      "CustomerUpdateIn": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          },
+          "currency": {
+            "anyOf": [
+              {
+                "maxLength": 3,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currency"
+          },
+          "notify_telegram": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notify Telegram"
+          }
+        },
+        "title": "CustomerUpdateIn",
+        "type": "object"
+      },
+      "AddressOut": {
+        "properties": {
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "title": "Country",
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 120,
+            "minLength": 2,
+            "title": "City",
+            "type": "string"
+          },
+          "address": {
+            "default": "",
+            "maxLength": 255,
+            "title": "Address",
+            "type": "string"
+          },
+          "is_default": {
+            "default": false,
+            "title": "Is Default",
+            "type": "boolean"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "country",
+          "city",
+          "id"
+        ],
+        "title": "AddressOut",
+        "type": "object"
+      },
+      "AddressIn": {
+        "properties": {
+          "country": {
+            "maxLength": 2,
+            "minLength": 2,
+            "title": "Country",
+            "type": "string"
+          },
+          "city": {
+            "maxLength": 120,
+            "minLength": 2,
+            "title": "City",
+            "type": "string"
+          },
+          "address": {
+            "default": "",
+            "maxLength": 255,
+            "title": "Address",
+            "type": "string"
+          },
+          "is_default": {
+            "default": false,
+            "title": "Is Default",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "country",
+          "city"
+        ],
+        "title": "AddressIn",
+        "type": "object"
+      },
+      "OrderSummaryOut": {
+        "properties": {
+          "number": {
+            "title": "Number",
+            "type": "string"
+          },
+          "token": {
+            "title": "Token",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "status_label": {
+            "title": "Status Label",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "total": {
+            "title": "Total",
+            "type": "string"
+          },
+          "currency": {
+            "title": "Currency",
+            "type": "string"
+          },
+          "exchange_rate": {
+            "title": "Exchange Rate",
+            "type": "string"
+          },
+          "items_count": {
+            "title": "Items Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "number",
+          "token",
+          "status",
+          "status_label",
+          "created_at",
+          "total",
+          "currency",
+          "exchange_rate",
+          "items_count"
+        ],
+        "title": "OrderSummaryOut",
+        "type": "object"
+      },
+      "SlugIn": {
+        "properties": {
+          "slug": {
+            "maxLength": 220,
+            "title": "Slug",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug"
+        ],
+        "title": "SlugIn",
+        "type": "object"
+      },
+      "SlugsIn": {
+        "properties": {
+          "slugs": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 100,
+            "title": "Slugs",
+            "type": "array"
+          }
+        },
+        "required": [
+          "slugs"
+        ],
+        "title": "SlugsIn",
+        "type": "object"
+      },
+      "AlertOut": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "product_slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Slug"
+          },
+          "brand_slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand Slug"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "notified_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notified At"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "product_slug",
+          "brand_slug",
+          "title",
+          "created_at",
+          "notified_at"
+        ],
+        "title": "AlertOut",
+        "type": "object"
+      },
+      "AlertIn": {
+        "description": "Подписка на модель (product) или на бренд (brand) — что-то одно.",
+        "properties": {
+          "product": {
+            "anyOf": [
+              {
+                "maxLength": 220,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product"
+          },
+          "brand": {
+            "anyOf": [
+              {
+                "maxLength": 140,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Brand"
+          }
+        },
+        "title": "AlertIn",
+        "type": "object"
+      },
+      "WatchRequestOut": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "brand": {
+            "title": "Brand",
+            "type": "string"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "condition": {
+            "title": "Condition",
+            "type": "string"
+          },
+          "budget": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget"
+          },
+          "comment": {
+            "title": "Comment",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "status_label": {
+            "title": "Status Label",
+            "type": "string"
+          },
+          "reply": {
+            "title": "Reply",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "brand",
+          "model",
+          "reference",
+          "condition",
+          "budget",
+          "comment",
+          "status",
+          "status_label",
+          "reply",
+          "created_at"
+        ],
+        "title": "WatchRequestOut",
+        "type": "object"
+      },
+      "WatchRequestIn": {
+        "properties": {
+          "brand": {
+            "maxLength": 120,
+            "minLength": 2,
+            "title": "Brand",
+            "type": "string"
+          },
+          "model": {
+            "default": "",
+            "maxLength": 150,
+            "title": "Model",
+            "type": "string"
+          },
+          "reference": {
+            "default": "",
+            "maxLength": 80,
+            "title": "Reference",
+            "type": "string"
+          },
+          "condition": {
+            "default": "any",
+            "pattern": "^(any|new|pre_owned)$",
+            "title": "Condition",
+            "type": "string"
+          },
+          "budget": {
+            "anyOf": [
+              {
+                "exclusiveMinimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget"
+          },
+          "comment": {
+            "default": "",
+            "maxLength": 2000,
+            "title": "Comment",
+            "type": "string"
+          }
+        },
+        "required": [
+          "brand"
+        ],
+        "title": "WatchRequestIn",
+        "type": "object"
+      },
+      "CollectionItemOut": {
+        "properties": {
+          "brand": {
+            "title": "Brand",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "serial_number": {
+            "title": "Serial Number",
+            "type": "string"
+          },
+          "warranty_until": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warranty Until"
+          },
+          "purchased_at": {
+            "format": "date-time",
+            "title": "Purchased At",
+            "type": "string"
+          },
+          "order_number": {
+            "title": "Order Number",
+            "type": "string"
+          },
+          "order_token": {
+            "title": "Order Token",
+            "type": "string"
+          },
+          "product_slug": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Product Slug"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "brand",
+          "name",
+          "reference",
+          "serial_number",
+          "warranty_until",
+          "purchased_at",
+          "order_number",
+          "order_token",
+          "product_slug",
+          "image"
+        ],
+        "title": "CollectionItemOut",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "CustomerAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "maison_session"
       }
     }
   },

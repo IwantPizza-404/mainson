@@ -3,7 +3,7 @@ COMPOSE = docker compose -f infra/docker-compose.yml
 BACK = cd backend && uv run
 FRONT = cd frontend && pnpm
 
-.PHONY: help up down setup migrate superuser seed messages api-types rates worker backend frontend test lint format
+.PHONY: help up down setup migrate superuser seed messages api-types rates worker bot backend frontend test lint format
 
 help:  ## Показать команды
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
@@ -41,6 +41,9 @@ rates:  ## Загрузить курсы валют из ЦБ Узбекиста
 
 worker:  ## Celery: фоновые задачи + расписание (курсы валют)
 	$(BACK) celery -A config worker --beat --loglevel=info
+
+bot:  ## Telegram-бот локально (long polling) — нужен TELEGRAM_BOT_TOKEN в backend/.env
+	$(BACK) python manage.py telegram_polling
 
 backend:  ## Запустить Django (http://localhost:8000/admin)
 	$(BACK) python manage.py runserver 8000

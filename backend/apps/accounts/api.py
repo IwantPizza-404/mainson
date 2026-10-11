@@ -8,23 +8,42 @@ from django_countries import countries
 from ninja import Body, Header, Router, Status
 from ninja.throttling import AnonRateThrottle
 
+from apps.catalog.api import published_products
+from apps.catalog.models import Brand, Product
+from apps.catalog.schemas import ProductListOut
 from apps.core import telegram
+from apps.orders.models import Order, OrderItem
 from apps.orders.schemas import ErrorOut
 
 from . import bot, sms
-from .auth import COOKIE_NAME, current_customer, customer_auth, set_session_cookie
-from .models import Address, CustomerSession, LoginRequest, hash_secret
+from .auth import COOKIE_NAME, customer_auth, set_session_cookie
+from .models import (
+    Address,
+    CustomerSession,
+    LoginRequest,
+    StockAlert,
+    WatchRequest,
+    WishlistItem,
+    hash_secret,
+)
 from .schemas import (
     AddressIn,
     AddressOut,
+    AlertIn,
+    AlertOut,
     AuthMethodsOut,
+    CollectionItemOut,
     CustomerOut,
     CustomerUpdateIn,
     OrderSummaryOut,
+    SlugIn,
+    SlugsIn,
     SmsStartIn,
     TelegramStartOut,
     TokenOut,
     VerifyIn,
+    WatchRequestIn,
+    WatchRequestOut,
 )
 from .services import LoginError, complete_login, start_sms_login
 
@@ -167,4 +186,117 @@ def telegram_webhook(
     return Status(200, None)
 
 
-__all__ = ["account_router", "auth_router", "current_customer", "telegram_router"]
+# --- Избранное ----------------------------------------------------------------
+
+
+def _wishlist_products(customer):
+    ids = list(customer.wishlist.values_list("product_id", flat=True))
+    products = published_products().in_bulk(ids)
+    return [products[pk] for pk in ids if pk in products]
+
+
+def _add_to_wishlist(customer, slugs: list[str]) -> None:
+    for product in Product.objects.published().filter(slug__in=slugs):
+        WishlistItem.objects.get_or_create(
+            customer=customer, product=product, defaults={"known_price": product.price}
+        )
+
+
+@account_router.get("/wishlist", response=list[ProductListOut])
+def wishlist(request):
+    return _wishlist_products(request.auth)
+
+
+@account_router.post("/wishlist", response=list[ProductListOut])
+def add_to_wishlist(request, payload: SlugIn):
+    _add_to_wishlist(request.auth, [payload.slug])
+    return _wishlist_products(request.auth)
+
+
+@account_router.post("/wishlist/merge", response=list[ProductListOut])
+def merge_wishlist(request, payload: SlugsIn):
+    """Избранное, собранное до входа (хранилось в браузере), переносится в аккаунт."""
+    _add_to_wishlist(request.auth, payload.slugs)
+    return _wishlist_products(request.auth)
+
+
+@account_router.delete("/wishlist/{slug}", response={204: None})
+def remove_from_wishlist(request, slug: str):
+    request.auth.wishlist.filter(product__slug=slug).delete()
+    return Status(204, None)
+
+
+# --- Подписки «Сообщить о поступлении» ---------------------------------------------
+
+
+@account_router.get("/alerts", response=list[AlertOut])
+def list_alerts(request):
+    return request.auth.alerts.filter(is_active=True).select_related("product__brand", "brand")
+
+
+@account_router.post("/alerts", response={201: AlertOut, 400: ErrorOut})
+def create_alert(request, payload: AlertIn):
+    if bool(payload.product) == bool(payload.brand):
+        return Status(400, {"detail": "Specify either a product or a brand."})
+    customer = request.auth
+    if payload.product:
+        product = get_object_or_404(Product.objects.published(), slug=payload.product)
+        alert, _created = StockAlert.objects.get_or_create(
+            customer=customer, product=product, is_active=True
+        )
+    else:
+        brand = get_object_or_404(Brand, slug=payload.brand, is_active=True)
+        alert, _created = StockAlert.objects.get_or_create(
+            customer=customer, brand=brand, is_active=True
+        )
+    return Status(201, alert)
+
+
+@account_router.delete("/alerts/{alert_id}", response={204: None})
+def delete_alert(request, alert_id: int):
+    get_object_or_404(StockAlert, pk=alert_id, customer=request.auth).delete()
+    return Status(204, None)
+
+
+# --- «Найдите мне часы» -----------------------------------------------------------
+
+
+@account_router.get("/requests", response=list[WatchRequestOut])
+def list_requests(request):
+    return request.auth.watch_requests.all()
+
+
+@account_router.post(
+    "/requests", response={201: WatchRequestOut}, throttle=[AnonRateThrottle("10/h")]
+)
+def create_request(request, payload: WatchRequestIn):
+    return Status(201, WatchRequest.objects.create(customer=request.auth, **payload.dict()))
+
+
+# --- Моя коллекция ----------------------------------------------------------------
+
+
+@account_router.get("/collection", response=list[CollectionItemOut])
+def collection(request):
+    """Купленные часы: позиции выполненных заказов."""
+    items = (
+        OrderItem.objects.filter(order__customer=request.auth, order__status=Order.Status.COMPLETED)
+        .select_related("order", "product")
+        .prefetch_related("product__images")
+        .order_by("-order__created_at")
+    )
+    return [
+        {
+            "brand": item.brand,
+            "name": item.name,
+            "reference": item.reference,
+            "serial_number": item.serial_number,
+            "warranty_until": item.warranty_until,
+            "purchased_at": item.order.created_at,
+            "order_number": item.order.number,
+            "order_token": item.order.token,
+            "product_slug": item.product.slug if item.product else None,
+            "image": item.product.images.first() if item.product else None,
+        }
+        for item in items
+    ]

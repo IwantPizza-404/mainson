@@ -39,6 +39,18 @@ docker compose -f infra/docker-compose.prod.yml --env-file infra/.env.prod exec 
 
 HTTPS-сертификат Caddy получает сам при первом запросе (DNS уже должен указывать на сервер).
 
+### Telegram-бот
+
+Один бот для всего: вход покупателей, уведомления покупателям и менеджеру.
+
+1. @BotFather → `/newbot` → токен и username в `TELEGRAM_BOT_TOKEN`, `TELEGRAM_BOT_USERNAME`.
+2. `TELEGRAM_WEBHOOK_SECRET` — `openssl rand -hex 32`.
+3. `TELEGRAM_MANAGER_CHAT_ID` — id чата менеджера: написать боту, затем
+   `https://api.telegram.org/bot<токен>/getUpdates` → `message.chat.id` (для группы — добавить бота в группу).
+4. `deploy.sh` сам регистрирует вебхук (`telegram_set_webhook`).
+
+Локально бот работает без вебхука: `make bot` (long polling).
+
 ### Тестовый сервер (staging)
 
 В `infra/.env.prod`: `DOMAIN=dev.maison.uz`, `CADDYFILE=Caddyfile.staging`, `NUXT_INDEXABLE=false`,

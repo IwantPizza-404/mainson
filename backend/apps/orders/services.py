@@ -221,6 +221,10 @@ def change_status(order: Order, status: str) -> None:
         release_stock(order)
     order.status = status
     order.save(update_fields=["status", "updated_at"])
+    if order.customer_id:
+        from apps.accounts.tasks import notify_order_status
+
+        transaction.on_commit(lambda: notify_order_status.delay(order.pk))
 
 
 def notify_new_order(order_id: int) -> None:

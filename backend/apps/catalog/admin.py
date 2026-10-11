@@ -161,7 +161,12 @@ class ProductAdmin(ModelAdmin, TabbedTranslationAdmin):
 
     @action(description=_("Publish selected"))
     def publish(self, request: HttpRequest, queryset: QuerySet[Product]) -> None:
-        updated = queryset.update(is_published=True)
+        # Поштучно, а не queryset.update(): сохранение запускает уведомления подписчикам бренда
+        products = list(queryset.filter(is_published=False))
+        for product in products:
+            product.is_published = True
+            product.save(update_fields=["is_published", "updated_at"])
+        updated = len(products)
         self.message_user(request, _("Published: %d") % updated, messages.SUCCESS)
 
     @action(description=_("Unpublish selected"))

@@ -34,8 +34,18 @@ class OrderItemInline(TabularInline):
     model = OrderItem
     extra = 0
     can_delete = False
-    fields = ("brand", "name", "reference", "price", "quantity", "on_order", "lead_time_days")
-    readonly_fields = fields
+    fields = (
+        "brand",
+        "name",
+        "reference",
+        "price",
+        "quantity",
+        "on_order",
+        "serial_number",
+        "warranty_until",
+    )
+    # Серийный номер и гарантию менеджер вписывает при продаже — они видны в «Моей коллекции»
+    readonly_fields = ("brand", "name", "reference", "price", "quantity", "on_order")
 
     def has_add_permission(self, request, obj=None) -> bool:
         return False
@@ -45,7 +55,7 @@ class OrderAdminForm(forms.ModelForm):
     class Meta:
         model = Order
         # Остальное — данные покупателя, только для чтения
-        fields = ("status", "manager_note", "delivery_price")
+        fields = ("status", "tracking_number", "manager_note", "delivery_price")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -84,12 +94,20 @@ class OrderAdmin(ModelAdmin):
         "delivery_method",
     )
     list_filter_submit = True
-    search_fields = ("number", "customer_name", "phone", "email", "items__reference")
+    search_fields = (
+        "number",
+        "customer_name",
+        "phone",
+        "email",
+        "items__reference",
+        "tracking_number",
+    )
     list_select_related = ("delivery_method",)
     inlines = (OrderItemInline,)
     readonly_fields = (
         "number",
         "created_at",
+        "customer",
         "customer_name",
         "phone",
         "email",
@@ -106,7 +124,17 @@ class OrderAdmin(ModelAdmin):
         "language",
     )
     fieldsets = (
-        (None, {"fields": (("number", "created_at"), "status", "manager_note")}),
+        (
+            None,
+            {
+                "fields": (
+                    ("number", "created_at"),
+                    ("status", "tracking_number"),
+                    "customer",
+                    "manager_note",
+                )
+            },
+        ),
         (
             _("Customer"),
             {

@@ -23,6 +23,9 @@ echo "→ Миграции"
 echo "→ Перезапуск"
 "${COMPOSE[@]}" up -d --remove-orphans
 
+echo "→ Вебхук Telegram-бота"
+"${COMPOSE[@]}" exec -T backend python manage.py telegram_set_webhook || echo "  (бот не настроен — пропущено)"
+
 echo "→ Поисковый индекс"
 "${COMPOSE[@]}" exec -T backend python manage.py search_reindex
 
