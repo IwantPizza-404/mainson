@@ -6,6 +6,7 @@ DEBUG = False
 # Публичный адрес сайта: https://maison.uz
 PUBLIC_URL = env("PUBLIC_URL").rstrip("/")
 BACKEND_URL = PUBLIC_URL
+SITE_URL = PUBLIC_URL
 
 # HTTPS завершается на Caddy. Редирект на https в Django не включаем: витрина при SSR ходит
 # к бэкенду по внутренней сети (http://backend:8000) и получала бы редирект вместо данных.

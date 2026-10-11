@@ -46,6 +46,7 @@ LOCAL_APPS = [
     "apps.core",
     "apps.catalog",
     "apps.currency",
+    "apps.accounts",
     "apps.orders",
     "apps.content",
 ]
@@ -162,6 +163,8 @@ STORAGES = {
 # --- CORS (витрина Nuxt) -----------------------------------------------------
 
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
+# Cookie сессии покупателя должна уходить с запросами витрины к API (локально — другой порт)
+CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
 # --- Celery -----------------------------------------------------------------
@@ -185,9 +188,20 @@ CELERY_BEAT_SCHEDULE = {
 # Публичный адрес бэкенда — для ссылок на админку в уведомлениях
 BACKEND_URL = env("BACKEND_URL", default="http://localhost:8000")
 
-# Уведомления менеджеру о заказах: бот @BotFather и id чата (личного или группы)
+# Адрес витрины — для ссылок в сообщениях бота
+SITE_URL = env("SITE_URL", default="http://localhost:3000").rstrip("/")
+
+# Telegram-бот Maison (@BotFather): уведомления менеджеру, вход и уведомления покупателей
 TELEGRAM_BOT_TOKEN = env("TELEGRAM_BOT_TOKEN", default="")
+TELEGRAM_BOT_USERNAME = env("TELEGRAM_BOT_USERNAME", default="")
 TELEGRAM_MANAGER_CHAT_ID = env("TELEGRAM_MANAGER_CHAT_ID", default="")
+# Секрет в заголовке вебхука: запросы не от Telegram отклоняются
+TELEGRAM_WEBHOOK_SECRET = env("TELEGRAM_WEBHOOK_SECRET", default="")
+
+# Вход по SMS через Eskiz.uz — включается, если заданы учётные данные
+ESKIZ_EMAIL = env("ESKIZ_EMAIL", default="")
+ESKIZ_PASSWORD = env("ESKIZ_PASSWORD", default="")
+ESKIZ_SENDER = env("ESKIZ_SENDER", default="4546")
 
 MEILISEARCH_URL = env("MEILISEARCH_URL", default="http://localhost:7700")
 MEILISEARCH_API_KEY = env("MEILISEARCH_API_KEY", default="")

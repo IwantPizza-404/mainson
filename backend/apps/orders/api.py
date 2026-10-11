@@ -4,6 +4,8 @@ from django_countries import countries
 from ninja import Router, Status
 from ninja.throttling import AnonRateThrottle
 
+from apps.accounts.auth import current_customer
+
 from .models import HOME_COUNTRY, DeliveryMethod, Order
 from .schemas import (
     SUPPORTED_LANGUAGES,
@@ -85,6 +87,8 @@ def create_order(request, payload: OrderIn):
             delivery_code=payload.delivery_method,
             currency=payload.currency.upper(),
             language=language if language in SUPPORTED_LANGUAGES else "en",
+            account=current_customer(request),
+            save_address=payload.save_address,
         )
     except OrderError as exc:
         return Status(400, {"detail": str(exc)})

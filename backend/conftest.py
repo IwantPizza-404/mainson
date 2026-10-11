@@ -27,18 +27,3 @@ def on_order_watch(db) -> Product:
 def pickup(db) -> DeliveryMethod:
     # Способы доставки создаются миграцией
     return DeliveryMethod.objects.get(code="pickup-tashkent")
-
-
-def order_payload(**overrides) -> dict:
-    payload = {
-        "items": [{"slug": "watch", "quantity": 1}],
-        "customer_name": "Aziz",
-        "phone": "+998 90 123 45 67",
-        "contact_method": "telegram",
-        "country": "UZ",
-        "city": "Tashkent",
-        "delivery_method": "pickup-tashkent",
-        "currency": "UZS",
-    }
-    payload.update(overrides)
-    return payload

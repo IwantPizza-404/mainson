@@ -3,6 +3,7 @@
 import logging
 from dataclasses import dataclass, field
 from decimal import Decimal
+from typing import TYPE_CHECKING
 
 from django.db import transaction
 from django.utils.translation import gettext as _
@@ -11,6 +12,9 @@ from apps.catalog.models import Product
 from apps.currency.services import current_rates
 
 from .models import DeliveryMethod, Order, OrderItem
+
+if TYPE_CHECKING:
+    from apps.accounts.models import Customer as CustomerAccount
 
 logger = logging.getLogger(__name__)
 
@@ -103,6 +107,8 @@ def place_order(
     delivery_code: str,
     currency: str,
     language: str,
+    account: "CustomerAccount | None" = None,
+    save_address: bool = False,
 ) -> Order:
     if not items:
         raise OrderError(_("The cart is empty."))
@@ -121,6 +127,7 @@ def place_order(
 
     subtotal = quote.subtotal
     order = Order.objects.create(
+        customer=account,
         customer_name=customer.name,
         phone=customer.phone,
         email=customer.email,
@@ -156,8 +163,28 @@ def place_order(
         if not on_order:
             reserve_stock(product, line.quantity)
 
+    if account is not None and save_address:
+        remember_address(account, customer)
+
     transaction.on_commit(lambda: notify_new_order(order.pk))
     return order
+
+
+def remember_address(account: "CustomerAccount", customer: Customer) -> None:
+    """Сохраняет адрес из заказа в кабинет, если такого ещё нет."""
+    from apps.accounts.models import Address
+
+    exists = account.addresses.filter(
+        country=customer.country, city__iexact=customer.city, address__iexact=customer.address
+    ).exists()
+    if not exists:
+        Address.objects.create(
+            customer=account,
+            country=customer.country,
+            city=customer.city,
+            address=customer.address,
+            is_default=not account.addresses.exists(),
+        )
 
 
 def reserve_stock(product: Product, quantity: int) -> None:

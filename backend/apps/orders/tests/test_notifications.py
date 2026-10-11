@@ -50,7 +50,9 @@ def test_sends_to_telegram(settings, monkeypatch):
 
     def fake_post(url, json, timeout):
         sent.update(url=url, **json)
-        return httpx.Response(200, request=httpx.Request("POST", url))
+        return httpx.Response(
+            200, json={"ok": True, "result": {}}, request=httpx.Request("POST", url)
+        )
 
     monkeypatch.setattr(httpx, "post", fake_post)
 

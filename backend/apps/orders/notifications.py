@@ -3,18 +3,16 @@
 import logging
 from html import escape
 
-import httpx
 from django.conf import settings
 from django.urls import reverse
 from django_countries import countries
 
+from apps.core import telegram
+from apps.core.telegram import TelegramError as NotificationError  # noqa: F401 — повтор задачи
+
 from .models import Order
 
 logger = logging.getLogger(__name__)
-
-
-class NotificationError(Exception):
-    pass
 
 
 def format_order_message(order: Order) -> str:
@@ -50,22 +48,5 @@ def format_order_message(order: Order) -> str:
 
 
 def send_telegram(text: str) -> bool:
-    token, chat_id = settings.TELEGRAM_BOT_TOKEN, settings.TELEGRAM_MANAGER_CHAT_ID
-    if not token or not chat_id:
-        logger.warning("Telegram notifications are not configured, message skipped")
-        return False
-    try:
-        response = httpx.post(
-            f"https://api.telegram.org/bot{token}/sendMessage",
-            json={
-                "chat_id": chat_id,
-                "text": text,
-                "parse_mode": "HTML",
-                "disable_web_page_preview": True,
-            },
-            timeout=10,
-        )
-        response.raise_for_status()
-    except httpx.HTTPError as exc:
-        raise NotificationError(str(exc)) from exc
-    return True
+    """Сообщение менеджеру (в личку или группу TELEGRAM_MANAGER_CHAT_ID)."""
+    return telegram.send_message(settings.TELEGRAM_MANAGER_CHAT_ID, text)

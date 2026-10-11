@@ -3,7 +3,7 @@ from django.core.cache import cache
 
 from apps.orders.models import Order
 
-from .conftest import order_payload
+from .helpers import order_payload
 
 pytestmark = pytest.mark.django_db
 

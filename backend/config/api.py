@@ -2,6 +2,7 @@
 
 from ninja import NinjaAPI
 
+from apps.accounts.api import account_router, auth_router, telegram_router
 from apps.catalog.api import router as catalog_router
 from apps.content.api import router as content_router
 from apps.core.api import router as core_router
@@ -19,3 +20,6 @@ api.add_router("/catalog", catalog_router)
 api.add_router("/currency", currency_router)
 api.add_router("/", orders_router)
 api.add_router("/content", content_router)
+api.add_router("/auth", auth_router)
+api.add_router("/account", account_router)
+api.add_router("/telegram", telegram_router)

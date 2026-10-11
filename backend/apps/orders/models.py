@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from django_countries.fields import CountryField
 
+from apps.accounts.models import normalize_phone
 from apps.core.models import TimeStampedModel
 
 HOME_COUNTRY = "UZ"
@@ -92,8 +93,18 @@ class Order(TimeStampedModel):
         _("status"), max_length=16, choices=Status.choices, default=Status.NEW, db_index=True
     )
 
+    customer = models.ForeignKey(
+        "accounts.Customer",
+        verbose_name=_("customer"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="orders",
+    )
     customer_name = models.CharField(_("name"), max_length=150)
     phone = models.CharField(_("phone"), max_length=32, validators=[phone_validator])
+    # +998901234567 — для привязки гостевых заказов к кабинету при входе
+    phone_normalized = models.CharField(max_length=20, blank=True, db_index=True, editable=False)
     email = models.EmailField(_("email"), blank=True)
     contact_method = models.CharField(
         _("preferred contact"), max_length=16, choices=ContactMethod.choices
@@ -120,6 +131,12 @@ class Order(TimeStampedModel):
     )
     language = models.CharField(_("language"), max_length=8, choices=settings.LANGUAGES)
 
+    tracking_number = models.CharField(
+        _("tracking number"),
+        max_length=64,
+        blank=True,
+        help_text=_("BTS tracking number — sent to the customer when the order is shipped."),
+    )
     manager_note = models.TextField(_("manager note"), blank=True)
 
     class Meta:
@@ -133,11 +150,14 @@ class Order(TimeStampedModel):
     def save(self, *args, **kwargs) -> None:
         if not self.number:
             self.number = self._next_number()
+        self.phone_normalized = normalize_phone(self.phone)
         # Стоимость доставки менеджер может вписать позже — итог всегда пересчитываем
         self.total = self.subtotal + (self.delivery_price or 0)
         update_fields = kwargs.get("update_fields")
         if update_fields is not None and "delivery_price" in update_fields:
             kwargs["update_fields"] = {*update_fields, "total"}
+        if update_fields is not None and "phone" in update_fields:
+            kwargs["update_fields"] = {*kwargs["update_fields"], "phone_normalized"}
         super().save(*args, **kwargs)
 
     @staticmethod
@@ -178,6 +198,9 @@ class OrderItem(models.Model):
     # Товар был под заказ: важно для сроков и для возврата остатка при отмене
     on_order = models.BooleanField(_("on order"), default=False)
     lead_time_days = models.PositiveSmallIntegerField(_("lead time, days"), null=True, blank=True)
+    # Заполняет менеджер — видно покупателю в «Моей коллекции»
+    serial_number = models.CharField(_("serial number"), max_length=80, blank=True)
+    warranty_until = models.DateField(_("warranty until"), null=True, blank=True)
 
     class Meta:
         verbose_name = _("item")

@@ -78,6 +78,8 @@ class OrderIn(CartIn):
     comment: str = Field("", max_length=2000)
     delivery_method: str
     currency: str = Field("USD", max_length=3)
+    # Сохранить адрес в личный кабинет (если покупатель вошёл)
+    save_address: bool = False
     # Ловушка для ботов: поле скрыто на сайте, люди его не заполняют
     website: str = ""
 
@@ -111,6 +113,7 @@ class OrderOut(Schema):
     currency: str
     exchange_rate: Decimal
     contact_method: str
+    tracking_number: str
 
     @staticmethod
     def resolve_status_label(obj: Order) -> str:
