@@ -12,11 +12,12 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "@iconify-json/lucide": "^1.2.142",
     "@nuxt/eslint": "^1.17.0",
     "@nuxt/image": "^2.1.0",
+    "@nuxt/ui": "~4.11.3",
     "@nuxtjs/i18n": "^10.6.0",
     "@pinia/nuxt": "^1.0.2",
-    "@tailwindcss/vite": "^4.3.3",
     "nuxt": "^4.6.1",
     "pinia": "^4.0.3",
     "tailwindcss": "^4.3.3",
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "eslint": "^10.12.0",
+    "openapi-typescript": "^7.13.0",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.3.13"
   }

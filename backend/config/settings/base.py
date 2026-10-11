@@ -35,6 +35,7 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    "ninja",
     "corsheaders",
     "storages",
 ]

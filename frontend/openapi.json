@@ -1,0 +1,1319 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Maison API",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "operationId": "apps_core_api_health",
+        "summary": "Health",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Проверка доступности сервиса и зависимостей (для балансировщика и мониторинга).",
+        "tags": [
+          "system"
+        ]
+      }
+    },
+    "/api/v1/catalog/brands": {
+      "get": {
+        "operationId": "apps_catalog_api_list_brands",
+        "summary": "List Brands",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BrandOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/api/v1/catalog/categories": {
+      "get": {
+        "operationId": "apps_catalog_api_list_categories",
+        "summary": "List Categories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/api/v1/catalog/products": {
+      "get": {
+        "operationId": "apps_catalog_api_list_products",
+        "summary": "List Products",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "schema": {
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "title": "Brand",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "condition",
+            "schema": {
+              "default": [],
+              "items": {
+                "enum": [
+                  "new",
+                  "pre_owned"
+                ],
+                "title": "Condition",
+                "type": "string"
+              },
+              "title": "Condition",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "availability",
+            "schema": {
+              "default": [],
+              "items": {
+                "enum": [
+                  "in_stock",
+                  "on_order",
+                  "sold_out"
+                ],
+                "title": "Availability",
+                "type": "string"
+              },
+              "title": "Availability",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "gender",
+            "schema": {
+              "default": [],
+              "items": {
+                "enum": [
+                  "men",
+                  "women",
+                  "unisex"
+                ],
+                "title": "Gender",
+                "type": "string"
+              },
+              "title": "Gender",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "movement",
+            "schema": {
+              "default": [],
+              "items": {
+                "enum": [
+                  "automatic",
+                  "manual",
+                  "quartz",
+                  "solar"
+                ],
+                "title": "Movement",
+                "type": "string"
+              },
+              "title": "Movement",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "case_material",
+            "schema": {
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "title": "Case Material",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "dial_color",
+            "schema": {
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "title": "Dial Color",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "strap_material",
+            "schema": {
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "title": "Strap Material",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "price_min",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Price Min"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "price_max",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Price Max"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "diameter_min",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Diameter Min"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "diameter_max",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Diameter Max"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "default": "newest",
+              "enum": [
+                "newest",
+                "price_asc",
+                "price_desc"
+              ],
+              "title": "Sort",
+              "type": "string"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "anyOf": [
+                {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page Size"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedProductListOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/api/v1/catalog/products/{slug}": {
+      "get": {
+        "operationId": "apps_catalog_api_get_product",
+        "summary": "Get Product",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetailOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
+    "/api/v1/catalog/filters": {
+      "get": {
+        "operationId": "apps_catalog_api_get_filters",
+        "summary": "Get Filters",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FiltersOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Значения для фильтров: только то, что реально встречается у опубликованных товаров.",
+        "tags": [
+          "catalog"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HealthOut": {
+        "properties": {
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "database": {
+            "title": "Database",
+            "type": "boolean"
+          },
+          "cache": {
+            "title": "Cache",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "status",
+          "database",
+          "cache"
+        ],
+        "title": "HealthOut",
+        "type": "object"
+      },
+      "BrandOut": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "logo": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Logo"
+          }
+        },
+        "required": [
+          "name",
+          "slug",
+          "country",
+          "description",
+          "logo"
+        ],
+        "title": "BrandOut",
+        "type": "object"
+      },
+      "CategoryOut": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "parent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent"
+          }
+        },
+        "required": [
+          "name",
+          "slug"
+        ],
+        "title": "CategoryOut",
+        "type": "object"
+      },
+      "Availability": {
+        "enum": [
+          "in_stock",
+          "on_order",
+          "sold_out"
+        ],
+        "title": "Availability",
+        "type": "string"
+      },
+      "Condition": {
+        "enum": [
+          "new",
+          "pre_owned"
+        ],
+        "title": "Condition",
+        "type": "string"
+      },
+      "Gender": {
+        "enum": [
+          "men",
+          "women",
+          "unisex"
+        ],
+        "title": "Gender",
+        "type": "string"
+      },
+      "Input": {
+        "properties": {
+          "page": {
+            "default": 1,
+            "minimum": 1,
+            "title": "Page",
+            "type": "integer"
+          },
+          "page_size": {
+            "anyOf": [
+              {
+                "minimum": 1,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Size"
+          }
+        },
+        "title": "Input",
+        "type": "object"
+      },
+      "Movement": {
+        "enum": [
+          "automatic",
+          "manual",
+          "quartz",
+          "solar"
+        ],
+        "title": "Movement",
+        "type": "string"
+      },
+      "ProductFilters": {
+        "properties": {
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Q"
+          },
+          "brand": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Brand",
+            "type": "array"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "condition": {
+            "default": [],
+            "items": {
+              "enum": [
+                "new",
+                "pre_owned"
+              ],
+              "title": "Condition",
+              "type": "string"
+            },
+            "title": "Condition",
+            "type": "array"
+          },
+          "availability": {
+            "default": [],
+            "items": {
+              "enum": [
+                "in_stock",
+                "on_order",
+                "sold_out"
+              ],
+              "title": "Availability",
+              "type": "string"
+            },
+            "title": "Availability",
+            "type": "array"
+          },
+          "gender": {
+            "default": [],
+            "items": {
+              "enum": [
+                "men",
+                "women",
+                "unisex"
+              ],
+              "title": "Gender",
+              "type": "string"
+            },
+            "title": "Gender",
+            "type": "array"
+          },
+          "movement": {
+            "default": [],
+            "items": {
+              "enum": [
+                "automatic",
+                "manual",
+                "quartz",
+                "solar"
+              ],
+              "title": "Movement",
+              "type": "string"
+            },
+            "title": "Movement",
+            "type": "array"
+          },
+          "case_material": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Case Material",
+            "type": "array"
+          },
+          "dial_color": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Dial Color",
+            "type": "array"
+          },
+          "strap_material": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Strap Material",
+            "type": "array"
+          },
+          "price_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Min"
+          },
+          "price_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Price Max"
+          },
+          "diameter_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diameter Min"
+          },
+          "diameter_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Diameter Max"
+          }
+        },
+        "title": "ProductFilters",
+        "type": "object"
+      },
+      "BrandRef": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "slug"
+        ],
+        "title": "BrandRef",
+        "type": "object"
+      },
+      "ChoiceOut": {
+        "properties": {
+          "value": {
+            "title": "Value",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "label"
+        ],
+        "title": "ChoiceOut",
+        "type": "object"
+      },
+      "ImageOut": {
+        "properties": {
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "alt": {
+            "title": "Alt",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "alt"
+        ],
+        "title": "ImageOut",
+        "type": "object"
+      },
+      "PagedProductListOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProductListOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "count"
+        ],
+        "title": "PagedProductListOut",
+        "type": "object"
+      },
+      "ProductListOut": {
+        "properties": {
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/BrandRef"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "price": {
+            "title": "Price",
+            "type": "string"
+          },
+          "compare_at_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Compare At Price"
+          },
+          "condition": {
+            "$ref": "#/components/schemas/ChoiceOut"
+          },
+          "availability": {
+            "$ref": "#/components/schemas/ChoiceOut"
+          },
+          "lead_time_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead Time Days"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "slug",
+          "name",
+          "brand",
+          "reference",
+          "price",
+          "compare_at_price",
+          "condition",
+          "availability",
+          "lead_time_days",
+          "image"
+        ],
+        "title": "ProductListOut",
+        "type": "object"
+      },
+      "ProductDetailOut": {
+        "properties": {
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "brand": {
+            "$ref": "#/components/schemas/BrandRef"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "price": {
+            "title": "Price",
+            "type": "string"
+          },
+          "compare_at_price": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Compare At Price"
+          },
+          "condition": {
+            "$ref": "#/components/schemas/ChoiceOut"
+          },
+          "availability": {
+            "$ref": "#/components/schemas/ChoiceOut"
+          },
+          "lead_time_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lead Time Days"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/CategoryOut"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/ChoiceOut"
+          },
+          "images": {
+            "items": {
+              "$ref": "#/components/schemas/ImageOut"
+            },
+            "title": "Images",
+            "type": "array"
+          },
+          "watch_specs": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WatchSpecsOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "seo_title": {
+            "title": "Seo Title",
+            "type": "string"
+          },
+          "seo_description": {
+            "title": "Seo Description",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "name",
+          "brand",
+          "reference",
+          "price",
+          "compare_at_price",
+          "condition",
+          "availability",
+          "lead_time_days",
+          "image",
+          "description",
+          "category",
+          "gender",
+          "images",
+          "watch_specs",
+          "seo_title",
+          "seo_description"
+        ],
+        "title": "ProductDetailOut",
+        "type": "object"
+      },
+      "SpecOptionOut": {
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "slug"
+        ],
+        "title": "SpecOptionOut",
+        "type": "object"
+      },
+      "WatchSpecsOut": {
+        "properties": {
+          "movement": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChoiceOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "caliber": {
+            "title": "Caliber",
+            "type": "string"
+          },
+          "power_reserve_hours": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Power Reserve Hours"
+          },
+          "case_material": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecOptionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "case_diameter_mm": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Case Diameter Mm"
+          },
+          "case_thickness_mm": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Case Thickness Mm"
+          },
+          "glass": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecOptionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "water_resistance_m": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Water Resistance M"
+          },
+          "dial_color": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecOptionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "strap_material": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpecOptionOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "complications": {
+            "items": {
+              "$ref": "#/components/schemas/SpecOptionOut"
+            },
+            "title": "Complications",
+            "type": "array"
+          },
+          "year": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Year"
+          },
+          "has_box": {
+            "title": "Has Box",
+            "type": "boolean"
+          },
+          "has_papers": {
+            "title": "Has Papers",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "movement",
+          "caliber",
+          "power_reserve_hours",
+          "case_material",
+          "case_diameter_mm",
+          "case_thickness_mm",
+          "glass",
+          "water_resistance_m",
+          "dial_color",
+          "strap_material",
+          "complications",
+          "year",
+          "has_box",
+          "has_papers"
+        ],
+        "title": "WatchSpecsOut",
+        "type": "object"
+      },
+      "FiltersOut": {
+        "description": "Варианты для панели фильтров витрины.",
+        "properties": {
+          "brands": {
+            "items": {
+              "$ref": "#/components/schemas/BrandRef"
+            },
+            "title": "Brands",
+            "type": "array"
+          },
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryOut"
+            },
+            "title": "Categories",
+            "type": "array"
+          },
+          "conditions": {
+            "items": {
+              "$ref": "#/components/schemas/ChoiceOut"
+            },
+            "title": "Conditions",
+            "type": "array"
+          },
+          "availability": {
+            "items": {
+              "$ref": "#/components/schemas/ChoiceOut"
+            },
+            "title": "Availability",
+            "type": "array"
+          },
+          "genders": {
+            "items": {
+              "$ref": "#/components/schemas/ChoiceOut"
+            },
+            "title": "Genders",
+            "type": "array"
+          },
+          "movements": {
+            "items": {
+              "$ref": "#/components/schemas/ChoiceOut"
+            },
+            "title": "Movements",
+            "type": "array"
+          },
+          "case_materials": {
+            "items": {
+              "$ref": "#/components/schemas/SpecOptionOut"
+            },
+            "title": "Case Materials",
+            "type": "array"
+          },
+          "dial_colors": {
+            "items": {
+              "$ref": "#/components/schemas/SpecOptionOut"
+            },
+            "title": "Dial Colors",
+            "type": "array"
+          },
+          "strap_materials": {
+            "items": {
+              "$ref": "#/components/schemas/SpecOptionOut"
+            },
+            "title": "Strap Materials",
+            "type": "array"
+          },
+          "price": {
+            "$ref": "#/components/schemas/PriceRange"
+          }
+        },
+        "required": [
+          "brands",
+          "categories",
+          "conditions",
+          "availability",
+          "genders",
+          "movements",
+          "case_materials",
+          "dial_colors",
+          "strap_materials",
+          "price"
+        ],
+        "title": "FiltersOut",
+        "type": "object"
+      },
+      "PriceRange": {
+        "properties": {
+          "min": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min"
+          },
+          "max": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max"
+          }
+        },
+        "required": [
+          "min",
+          "max"
+        ],
+        "title": "PriceRange",
+        "type": "object"
+      }
+    }
+  },
+  "servers": []
+}

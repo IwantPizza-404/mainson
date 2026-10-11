@@ -4,14 +4,15 @@ const switchLocalePath = useSwitchLocalePath()
 </script>
 
 <template>
-  <nav :aria-label="t('language')" class="flex gap-2 text-sm">
-    <NuxtLink
+  <nav :aria-label="t('language')" class="flex gap-1">
+    <UButton
       v-for="item in locales"
       :key="item.code"
       :to="switchLocalePath(item.code)"
-      :class="item.code === locale ? 'text-ink' : 'text-muted hover:text-ink'"
-    >
-      {{ item.code.toUpperCase() }}
-    </NuxtLink>
+      :label="item.code"
+      variant="link"
+      size="sm"
+      :class="item.code === locale ? 'text-gold-500' : 'text-white/70 hover:text-white'"
+    />
   </nav>
 </template>

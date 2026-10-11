@@ -1,17 +1,12 @@
-import tailwindcss from '@tailwindcss/vite'
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  modules: ['@nuxtjs/i18n', '@pinia/nuxt', '@nuxt/image', '@nuxt/eslint'],
+  // @nuxt/ui подключает Tailwind, @nuxt/fonts и @nuxt/icon
+  modules: ['@nuxt/ui', '@nuxtjs/i18n', '@pinia/nuxt', '@nuxt/image', '@nuxt/eslint'],
 
   css: ['~/assets/css/main.css'],
-
-  vite: {
-    plugins: [tailwindcss()],
-  },
 
   runtimeConfig: {
     // Адрес API для серверного рендеринга (внутри сети) — NUXT_API_BASE
@@ -20,7 +15,28 @@ export default defineNuxtConfig({
       // Адрес API для браузера — NUXT_PUBLIC_API_BASE
       apiBase: 'http://localhost:8000/api/v1',
       siteUrl: 'https://maison.uz',
+      // Контакты для заказа через мессенджер — NUXT_PUBLIC_TELEGRAM_USERNAME, NUXT_PUBLIC_WHATSAPP_NUMBER
+      telegramUsername: '',
+      whatsappNumber: '',
     },
+  },
+
+  ui: {
+    // Единый фирменный вид без тёмной темы
+    colorMode: false,
+  },
+
+  image: {
+    // Домены, с которых разрешено оптимизировать изображения (бэкенд / S3 / CDN)
+    domains: ['localhost:8000', 'maison.uz'],
+    format: ['avif', 'webp'],
+  },
+
+  fonts: {
+    families: [
+      { name: 'Cormorant Garamond', provider: 'google', weights: [400, 500, 600] },
+      { name: 'Inter', provider: 'google', weights: [400, 500] },
+    ],
   },
 
   i18n: {

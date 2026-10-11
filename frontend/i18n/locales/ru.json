@@ -1,7 +1,33 @@
 {
   "nav": { "watches": "Часы", "brands": "Бренды", "preowned": "С историей", "offers": "Предложения" },
-  "home": { "title": "Элитные часы", "subtitle": "Оригинальные часы с доставкой по всему миру" },
+  "home": { "title": "Элитные часы", "subtitle": "Оригинальные часы с доставкой по всему миру", "cta": "Смотреть коллекцию" },
   "currency": "Валюта",
   "language": "Язык",
-  "footer": { "rights": "Все права защищены." }
+  "footer": { "rights": "Все права защищены." },
+  "common": { "yes": "Да", "no": "Нет" },
+  "catalog": {
+    "title": "Часы",
+    "description": "Оригинальные элитные часы: новые и с историей, в наличии и под заказ.",
+    "found": "Ничего не найдено | Найдено часов: {n} | Найдено часов: {n}",
+    "empty": "По выбранным фильтрам ничего не найдено",
+    "pagination": "Страницы",
+    "sort": { "label": "Сортировка", "newest": "Новинки", "priceAsc": "Сначала дешевле", "priceDesc": "Сначала дороже" }
+  },
+  "filters": {
+    "title": "Фильтры", "reset": "Сбросить", "close": "Закрыть", "brand": "Бренд", "condition": "Состояние",
+    "availability": "Наличие", "gender": "Для кого", "movement": "Механизм", "caseMaterial": "Материал корпуса",
+    "dialColor": "Цвет циферблата", "strapMaterial": "Ремешок", "price": "Цена", "from": "От", "to": "До"
+  },
+  "product": {
+    "ref": "Реф.", "sale": "Скидка", "leadTime": "{days} дн.",
+    "orderTelegram": "Заказать в Telegram", "orderWhatsapp": "Заказать в WhatsApp",
+    "orderMessage": "Здравствуйте! Хочу заказать {name} (реф. {ref}): {url}",
+    "soldOutHint": "Эти часы уже проданы. Напишите нам — подберём похожие."
+  },
+  "specs": {
+    "title": "Характеристики", "reference": "Референс", "movement": "Механизм", "caliber": "Калибр",
+    "powerReserve": "Запас хода", "hours": "{n} ч", "caseMaterial": "Материал корпуса", "diameter": "Диаметр корпуса",
+    "thickness": "Толщина корпуса", "glass": "Стекло", "waterResistance": "Водозащита", "dialColor": "Циферблат",
+    "strap": "Ремешок / браслет", "complications": "Функции", "year": "Год", "box": "Оригинальная коробка", "papers": "Документы"
+  }
 }

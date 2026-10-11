@@ -1,7 +1,33 @@
 {
   "nav": { "watches": "Soatlar", "brands": "Brendlar", "preowned": "Ishlatilgan", "offers": "Takliflar" },
-  "home": { "title": "Hashamatli soatlar", "subtitle": "Butun dunyo bo‘ylab yetkazib beriladigan original soatlar" },
+  "home": { "title": "Hashamatli soatlar", "subtitle": "Butun dunyo bo‘ylab yetkazib beriladigan original soatlar", "cta": "Kolleksiyani ko‘rish" },
   "currency": "Valyuta",
   "language": "Til",
-  "footer": { "rights": "Barcha huquqlar himoyalangan." }
+  "footer": { "rights": "Barcha huquqlar himoyalangan." },
+  "common": { "yes": "Ha", "no": "Yo‘q" },
+  "catalog": {
+    "title": "Soatlar",
+    "description": "Original hashamatli soatlar: yangi va ishlatilgan, mavjud va buyurtma asosida.",
+    "found": "Hech narsa topilmadi | {n} ta soat topildi | {n} ta soat topildi",
+    "empty": "Tanlangan filtrlar bo‘yicha hech narsa topilmadi",
+    "pagination": "Sahifalar",
+    "sort": { "label": "Saralash", "newest": "Yangilari", "priceAsc": "Avval arzonlari", "priceDesc": "Avval qimmatlari" }
+  },
+  "filters": {
+    "title": "Filtrlar", "reset": "Tozalash", "close": "Yopish", "brand": "Brend", "condition": "Holati",
+    "availability": "Mavjudlik", "gender": "Kim uchun", "movement": "Mexanizm", "caseMaterial": "Korpus materiali",
+    "dialColor": "Siferblat rangi", "strapMaterial": "Tasma", "price": "Narx", "from": "dan", "to": "gacha"
+  },
+  "product": {
+    "ref": "Ref.", "sale": "Chegirma", "leadTime": "{days} kun",
+    "orderTelegram": "Telegram orqali buyurtma", "orderWhatsapp": "WhatsApp orqali buyurtma",
+    "orderMessage": "Assalomu alaykum! {name} (ref. {ref}) buyurtma qilmoqchiman: {url}",
+    "soldOutHint": "Bu soat sotilgan. Bizga yozing — o‘xshashini topib beramiz."
+  },
+  "specs": {
+    "title": "Xususiyatlar", "reference": "Referens", "movement": "Mexanizm", "caliber": "Kalibr",
+    "powerReserve": "Quvvat zaxirasi", "hours": "{n} soat", "caseMaterial": "Korpus materiali", "diameter": "Korpus diametri",
+    "thickness": "Korpus qalinligi", "glass": "Oyna", "waterResistance": "Suv o‘tkazmasligi", "dialColor": "Siferblat",
+    "strap": "Tasma / bilaguzuk", "complications": "Funksiyalar", "year": "Yil", "box": "Asl quti", "papers": "Hujjatlar"
+  }
 }

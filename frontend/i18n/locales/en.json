@@ -1,7 +1,33 @@
 {
   "nav": { "watches": "Watches", "brands": "Brands", "preowned": "Pre-owned", "offers": "Offers" },
-  "home": { "title": "Luxury watches", "subtitle": "Authentic timepieces with worldwide delivery" },
+  "home": { "title": "Luxury watches", "subtitle": "Authentic timepieces with worldwide delivery", "cta": "Explore the collection" },
   "currency": "Currency",
   "language": "Language",
-  "footer": { "rights": "All rights reserved." }
+  "footer": { "rights": "All rights reserved." },
+  "common": { "yes": "Yes", "no": "No" },
+  "catalog": {
+    "title": "Watches",
+    "description": "Authentic luxury watches: new and pre-owned, in stock and on order.",
+    "found": "No watches found | {n} watch | {n} watches",
+    "empty": "Nothing matches the selected filters",
+    "pagination": "Pages",
+    "sort": { "label": "Sort", "newest": "Newest", "priceAsc": "Price: low to high", "priceDesc": "Price: high to low" }
+  },
+  "filters": {
+    "title": "Filters", "reset": "Reset", "close": "Close", "brand": "Brand", "condition": "Condition",
+    "availability": "Availability", "gender": "For", "movement": "Movement", "caseMaterial": "Case material",
+    "dialColor": "Dial color", "strapMaterial": "Strap", "price": "Price", "from": "From", "to": "To"
+  },
+  "product": {
+    "ref": "Ref.", "sale": "Sale", "leadTime": "{days} days",
+    "orderTelegram": "Order via Telegram", "orderWhatsapp": "Order via WhatsApp",
+    "orderMessage": "Hello! I would like to order {name} (ref. {ref}): {url}",
+    "soldOutHint": "This watch has been sold. Contact us and we will find a similar one."
+  },
+  "specs": {
+    "title": "Specifications", "reference": "Reference", "movement": "Movement", "caliber": "Caliber",
+    "powerReserve": "Power reserve", "hours": "{n} h", "caseMaterial": "Case material", "diameter": "Case diameter",
+    "thickness": "Case thickness", "glass": "Crystal", "waterResistance": "Water resistance", "dialColor": "Dial",
+    "strap": "Strap / bracelet", "complications": "Functions", "year": "Year", "box": "Original box", "papers": "Papers"
+  }
 }

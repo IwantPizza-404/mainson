@@ -3,7 +3,7 @@ COMPOSE = docker compose -f infra/docker-compose.yml
 BACK = cd backend && uv run
 FRONT = cd frontend && pnpm
 
-.PHONY: help up down setup migrate superuser seed messages backend frontend test lint format
+.PHONY: help up down setup migrate superuser seed messages api-types backend frontend test lint format
 
 help:  ## Показать команды
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
@@ -28,6 +28,10 @@ seed:  ## Справочники каталога + демо-товары
 messages:  ## Обновить и скомпилировать переводы бэкенда (ru, uz)
 	$(BACK) python manage.py makemessages -l ru -l uz --ignore=.venv --ignore="*/tests/*" --no-obsolete
 	$(BACK) python manage.py compilemessages --ignore=.venv
+
+api-types:  ## Сгенерировать TS-типы API для фронтенда из OpenAPI-схемы
+	$(BACK) python manage.py export_openapi_schema --api config.api.api --output ../frontend/openapi.json --indent 2
+	$(FRONT) openapi-typescript openapi.json -o app/types/api.d.ts
 
 superuser:  ## Создать администратора
 	$(BACK) python manage.py createsuperuser

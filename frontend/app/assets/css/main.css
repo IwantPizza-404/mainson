@@ -1,16 +1,30 @@
 @import "tailwindcss";
+@import "@nuxt/ui";
 
-@theme {
+/* Фирменные цвета Maison: чёрный и золотой */
+@theme static {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
 
-  --color-ink: #111111;
-  --color-paper: #fafaf8;
-  --color-muted: #6b6b6b;
-  --color-line: #e6e4df;
-  --color-gold: #b08d57;
+  --color-ink: #0d0d0d;
+  --color-paper: #fbfaf7;
+
+  /* Шкала золотого — основной цвет Nuxt UI (app.config.ts → ui.colors.primary) */
+  --color-gold-50: #faf6ee;
+  --color-gold-100: #f2e9d5;
+  --color-gold-200: #e5d2ab;
+  --color-gold-300: #d8bb83;
+  --color-gold-400: #cfae6e;
+  --color-gold-500: #c6a15b;
+  --color-gold-600: #ad8846;
+  --color-gold-700: #8c6c37;
+  --color-gold-800: #6b522b;
+  --color-gold-900: #4d3b20;
+  --color-gold-950: #2e2313;
 }
 
-html {
-  @apply bg-paper text-ink antialiased;
+:root {
+  /* Строгие прямые углы */
+  --ui-radius: 0;
+  --ui-bg: var(--color-paper);
 }

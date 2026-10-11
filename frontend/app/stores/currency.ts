@@ -3,18 +3,28 @@ import { defineStore } from 'pinia'
 export const CURRENCIES = ['USD', 'UZS', 'EUR', 'RUB'] as const
 export type Currency = (typeof CURRENCIES)[number]
 
-/** Выбранная валюта отображения. Цены хранятся в USD, остальное — пересчёт по курсу. */
+/**
+ * Выбранная валюта отображения и курсы относительно USD.
+ * Цены приходят из API в USD; пересчёт — только для показа, заказ фиксируется в USD.
+ */
 export const useCurrencyStore = defineStore('currency', () => {
   const cookie = useCookie<Currency>('maison_currency', {
     default: () => 'USD',
     maxAge: 60 * 60 * 24 * 365,
   })
 
-  const current = computed(() => cookie.value)
+  // Сколько единиц валюты за 1 USD. Заполняется из API курсов (следующий этап).
+  const rates = ref<Partial<Record<Currency, number>>>({ USD: 1 })
+
+  const current = computed<Currency>(() => (rates.value[cookie.value] ? cookie.value : 'USD'))
 
   function set(currency: Currency) {
     cookie.value = currency
   }
 
-  return { current, set }
+  function convert(amountUsd: number): number {
+    return amountUsd * (rates.value[current.value] ?? 1)
+  }
+
+  return { current, rates, set, convert }
 })
