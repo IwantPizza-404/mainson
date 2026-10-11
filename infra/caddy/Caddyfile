@@ -1,0 +1,39 @@
+# Продакшен: HTTPS-сертификат Let's Encrypt выпускается и продлевается автоматически
+
+(site) {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options SAMEORIGIN
+		-Server
+	}
+
+	# Загруженные фото (имена уникальны — можно кэшировать надолго)
+	handle_path /media/* {
+		root * /srv/media
+		header Cache-Control "public, max-age=2592000"
+		file_server
+	}
+
+	# Django: API, админка, её статика и переключатель языка
+	@backend path /api/* /admin /admin/* /static/* /i18n/*
+	handle @backend {
+		reverse_proxy backend:8000
+	}
+
+	# Всё остальное — витрина Nuxt
+	handle {
+		reverse_proxy frontend:3000
+	}
+}
+
+{$DOMAIN} {
+	import site
+}
+
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}

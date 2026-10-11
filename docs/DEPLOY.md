@@ -1,0 +1,97 @@
+# Развёртывание
+
+Один сервер, всё в Docker: Caddy (HTTPS) → витрина Nuxt и бэкенд Django, плюс Celery,
+PostgreSQL, Redis, Meilisearch и ежедневные бэкапы. Конфигурация — `infra/docker-compose.prod.yml`.
+
+```
+Интернет → Caddy :443 ─┬─ /api, /admin, /static → backend (gunicorn) ─┬─ PostgreSQL
+                       ├─ /media → файлы на диске                     ├─ Redis ← worker, beat (Celery)
+                       └─ всё остальное → frontend (Nuxt SSR)         └─ Meilisearch
+```
+
+## Сервер
+
+- VPS: **2 vCPU, 4 ГБ RAM, 40 ГБ SSD** (Hetzner CX22, DigitalOcean, местный хостинг), Ubuntu 24.04.
+- Открыты порты 22, 80, 443.
+- DNS: A-записи `maison.uz` и `www.maison.uz` → IP сервера (для тестового — `dev.maison.uz`).
+
+## Первый запуск
+
+```bash
+# 1. Docker
+curl -fsSL https://get.docker.com | sh
+
+# 2. Код
+git clone https://github.com/IwantPizza-404/maison.git && cd maison
+
+# 3. Настройки: заполнить секреты (openssl rand -hex 32), DOMAIN, Telegram-бот
+cp infra/.env.prod.example infra/.env.prod
+nano infra/.env.prod
+
+# 4. Сборка, миграции, запуск
+./scripts/deploy.sh
+
+# 5. Администратор и справочники (без демо-товаров)
+docker compose -f infra/docker-compose.prod.yml --env-file infra/.env.prod exec backend python manage.py createsuperuser
+docker compose -f infra/docker-compose.prod.yml --env-file infra/.env.prod exec backend python manage.py seed_catalog
+docker compose -f infra/docker-compose.prod.yml --env-file infra/.env.prod exec backend python manage.py update_rates
+```
+
+HTTPS-сертификат Caddy получает сам при первом запросе (DNS уже должен указывать на сервер).
+
+### Тестовый сервер (staging)
+
+В `infra/.env.prod`: `DOMAIN=dev.maison.uz`, `CADDYFILE=Caddyfile.staging`, `NUXT_INDEXABLE=false`,
+`STAGING_USER` и `STAGING_PASSWORD_HASH`:
+
+```bash
+docker run --rm caddy:2.10-alpine caddy hash-password --plaintext 'пароль'
+```
+
+Весь сайт закрыт паролем, `robots.txt` запрещает индексацию.
+
+### Продакшен
+
+`DOMAIN=maison.uz`, `CADDYFILE=Caddyfile`, **`NUXT_INDEXABLE=true`**.
+
+## Обновление
+
+```bash
+./scripts/deploy.sh   # git pull → сборка → миграции → перезапуск → поисковый индекс
+```
+
+## Полезные команды
+
+```bash
+alias dc='docker compose -f infra/docker-compose.prod.yml --env-file infra/.env.prod'
+dc ps                          # состояние сервисов
+dc logs -f backend worker      # логи
+dc exec backend python manage.py shell
+dc restart frontend
+```
+
+## Бэкапы
+
+- Дамп базы — ежедневно в `infra/backups/` (14 дневных, 4 недельных, 6 месячных).
+- Ручной бэкап: `dc exec backup /backup.sh`.
+- **Рекомендуется копировать `infra/backups/` за пределы сервера** (Cloudflare R2, другой сервер):
+  бэкап на том же диске не спасёт при потере сервера.
+- Фото (том `media`) в бэкап базы не входят — для продакшена лучше хранить их в Cloudflare R2
+  (переменные `S3_*`), тогда они не зависят от сервера.
+
+Восстановление:
+
+```bash
+gunzip -c infra/backups/daily/maison-ГГГГММДД.sql.gz | dc exec -T postgres psql -U maison maison
+```
+
+## Мониторинг
+
+- `SENTRY_DSN` — ошибки бэкенда приходят в Sentry (sentry.io, бесплатный тариф).
+- `GET /api/v1/health` — состояние базы и кэша (для внешнего мониторинга, например UptimeRobot).
+
+## Проверено локально (2026-10-11)
+
+Полный стек поднимался с `DOMAIN=localhost`: страницы через HTTPS, редирект http → https,
+HSTS, вход в админку, обработка фото воркером и абсолютные ссылки на них при SSR,
+курсы валют, поиск, бэкап.

@@ -5,6 +5,7 @@
 - [docs/ROADMAP.md](docs/ROADMAP.md) — план и текущий статус
 - [docs/DECISIONS.md](docs/DECISIONS.md) — почему выбраны такие решения (не переигрывать без причины)
 - [docs/CLIENT.md](docs/CLIENT.md) — ответы заказчика и открытые вопросы
+- [docs/DEPLOY.md](docs/DEPLOY.md) — сервер, деплой, бэкапы
 
 Общение с разработчиком — на русском. Комментарии в коде — на русском.
 
@@ -15,7 +16,8 @@
   `schemas.py`, `admin.py`, `translation.py` (modeltranslation), `tests/`.
 - `frontend/` — Nuxt 4 + Nuxt UI 4 + Pinia + @nuxtjs/i18n. Страницы `app/pages`, компоненты `app/components`,
   сторы `app/stores`, переводы `i18n/locales/{en,ru,uz}.json`, типы API — `app/types/api.d.ts` (генерируются).
-- `infra/docker-compose.yml` — Postgres (порт 5433), Redis, Meilisearch, Mailpit.
+- `infra/docker-compose.yml` — локально: Postgres (порт 5433), Redis, Meilisearch, Mailpit.
+- `infra/docker-compose.prod.yml` + `infra/caddy/` — продакшен; деплой `scripts/deploy.sh`.
 
 ## Команды (`make help`)
 

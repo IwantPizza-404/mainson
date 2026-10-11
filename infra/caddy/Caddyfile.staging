@@ -1,0 +1,28 @@
+# Тестовый сервер: весь сайт закрыт паролем (кроме API — витрина обращается к нему сама)
+
+(site) {
+	encode zstd gzip
+	header -Server
+
+	handle_path /media/* {
+		root * /srv/media
+		file_server
+	}
+
+	@backend path /api/* /admin /admin/* /static/* /i18n/*
+	handle @backend {
+		reverse_proxy backend:8000
+	}
+
+	handle {
+		reverse_proxy frontend:3000
+	}
+}
+
+{$DOMAIN} {
+	@protected not path /api/*
+	basic_auth @protected {
+		{$STAGING_USER} {$STAGING_PASSWORD_HASH}
+	}
+	import site
+}

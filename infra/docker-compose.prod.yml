@@ -1,0 +1,123 @@
+# Продакшен / тестовый сервер. Запуск: scripts/deploy.sh (см. docs/DEPLOY.md)
+name: maison-prod
+
+x-backend: &backend
+  build: ../backend
+  image: maison-backend
+  restart: unless-stopped
+  env_file: .env.prod
+  environment:
+    DATABASE_URL: postgres://maison:${POSTGRES_PASSWORD}@postgres:5432/maison
+    REDIS_URL: redis://redis:6379/0
+    MEILISEARCH_URL: http://meilisearch:7700
+    MEILISEARCH_API_KEY: ${MEILI_MASTER_KEY}
+    PUBLIC_URL: https://${DOMAIN}
+    # backend — внутреннее имя для SSR витрины, localhost — для проверки здоровья контейнера
+    DJANGO_ALLOWED_HOSTS: ${DOMAIN},backend,localhost
+    CSRF_TRUSTED_ORIGINS: https://${DOMAIN}
+  volumes:
+    - media:/app/media
+  depends_on:
+    postgres: { condition: service_healthy }
+    redis: { condition: service_healthy }
+
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      DOMAIN: ${DOMAIN}
+      # Тестовый сервер закрыт паролем (Caddyfile.staging)
+      STAGING_USER: ${STAGING_USER:-}
+      STAGING_PASSWORD_HASH: ${STAGING_PASSWORD_HASH:-}
+    volumes:
+      - ./caddy/${CADDYFILE:-Caddyfile}:/etc/caddy/Caddyfile:ro
+      - media:/srv/media:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [backend, frontend]
+
+  backend:
+    <<: *backend
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health', timeout=5)"]
+      interval: 30s
+      retries: 3
+
+  worker:
+    <<: *backend
+    command: celery -A config worker --loglevel=info --concurrency=2
+
+  beat:
+    <<: *backend
+    # Расписание: обновление курсов валют
+    command: celery -A config beat --loglevel=info --schedule=/tmp/celerybeat-schedule
+
+  frontend:
+    build: ../frontend
+    image: maison-frontend
+    restart: unless-stopped
+    environment:
+      NUXT_API_BASE: http://backend:8000/api/v1
+      NUXT_PUBLIC_API_BASE: https://${DOMAIN}/api/v1
+      NUXT_PUBLIC_SITE_URL: https://${DOMAIN}
+      NUXT_PUBLIC_I18N_BASE_URL: https://${DOMAIN}
+      NUXT_INDEXABLE: ${NUXT_INDEXABLE:-false}
+    depends_on: [backend]
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: maison
+      POSTGRES_USER: maison
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes: [postgres-data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U maison"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7.4-alpine
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    volumes: [redis-data:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.16
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+      MEILI_ENV: production
+      MEILI_NO_ANALYTICS: "true"
+    volumes: [meili-data:/meili_data]
+
+  # Ежедневный дамп базы, хранится 14 дней (+ 4 недельных, 6 месячных)
+  backup:
+    image: prodrigestivill/postgres-backup-local:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: maison
+      POSTGRES_USER: maison
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      SCHEDULE: "@daily"
+      BACKUP_KEEP_DAYS: 14
+      BACKUP_KEEP_WEEKS: 4
+      BACKUP_KEEP_MONTHS: 6
+    volumes: [./backups:/backups]
+    depends_on: [postgres]
+
+volumes:
+  media:
+  postgres-data:
+  redis-data:
+  meili-data:
+  caddy-data:
+  caddy-config:
