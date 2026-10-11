@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   // @nuxt/ui подключает Tailwind, @nuxt/fonts и @nuxt/icon
-  modules: ['@nuxt/ui', '@nuxtjs/i18n', '@pinia/nuxt', '@nuxt/image', '@nuxt/eslint'],
+  modules: ['@nuxt/ui', '@nuxtjs/i18n', '@pinia/nuxt', '@nuxt/eslint'],
 
   css: ['~/assets/css/main.css'],
 
@@ -24,12 +24,6 @@ export default defineNuxtConfig({
   ui: {
     // Единый фирменный вид без тёмной темы
     colorMode: false,
-  },
-
-  image: {
-    // Домены, с которых разрешено оптимизировать изображения (бэкенд / S3 / CDN)
-    domains: ['localhost:8000', 'maison.uz'],
-    format: ['avif', 'webp'],
   },
 
   fonts: {

@@ -86,7 +86,7 @@ class ProductImageInline(TabularInline, TranslationTabularInline):
     def preview(self, obj: ProductImage) -> str:
         if not obj.image:
             return "—"
-        return format_html('<img src="{}" style="height:64px;border-radius:6px">', obj.image.url)
+        return format_html('<img src="{}" style="height:64px">', (obj.thumb or obj.image).url)
 
 
 @admin.register(Product)
@@ -144,8 +144,8 @@ class ProductAdmin(ModelAdmin, TabbedTranslationAdmin):
         if not images:
             return "—"
         return format_html(
-            '<img src="{}" style="height:40px;width:40px;object-fit:cover;border-radius:6px">',
-            images[0].image.url,
+            '<img src="{}" style="height:40px;width:40px;object-fit:cover">',
+            (images[0].thumb or images[0].image).url,
         )
 
     @display(

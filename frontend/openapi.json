@@ -825,10 +825,45 @@
         "type": "object"
       },
       "ImageOut": {
+        "description": "Фото товара. thumb/medium/large — WebP 400/800/1600 px для srcset.\n\nПока варианты не построены (фоновая задача ещё не отработала), во всех полях — оригинал.",
         "properties": {
           "url": {
             "title": "Url",
             "type": "string"
+          },
+          "thumb": {
+            "title": "Thumb",
+            "type": "string"
+          },
+          "medium": {
+            "title": "Medium",
+            "type": "string"
+          },
+          "large": {
+            "title": "Large",
+            "type": "string"
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height"
           },
           "alt": {
             "title": "Alt",
@@ -837,6 +872,11 @@
         },
         "required": [
           "url",
+          "thumb",
+          "medium",
+          "large",
+          "width",
+          "height",
           "alt"
         ],
         "title": "ImageOut",

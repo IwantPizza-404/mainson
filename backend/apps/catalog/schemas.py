@@ -52,12 +52,39 @@ class ChoiceOut(Schema):
 
 
 class ImageOut(Schema):
+    """Фото товара. thumb/medium/large — WebP 400/800/1600 px для srcset.
+
+    Пока варианты не построены (фоновая задача ещё не отработала), во всех полях — оригинал.
+    """
+
     url: str
+    thumb: str
+    medium: str
+    large: str
+    width: int | None
+    height: int | None
     alt: str
 
     @staticmethod
     def resolve_url(obj: ProductImage, context) -> str:
         return absolute_url(context, obj.image.url)
+
+    @staticmethod
+    def _variant(obj: ProductImage, name: str, context) -> str:
+        field = getattr(obj, name)
+        return absolute_url(context, (field or obj.image).url)
+
+    @staticmethod
+    def resolve_thumb(obj: ProductImage, context) -> str:
+        return ImageOut._variant(obj, "thumb", context)
+
+    @staticmethod
+    def resolve_medium(obj: ProductImage, context) -> str:
+        return ImageOut._variant(obj, "medium", context)
+
+    @staticmethod
+    def resolve_large(obj: ProductImage, context) -> str:
+        return ImageOut._variant(obj, "large", context)
 
 
 class WatchSpecsOut(Schema):

@@ -27,6 +27,7 @@ const breadcrumbs = computed(() => [
 
 const activeImage = ref(0)
 const images = computed(() => product.value?.images ?? [])
+const mainImage = computed(() => images.value[activeImage.value])
 
 /** Строки таблицы характеристик — только заполненные. */
 const specs = computed(() => {
@@ -74,7 +75,7 @@ const whatsappLink = computed(() =>
 useSeoMeta({
   title: () => product.value?.seo_title || `${product.value?.brand.name} ${product.value?.name}`,
   description: () => product.value?.seo_description || product.value?.description.slice(0, 160),
-  ogImage: () => images.value[0]?.url,
+  ogImage: () => images.value[0]?.large,
 })
 </script>
 
@@ -86,11 +87,13 @@ useSeoMeta({
       <!-- Галерея -->
       <div>
         <div class="aspect-square overflow-hidden bg-neutral-100">
-          <NuxtImg
-            v-if="images.length"
-            :src="images[activeImage]?.url"
-            :alt="images[activeImage]?.alt || product.name"
-            sizes="100vw lg:50vw"
+          <ProductPicture
+            v-if="mainImage"
+            :key="mainImage.url"
+            :image="mainImage"
+            :alt="product.name"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            loading="eager"
             class="h-full w-full object-cover"
           />
           <CatalogWatchPlaceholder v-else :brand="product.brand.name" />
@@ -104,7 +107,7 @@ useSeoMeta({
             :class="index === activeImage ? 'border-inverted' : 'border-transparent'"
             @click="activeImage = index"
           >
-            <NuxtImg :src="image.url" :alt="image.alt" sizes="100px" class="h-full w-full object-cover" />
+            <img :src="image.thumb" :alt="image.alt || product.name" loading="lazy" class="h-full w-full object-cover">
           </button>
         </div>
       </div>

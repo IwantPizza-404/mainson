@@ -2,10 +2,19 @@ from decimal import Decimal
 from typing import TYPE_CHECKING
 
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
+from django.core.validators import FileExtensionValidator, MinValueValidator
 from django.db import models
+from django.db.models.fields.files import FieldFile
 from django.utils.translation import gettext_lazy as _
 
+from apps.core.images import (
+    ALLOWED_EXTENSIONS,
+    PRODUCT_VARIANTS,
+    open_normalized,
+    render_variant,
+    validate_image_size,
+    variant_filename,
+)
 from apps.core.models import TimeStampedModel
 
 if TYPE_CHECKING:
@@ -303,9 +312,25 @@ class ProductImage(models.Model):
     product = models.ForeignKey(
         Product, verbose_name=_("product"), on_delete=models.CASCADE, related_name="images"
     )
-    image = models.ImageField(_("image"), upload_to="products/%Y/%m/")
+    image = models.ImageField(
+        _("image"),
+        upload_to="products/%Y/%m/",
+        validators=[FileExtensionValidator(ALLOWED_EXTENSIONS), validate_image_size],
+        width_field="width",
+        height_field="height",
+    )
     alt = models.CharField(_("alt text"), max_length=200, blank=True)
     position = models.PositiveIntegerField(_("position"), default=0, db_index=True)
+
+    width = models.PositiveIntegerField(editable=False, null=True)
+    height = models.PositiveIntegerField(editable=False, null=True)
+
+    # WebP-варианты для витрины — создаются фоновой задачей после загрузки
+    thumb = models.ImageField(upload_to="products/variants/%Y/%m/", editable=False, blank=True)
+    medium = models.ImageField(upload_to="products/variants/%Y/%m/", editable=False, blank=True)
+    large = models.ImageField(upload_to="products/variants/%Y/%m/", editable=False, blank=True)
+    # Имя оригинала, для которого построены варианты: при замене фото они пересоздаются
+    processed_for = models.CharField(max_length=255, editable=False, blank=True)
 
     class Meta:
         verbose_name = _("image")
@@ -314,3 +339,33 @@ class ProductImage(models.Model):
 
     def __str__(self) -> str:
         return f"{self.product} #{self.position}"
+
+    @property
+    def needs_processing(self) -> bool:
+        return bool(self.image) and self.processed_for != self.image.name
+
+    def variant_files(self) -> list[FieldFile]:
+        return [getattr(self, v.name) for v in PRODUCT_VARIANTS if getattr(self, v.name)]
+
+    def stored_file_names(self, *, include_original: bool = True) -> list[str]:
+        files = [self.image, *self.variant_files()] if include_original else self.variant_files()
+        return [f.name for f in files if f.name]
+
+    def process(self) -> None:
+        """Строит WebP-варианты из оригинала и удаляет устаревшие."""
+        original_name = self.image.name
+        if not original_name:
+            return
+        stale = self.stored_file_names(include_original=False)
+        source = open_normalized(self.image)
+        for variant in PRODUCT_VARIANTS:
+            getattr(self, variant.name).save(
+                variant_filename(original_name, variant),
+                render_variant(source, variant),
+                save=False,
+            )
+        self.processed_for = original_name
+        self.save(update_fields=[v.name for v in PRODUCT_VARIANTS] + ["processed_for"])
+        storage = self.image.storage
+        for name in stale:
+            storage.delete(name)

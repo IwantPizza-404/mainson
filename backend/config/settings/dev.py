@@ -14,3 +14,6 @@ STORAGES["staticfiles"] = {  # noqa: F405
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", default="localhost")
 EMAIL_PORT = env.int("EMAIL_PORT", default=1025)
+
+# Локально задачи Celery выполняются сразу, без воркера (CELERY_EAGER=false — через make worker)
+CELERY_TASK_ALWAYS_EAGER = env.bool("CELERY_EAGER", default=True)

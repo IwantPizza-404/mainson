@@ -15,12 +15,11 @@ const isSoldOut = computed(() => props.product.availability.value === 'sold_out'
     :class="{ 'opacity-60': isSoldOut }"
   >
     <div class="relative aspect-square overflow-hidden bg-neutral-100">
-      <NuxtImg
+      <ProductPicture
         v-if="product.image"
-        :src="product.image.url"
-        :alt="product.image.alt || product.name"
-        sizes="50vw md:33vw lg:25vw"
-        loading="lazy"
+        :image="product.image"
+        :alt="product.name"
+        sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <CatalogWatchPlaceholder v-else :brand="product.brand.name" />

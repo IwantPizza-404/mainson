@@ -266,10 +266,25 @@ export interface components {
             /** Label */
             label: string;
         };
-        /** ImageOut */
+        /**
+         * ImageOut
+         * @description Фото товара. thumb/medium/large — WebP 400/800/1600 px для srcset.
+         *
+         *     Пока варианты не построены (фоновая задача ещё не отработала), во всех полях — оригинал.
+         */
         ImageOut: {
             /** Url */
             url: string;
+            /** Thumb */
+            thumb: string;
+            /** Medium */
+            medium: string;
+            /** Large */
+            large: string;
+            /** Width */
+            width: number | null;
+            /** Height */
+            height: number | null;
             /** Alt */
             alt: string;
         };
