@@ -55,6 +55,38 @@
         ]
       }
     },
+    "/api/v1/catalog/brands/{slug}": {
+      "get": {
+        "operationId": "apps_catalog_api_get_brand",
+        "summary": "Get Brand",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "catalog"
+        ]
+      }
+    },
     "/api/v1/catalog/categories": {
       "get": {
         "operationId": "apps_catalog_api_list_categories",
@@ -590,6 +622,54 @@
           "orders"
         ]
       }
+    },
+    "/api/v1/content/home": {
+      "get": {
+        "operationId": "apps_content_api_home",
+        "summary": "Home",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/HomeSectionOut"
+                  },
+                  "title": "Response",
+                  "type": "array"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "content"
+        ]
+      }
+    },
+    "/api/v1/content/settings": {
+      "get": {
+        "operationId": "apps_content_api_site_settings",
+        "summary": "Site Settings",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SiteSettingsOut"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "content"
+        ]
+      }
     }
   },
   "components": {
@@ -645,6 +725,11 @@
               }
             ],
             "title": "Logo"
+          },
+          "product_count": {
+            "default": 0,
+            "title": "Product Count",
+            "type": "integer"
           }
         },
         "required": [
@@ -2068,6 +2153,263 @@
           "delivery_method"
         ],
         "title": "OrderIn",
+        "type": "object"
+      },
+      "HomeSectionOut": {
+        "description": "Секция главной. Поля, не относящиеся к типу секции, пустые.",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "subtitle": {
+            "title": "Subtitle",
+            "type": "string"
+          },
+          "button_label": {
+            "title": "Button Label",
+            "type": "string"
+          },
+          "link": {
+            "title": "Link",
+            "type": "string"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResponsiveImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "image_mobile": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResponsiveImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SectionItemOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "products": {
+            "items": {
+              "$ref": "#/components/schemas/ProductListOut"
+            },
+            "title": "Products",
+            "type": "array"
+          },
+          "brands": {
+            "items": {
+              "$ref": "#/components/schemas/BrandOut"
+            },
+            "title": "Brands",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "title",
+          "subtitle",
+          "button_label",
+          "link",
+          "image",
+          "image_mobile",
+          "items",
+          "products",
+          "brands"
+        ],
+        "title": "HomeSectionOut",
+        "type": "object"
+      },
+      "ResponsiveImageOut": {
+        "properties": {
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "srcset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Srcset"
+          },
+          "width": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Width"
+          },
+          "height": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Height"
+          }
+        },
+        "required": [
+          "url",
+          "srcset",
+          "width",
+          "height"
+        ],
+        "title": "ResponsiveImageOut",
+        "type": "object"
+      },
+      "SectionItemOut": {
+        "properties": {
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          },
+          "button_label": {
+            "title": "Button Label",
+            "type": "string"
+          },
+          "link": {
+            "title": "Link",
+            "type": "string"
+          },
+          "icon": {
+            "title": "Icon",
+            "type": "string"
+          },
+          "image": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResponsiveImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "image_mobile": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ResponsiveImageOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "text",
+          "button_label",
+          "link",
+          "icon",
+          "image",
+          "image_mobile"
+        ],
+        "title": "SectionItemOut",
+        "type": "object"
+      },
+      "SiteSettingsOut": {
+        "properties": {
+          "phone": {
+            "title": "Phone",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "telegram_username": {
+            "title": "Telegram Username",
+            "type": "string"
+          },
+          "whatsapp_number": {
+            "title": "Whatsapp Number",
+            "type": "string"
+          },
+          "instagram_url": {
+            "title": "Instagram Url",
+            "type": "string"
+          },
+          "telegram_channel_url": {
+            "title": "Telegram Channel Url",
+            "type": "string"
+          },
+          "facebook_url": {
+            "title": "Facebook Url",
+            "type": "string"
+          },
+          "youtube_url": {
+            "title": "Youtube Url",
+            "type": "string"
+          },
+          "address": {
+            "title": "Address",
+            "type": "string"
+          },
+          "working_hours": {
+            "title": "Working Hours",
+            "type": "string"
+          },
+          "announcement": {
+            "title": "Announcement",
+            "type": "string"
+          },
+          "announcement_link": {
+            "title": "Announcement Link",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone",
+          "email",
+          "telegram_username",
+          "whatsapp_number",
+          "instagram_url",
+          "telegram_channel_url",
+          "facebook_url",
+          "youtube_url",
+          "address",
+          "working_hours",
+          "announcement",
+          "announcement_link"
+        ],
+        "title": "SiteSettingsOut",
         "type": "object"
       }
     }

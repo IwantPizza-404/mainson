@@ -39,7 +39,8 @@ def test_changelist_and_add(staff_client, superuser, rf, model, model_admin):
     # Некоторые модели (например, курсы валют) нельзя добавлять вручную
     expected_add_status = 200 if model_admin.has_add_permission(request) else 403
 
-    assert staff_client.get(reverse(f"{base}_changelist")).status_code == 200
+    # Одиночные записи (настройки сайта) перенаправляют со списка на форму — идём по редиректу
+    assert staff_client.get(reverse(f"{base}_changelist"), follow=True).status_code == 200
     assert staff_client.get(reverse(f"{base}_add")).status_code == expected_add_status
 
 

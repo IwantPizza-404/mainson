@@ -26,6 +26,8 @@ class BrandOut(Schema):
     country: str
     description: str
     logo: str | None
+    # Число опубликованных товаров (аннотация brands_with_counts)
+    product_count: int = 0
 
     @staticmethod
     def resolve_logo(obj, context) -> str | None:

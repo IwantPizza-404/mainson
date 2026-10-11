@@ -116,3 +116,16 @@ def test_filters_list_only_used_options(client):
 
     assert [o["slug"] for o in data["dial_colors"]] == ["black"]
     assert data["price"] == {"min": "300.00", "max": "900.00"}
+
+
+def test_brands_with_product_counts(client):
+    rolex = BrandFactory(slug="rolex")
+    ProductFactory(brand=rolex)
+    ProductFactory(brand=rolex, is_published=False)
+    BrandFactory(slug="empty")
+
+    data = client.get(f"{URL}/brands").json()
+
+    assert [(b["slug"], b["product_count"]) for b in data] == [("rolex", 1)]
+    assert client.get(f"{URL}/brands/rolex").json()["product_count"] == 1
+    assert client.get(f"{URL}/brands/empty").status_code == 404

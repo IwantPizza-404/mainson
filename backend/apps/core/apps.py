@@ -10,3 +10,5 @@ class CoreConfig(AppConfig):
         from pillow_heif import register_heif_opener
 
         register_heif_opener()
+
+        from . import signals  # noqa: F401

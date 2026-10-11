@@ -1,6 +1,6 @@
 from typing import Literal
 
-from django.db.models import Max, Min, Prefetch
+from django.db.models import Count, Max, Min, Prefetch, Q
 from django.shortcuts import get_object_or_404
 from ninja import Query, Router
 from ninja.pagination import PageNumberPagination, paginate
@@ -41,9 +41,27 @@ def published_products():
     )
 
 
+def brands_with_counts():
+    """Активные бренды с числом опубликованных товаров (бренды без товаров отфильтровываются)."""
+    published = Q(
+        products__is_published=True,
+        products__category__is_active=True,
+    )
+    return (
+        Brand.objects.filter(is_active=True)
+        .annotate(product_count=Count("products", filter=published))
+        .filter(product_count__gt=0)
+    )
+
+
 @router.get("/brands", response=list[BrandOut])
 def list_brands(request):
-    return Brand.objects.filter(is_active=True)
+    return brands_with_counts()
+
+
+@router.get("/brands/{slug}", response=BrandOut)
+def get_brand(request, slug: str):
+    return get_object_or_404(brands_with_counts(), slug=slug)
 
 
 @router.get("/categories", response=list[CategoryOut])

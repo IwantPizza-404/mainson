@@ -47,6 +47,7 @@ LOCAL_APPS = [
     "apps.catalog",
     "apps.currency",
     "apps.orders",
+    "apps.content",
 ]
 
 INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -239,6 +240,21 @@ UNFOLD = {
                         "title": _("Specification options"),
                         "icon": "tune",
                         "link": reverse_lazy("admin:catalog_specoption_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Content"),
+                "items": [
+                    {
+                        "title": _("Home page"),
+                        "icon": "home",
+                        "link": reverse_lazy("admin:content_homesection_changelist"),
+                    },
+                    {
+                        "title": _("Site settings"),
+                        "icon": "settings",
+                        "link": reverse_lazy("admin:content_sitesettings_changelist"),
                     },
                 ],
             },

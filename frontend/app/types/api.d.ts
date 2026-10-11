@@ -41,6 +41,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/catalog/brands/{slug}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Brand */
+        get: operations["apps_catalog_api_get_brand"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/catalog/categories": {
         parameters: {
             query?: never;
@@ -206,6 +223,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/content/home": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Home */
+        get: operations["apps_content_api_home"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Site Settings */
+        get: operations["apps_content_api_site_settings"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -231,6 +282,11 @@ export interface components {
             description: string;
             /** Logo */
             logo: string | null;
+            /**
+             * Product Count
+             * @default 0
+             */
+            product_count: number;
         };
         /** CategoryOut */
         CategoryOut: {
@@ -669,6 +725,85 @@ export interface components {
              */
             website: string;
         };
+        /**
+         * HomeSectionOut
+         * @description Секция главной. Поля, не относящиеся к типу секции, пустые.
+         */
+        HomeSectionOut: {
+            /** Id */
+            id: number;
+            /** Kind */
+            kind: string;
+            /** Title */
+            title: string;
+            /** Subtitle */
+            subtitle: string;
+            /** Button Label */
+            button_label: string;
+            /** Link */
+            link: string;
+            image: components["schemas"]["ResponsiveImageOut"] | null;
+            image_mobile: components["schemas"]["ResponsiveImageOut"] | null;
+            /** Items */
+            items: components["schemas"]["SectionItemOut"][];
+            /** Products */
+            products: components["schemas"]["ProductListOut"][];
+            /** Brands */
+            brands: components["schemas"]["BrandOut"][];
+        };
+        /** ResponsiveImageOut */
+        ResponsiveImageOut: {
+            /** Url */
+            url: string;
+            /** Srcset */
+            srcset: string | null;
+            /** Width */
+            width: number | null;
+            /** Height */
+            height: number | null;
+        };
+        /** SectionItemOut */
+        SectionItemOut: {
+            /** Title */
+            title: string;
+            /** Text */
+            text: string;
+            /** Button Label */
+            button_label: string;
+            /** Link */
+            link: string;
+            /** Icon */
+            icon: string;
+            image: components["schemas"]["ResponsiveImageOut"] | null;
+            image_mobile: components["schemas"]["ResponsiveImageOut"] | null;
+        };
+        /** SiteSettingsOut */
+        SiteSettingsOut: {
+            /** Phone */
+            phone: string;
+            /** Email */
+            email: string;
+            /** Telegram Username */
+            telegram_username: string;
+            /** Whatsapp Number */
+            whatsapp_number: string;
+            /** Instagram Url */
+            instagram_url: string;
+            /** Telegram Channel Url */
+            telegram_channel_url: string;
+            /** Facebook Url */
+            facebook_url: string;
+            /** Youtube Url */
+            youtube_url: string;
+            /** Address */
+            address: string;
+            /** Working Hours */
+            working_hours: string;
+            /** Announcement */
+            announcement: string;
+            /** Announcement Link */
+            announcement_link: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -714,6 +849,28 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["BrandOut"][];
+                };
+            };
+        };
+    };
+    apps_catalog_api_get_brand: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                slug: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BrandOut"];
                 };
             };
         };
@@ -933,6 +1090,46 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["OrderOut"];
+                };
+            };
+        };
+    };
+    apps_content_api_home: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HomeSectionOut"][];
+                };
+            };
+        };
+    };
+    apps_content_api_site_settings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SiteSettingsOut"];
                 };
             };
         };
