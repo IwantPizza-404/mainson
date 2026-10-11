@@ -170,6 +170,8 @@ class ProductDetailOut(ProductListOut):
 
 class ProductFilters(FilterSchema):
     q: str | None = None
+    # Конкретные товары по slug — для гостевого избранного
+    slug: list[str] = []
     brand: list[str] = []
     category: str | None = None
     condition: list[Product.Condition] = []
@@ -196,6 +198,9 @@ class ProductFilters(FilterSchema):
             | Q(reference__icontains=value)
             | Q(brand__name__icontains=value)
         )
+
+    def filter_slug(self, value: list[str]) -> Q:
+        return Q(slug__in=value[:100]) if value else Q()
 
     def filter_brand(self, value: list[str]) -> Q:
         return Q(brand__slug__in=value) if value else Q()

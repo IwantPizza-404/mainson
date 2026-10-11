@@ -30,7 +30,11 @@ useSeoMeta({ title: () => t('search.resultsFor', { q: q.value }), robots: 'noind
       v-else-if="status !== 'pending'"
       icon="i-lucide-search-x"
       :title="t('search.nothing')"
-      :actions="[{ label: t('menu.all'), to: localePath('/watches'), color: 'neutral', variant: 'outline' }]"
+      :description="t('requests.notFoundHint')"
+      :actions="[
+        { label: t('requests.findForMe'), to: localePath({ path: '/account/requests', query: { q } }), color: 'neutral' },
+        { label: t('menu.all'), to: localePath('/watches'), color: 'neutral', variant: 'outline' },
+      ]"
       class="py-24"
     />
   </UContainer>

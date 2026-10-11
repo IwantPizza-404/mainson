@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+import { useAuthStore } from '~/stores/auth'
 import { useCartStore } from '~/stores/cart'
 import { useSiteStore } from '~/stores/site'
+import { useWishlistStore } from '~/stores/wishlist'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 const cart = useCartStore()
 const site = useSiteStore()
+const auth = useAuthStore()
+const wishlist = useWishlistStore()
 
 const watches = (query: Record<string, string> = {}) => localePath({ path: '/watches', query })
 
@@ -155,6 +159,22 @@ const announcementLink = useSiteLink()
         <SearchModal />
         <CurrencySwitcher />
         <LanguageSwitcher />
+        <UChip :text="wishlist.count" :show="wishlist.count > 0" size="3xl" color="primary" inset class="hidden sm:inline-flex">
+          <UButton
+            :to="localePath('/wishlist')"
+            icon="i-lucide-heart"
+            :aria-label="t('wishlist.title')"
+            variant="ghost"
+            class="text-white hover:bg-white/10"
+          />
+        </UChip>
+        <UButton
+          :to="localePath(auth.isLoggedIn ? '/account' : '/login')"
+          icon="i-lucide-user"
+          :aria-label="auth.isLoggedIn ? t('account.title') : t('login.title')"
+          variant="ghost"
+          :class="auth.isLoggedIn ? 'text-gold-500 hover:bg-white/10' : 'text-white hover:bg-white/10'"
+        />
         <UChip :text="cart.count" :show="cart.count > 0" size="3xl" color="primary" inset>
           <UButton
             :to="localePath('/cart')"

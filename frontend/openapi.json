@@ -136,6 +136,19 @@
           },
           {
             "in": "query",
+            "name": "slug",
+            "schema": {
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "title": "Slug",
+              "type": "array"
+            },
+            "required": false
+          },
+          {
+            "in": "query",
             "name": "brand",
             "schema": {
               "default": [],
@@ -1911,6 +1924,14 @@
               }
             ],
             "title": "Q"
+          },
+          "slug": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Slug",
+            "type": "array"
           },
           "brand": {
             "default": [],

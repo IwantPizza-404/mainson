@@ -210,13 +210,23 @@ useSeoMeta({
             class="bg-ink text-gold-500 hover:bg-stone-800"
             @click="addToCart"
           />
+          <WishlistButton :slug="product.slug" variant="button" />
+          <StockAlertButton
+            v-if="product.availability.value === 'on_order'"
+            :product="product.slug"
+            :label="t('alerts.notifyInStock')"
+          />
           <div v-if="telegramLink || whatsappLink" class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
             <span>{{ t('product.askQuestion') }}</span>
             <UButton v-if="telegramLink" :to="telegramLink" target="_blank" label="Telegram" icon="i-lucide-send" variant="link" color="neutral" />
             <UButton v-if="whatsappLink" :to="whatsappLink" target="_blank" label="WhatsApp" icon="i-lucide-message-circle" variant="link" color="neutral" />
           </div>
         </div>
-        <p v-else class="mt-8 text-sm text-muted">{{ t('product.soldOutHint') }}</p>
+        <div v-else class="mt-8 space-y-3">
+          <p class="text-sm text-muted">{{ t('product.soldOutHint') }}</p>
+          <StockAlertButton :product="product.slug" :label="t('alerts.notifyAvailable')" />
+          <WishlistButton :slug="product.slug" variant="button" />
+        </div>
 
         <div v-if="product.description" class="mt-10 whitespace-pre-line leading-relaxed text-toned">
           {{ product.description }}

@@ -23,6 +23,7 @@ const isSoldOut = computed(() => props.product.availability.value === 'sold_out'
         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
       <CatalogWatchPlaceholder v-else :brand="product.brand.name" />
+      <WishlistButton :slug="product.slug" class="absolute right-2 top-2" />
 
       <UBadge
         v-if="product.condition.value === 'pre_owned'"

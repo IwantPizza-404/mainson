@@ -125,7 +125,8 @@
       "delivery": "Yetkazib berish usulini tanlang",
       "tooMany": "Juda ko‘p urinish. Keyinroq qayta urinib ko‘ring yoki bizga yozing.",
       "generic": "Buyurtma berib bo‘lmadi. Qayta urinib ko‘ring."
-    }
+    },
+    "saveAddress": "Manzilni kabinetda saqlash"
   },
   "order": {
     "title": "Buyurtma {number}",
@@ -178,5 +179,113 @@
     "nothing": "Hech narsa topilmadi",
     "showAll": "Barcha natijalar",
     "resultsFor": "Qidiruv: {q}"
+  },
+  "login": {
+    "title": "Kirish",
+    "subtitle": "Parolsiz — Telegram orqali yoki SMS kod bilan.",
+    "unavailable": "Kirish vaqtincha mavjud emas.",
+    "error": "Xatolik yuz berdi. Qayta urinib ko‘ring.",
+    "submit": "Kirish",
+    "back": "Qaytadan boshlash",
+    "telegram": {
+      "step1": "Telegram botimizni oching",
+      "step2": "Telefon raqamingizni yuboring (faqat birinchi marta)",
+      "step3": "Botdan kelgan 6 xonali kodni shu yerga kiriting",
+      "open": "Telegram’ni ochish",
+      "codeHint": "Bot yuborgan 6 xonali kodni kiriting.",
+      "reopen": "Botni qayta ochish"
+    },
+    "sms": {
+      "send": "Kod olish",
+      "codeHint": "SMS’dagi 6 xonali kodni kiriting."
+    }
+  },
+  "account": {
+    "title": "Shaxsiy kabinet",
+    "logout": "Chiqish",
+    "items": "{n} ta pozitsiya | {n} ta pozitsiya | {n} ta pozitsiya",
+    "nav": {
+      "overview": "Umumiy",
+      "orders": "Buyurtmalar",
+      "wishlist": "Sevimlilar",
+      "collection": "Mening kolleksiyam",
+      "alerts": "Obunalar",
+      "requests": "Soat topib bering",
+      "profile": "Profil"
+    },
+    "overview": {
+      "lastOrders": "So‘nggi buyurtmalar",
+      "wishlist": "Saqlangan soatlar: {n}",
+      "collection": "Soatlaringiz, seriya raqamlari va kafolat",
+      "alerts": "Soat kelganda xabar beramiz",
+      "requests": "Katalogda yo‘q modelni topamiz",
+      "telegramHint": "Bir marta Telegram orqali kiring — buyurtma va yangiliklar haqidagi xabarlar botga keladi."
+    },
+    "orders": {
+      "empty": "Hozircha buyurtmalaringiz yo‘q."
+    },
+    "profile": {
+      "phoneHint": "Kirishda tasdiqlangan",
+      "notify": "Telegram bildirishnomalari",
+      "notifyHint": "Buyurtma holati, soat kelishi va narx tushishi.",
+      "save": "Saqlash",
+      "saved": "Saqlandi",
+      "addresses": "Yetkazib berish manzillari",
+      "addAddress": "Manzil qo‘shish",
+      "edit": "Manzilni tahrirlash",
+      "default": "Asosiy",
+      "makeDefault": "Asosiy qilish",
+      "noAddresses": "Saqlangan manzillar hozircha yo‘q."
+    },
+    "collection": {
+      "hint": "Bajarilgan buyurtmalardagi soatlar.",
+      "serial": "Seriya raqami",
+      "purchased": "Sotib olingan",
+      "warranty": "Kafolat {date} gacha",
+      "warrantyExpired": "Kafolat {date} da tugagan",
+      "empty": "Sotib olgan soatlaringiz shu yerda paydo bo‘ladi."
+    },
+    "alerts": {
+      "hint": "Soat yana paydo bo‘lganda yoki brendda yangilik bo‘lganda Telegram’da xabar beramiz.",
+      "product": "Soat",
+      "brand": "Brend yangiliklari",
+      "unsubscribe": "Obunani bekor qilish",
+      "empty": "Obunalar hozircha yo‘q",
+      "emptyHint": "Sotilgan soat yoki brend sahifasida obuna bo‘ling."
+    }
+  },
+  "wishlist": {
+    "title": "Sevimlilar",
+    "add": "Sevimlilarga",
+    "remove": "Sevimlilardan olib tashlash",
+    "inList": "Sevimlilarda",
+    "empty": "Sevimlilar hozircha bo‘sh",
+    "emptyHint": "Saqlash uchun soatdagi ♡ ni bosing.",
+    "guestHint": "Sevimlilar barcha qurilmalarda bo‘lishi va narx tushganda xabar olish uchun kiring."
+  },
+  "alerts": {
+    "notifyAvailable": "Kelganda xabar berish",
+    "notifyInStock": "Mavjud bo‘lganda xabar berish",
+    "notifyBrand": "{brand} yangiliklari haqida xabar berish",
+    "active": "Kelganda xabar beramiz",
+    "subscribed": "Obuna rasmiylashtirildi",
+    "viaTelegram": "Sizga Telegram’da yozamiz.",
+    "connectTelegram": "Xabarlarni olish uchun Telegram orqali kiring."
+  },
+  "requests": {
+    "hint": "Modelni topmadingizmi? Yozing — topib, buyurtma asosida olib kelamiz.",
+    "new": "Yangi so‘rov",
+    "brand": "Brend",
+    "model": "Model",
+    "budget": "Byudjet, USD",
+    "commentHint": "Siferblat rangi, yili, quti va hujjatlar…",
+    "submit": "So‘rov yuborish",
+    "sent": "So‘rov yuborildi",
+    "sentHint": "Menejer shu yerda va Telegram’da javob beradi.",
+    "condition": {
+      "any": "Istalgan"
+    },
+    "findForMe": "Shu soatni topib bering",
+    "notFoundHint": "Bu soatni topib, buyurtma asosida olib kelishimiz mumkin."
   }
 }

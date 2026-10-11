@@ -39,6 +39,9 @@ useSeoMeta({
           </div>
         </div>
         <p v-if="brand.description" class="mt-6 max-w-3xl whitespace-pre-line leading-relaxed text-toned">{{ brand.description }}</p>
+        <div class="mt-6 max-w-xs">
+          <StockAlertButton :brand="brand.slug" :label="t('alerts.notifyBrand', { brand: brand.name })" />
+        </div>
       </template>
     </CatalogView>
   </div>

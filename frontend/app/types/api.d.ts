@@ -769,6 +769,11 @@ export interface components {
             /** Q */
             q?: string | null;
             /**
+             * Slug
+             * @default []
+             */
+            slug: string[];
+            /**
              * Brand
              * @default []
              */
@@ -1648,6 +1653,7 @@ export interface operations {
         parameters: {
             query?: {
                 q?: string | null;
+                slug?: string[];
                 brand?: string[];
                 category?: string | null;
                 condition?: ("new" | "pre_owned")[];

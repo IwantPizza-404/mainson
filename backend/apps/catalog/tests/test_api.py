@@ -146,3 +146,13 @@ def test_filters_scoped_to_brand(client):
 
     assert [o["slug"] for o in data["dial_colors"]] == ["green"]
     assert data["price"] == {"min": "9000.00", "max": "9000.00"}
+
+
+def test_filter_by_slugs_for_guest_wishlist(client):
+    ProductFactory(slug="a")
+    ProductFactory(slug="b")
+    ProductFactory(slug="c", is_published=False)
+
+    response = client.get(f"{URL}/products", {"slug": ["a", "c"]})
+
+    assert slugs(response) == ["a"]

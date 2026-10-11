@@ -125,7 +125,8 @@
       "delivery": "Choose a delivery method",
       "tooMany": "Too many attempts. Please try again later or contact us.",
       "generic": "Could not place the order. Please try again."
-    }
+    },
+    "saveAddress": "Save this address to my account"
   },
   "order": {
     "title": "Order {number}",
@@ -178,5 +179,113 @@
     "nothing": "Nothing found",
     "showAll": "Show all results",
     "resultsFor": "Search: {q}"
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "No password needed — sign in with Telegram or an SMS code.",
+    "unavailable": "Sign-in is temporarily unavailable.",
+    "error": "Something went wrong. Please try again.",
+    "submit": "Sign in",
+    "back": "Start over",
+    "telegram": {
+      "step1": "Open our Telegram bot",
+      "step2": "Share your phone number (first time only)",
+      "step3": "Enter the 6-digit code from the bot here",
+      "open": "Open Telegram",
+      "codeHint": "Enter the 6-digit code the bot sent you.",
+      "reopen": "Open the bot again"
+    },
+    "sms": {
+      "send": "Get a code",
+      "codeHint": "Enter the 6-digit code from the SMS."
+    }
+  },
+  "account": {
+    "title": "My account",
+    "logout": "Sign out",
+    "items": "{n} item | {n} items | {n} items",
+    "nav": {
+      "overview": "Overview",
+      "orders": "Orders",
+      "wishlist": "Favourites",
+      "collection": "My collection",
+      "alerts": "Stock alerts",
+      "requests": "Find me a watch",
+      "profile": "Profile"
+    },
+    "overview": {
+      "lastOrders": "Recent orders",
+      "wishlist": "Saved watches: {n}",
+      "collection": "Your watches, serial numbers and warranty",
+      "alerts": "We'll tell you when a watch is back",
+      "requests": "We'll find a model that isn't in the catalogue",
+      "telegramHint": "Sign in with Telegram once to get order updates and alerts in the bot."
+    },
+    "orders": {
+      "empty": "You have no orders yet."
+    },
+    "profile": {
+      "phoneHint": "Confirmed at sign-in",
+      "notify": "Telegram notifications",
+      "notifyHint": "Order status, back in stock and price drops.",
+      "save": "Save",
+      "saved": "Saved",
+      "addresses": "Delivery addresses",
+      "addAddress": "Add address",
+      "edit": "Edit address",
+      "default": "Default",
+      "makeDefault": "Use as default",
+      "noAddresses": "No saved addresses yet."
+    },
+    "collection": {
+      "hint": "Watches from your completed orders.",
+      "serial": "Serial number",
+      "purchased": "Purchased",
+      "warranty": "Warranty until {date}",
+      "warrantyExpired": "Warranty ended {date}",
+      "empty": "Your purchased watches will appear here."
+    },
+    "alerts": {
+      "hint": "We'll message you in Telegram when a watch is back or a brand has a new arrival.",
+      "product": "Watch",
+      "brand": "New arrivals of the brand",
+      "unsubscribe": "Unsubscribe",
+      "empty": "No alerts yet",
+      "emptyHint": "Subscribe on a sold-out watch or a brand page."
+    }
+  },
+  "wishlist": {
+    "title": "Favourites",
+    "add": "Add to favourites",
+    "remove": "Remove from favourites",
+    "inList": "In favourites",
+    "empty": "No favourites yet",
+    "emptyHint": "Tap ♡ on a watch to save it.",
+    "guestHint": "Sign in to keep your favourites on every device and get price drop alerts."
+  },
+  "alerts": {
+    "notifyAvailable": "Notify me when available",
+    "notifyInStock": "Notify me when in stock",
+    "notifyBrand": "Notify me about new {brand}",
+    "active": "You'll be notified",
+    "subscribed": "Subscribed",
+    "viaTelegram": "We'll message you in Telegram.",
+    "connectTelegram": "Sign in with Telegram to receive alerts."
+  },
+  "requests": {
+    "hint": "Can't find a model? Tell us — we'll find it and bring it to order.",
+    "new": "New request",
+    "brand": "Brand",
+    "model": "Model",
+    "budget": "Budget, USD",
+    "commentHint": "Dial colour, year, box and papers…",
+    "submit": "Send request",
+    "sent": "Request sent",
+    "sentHint": "The manager will reply here and in Telegram.",
+    "condition": {
+      "any": "Any"
+    },
+    "findForMe": "Find it for me",
+    "notFoundHint": "We can find this watch for you and bring it to order."
   }
 }

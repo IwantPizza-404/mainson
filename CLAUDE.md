@@ -11,7 +11,7 @@
 
 ## Структура
 
-- `backend/` — Django 5.2 + Ninja + Unfold. Модули в `apps/`: `core`, `catalog`, `currency`, `orders`, `content`.
+- `backend/` — Django 5.2 + Ninja + Unfold. Модули в `apps/`: `core`, `catalog`, `currency`, `orders`, `content`, `accounts` (покупатели, вход, кабинет, бот).
   Каждый модуль: `models.py`, `services.py` (бизнес-логика), `api.py` (Ninja Router → `config/api.py`),
   `schemas.py`, `admin.py`, `translation.py` (modeltranslation), `tests/`.
 - `frontend/` — Nuxt 4 + Nuxt UI 4 + Pinia + @nuxtjs/i18n. Страницы `app/pages`, компоненты `app/components`,

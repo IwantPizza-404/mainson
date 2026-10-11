@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { z } from 'zod'
+import { useAuthStore } from '~/stores/auth'
 import { useCartStore } from '~/stores/cart'
 import { useCurrencyStore } from '~/stores/currency'
-import type { CheckoutOptions, Order, OrderPayload } from '~/types/catalog'
+import type { Address, CheckoutOptions, Order, OrderPayload } from '~/types/catalog'
 
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
@@ -48,6 +49,21 @@ const state = reactive<FormState>({
 // Ловушка для ботов: поле скрыто, человек его не заполнит
 const website = ref('')
 
+// Вошедшему покупателю подставляем данные профиля и основной адрес
+const auth = useAuthStore()
+const saveAddress = ref(false)
+const addresses = ref<Address[]>([])
+if (auth.customer) {
+  state.customer_name = auth.customer.name
+  state.phone = auth.customer.phone
+  state.email = auth.customer.email
+  if (auth.customer.has_telegram) state.contact_method = 'telegram'
+  addresses.value = await api<Address[]>('/account/addresses').catch(() => [])
+  const main = addresses.value.find((a) => a.is_default) ?? addresses.value[0]
+  if (main) Object.assign(state, { country: main.country, city: main.city, address: main.address })
+  saveAddress.value = !addresses.value.length
+}
+
 const isHome = computed(() => state.country === options.value?.home_country)
 const deliveryMethods = computed(() =>
   (options.value?.delivery_methods ?? []).filter((m) => (m.scope === 'international') !== isHome.value),
@@ -85,6 +101,7 @@ async function onSubmit(event: FormSubmitEvent<FormState>) {
     email: event.data.email || null,
     items: cart.items,
     currency: currency.current,
+    save_address: saveAddress.value,
     website: website.value,
   }
   try {
@@ -148,6 +165,7 @@ useSeoMeta({ title: () => t('checkout.title'), robots: 'noindex' })
           <UFormField :label="t('checkout.deliveryMethod')" name="delivery_method" required>
             <URadioGroup v-model="state.delivery_method" :items="deliveryItems" variant="card" color="neutral" />
           </UFormField>
+          <UCheckbox v-if="auth.isLoggedIn" v-model="saveAddress" :label="t('checkout.saveAddress')" color="neutral" />
           <UFormField :label="t('checkout.comment')" name="comment" :hint="t('checkout.optional')">
             <UTextarea v-model="state.comment" :rows="3" class="w-full" />
           </UFormField>
