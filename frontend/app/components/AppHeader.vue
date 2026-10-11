@@ -105,32 +105,44 @@ const announcementLink = useSiteLink()
         <span class="font-serif text-2xl tracking-[0.3em] text-gold-500">MAISON</span>
       </template>
 
+      <!--
+        Мега-меню: тёмная панель в цвет шапки. Ширина задана явно — иначе Nuxt UI меряет панель
+        по содержимому, а оно тянется по панели, и колонки обрезаются.
+      -->
       <UNavigationMenu
         :items="links"
+        variant="link"
         :ui="{
-          link: 'text-xs uppercase tracking-[0.2em] text-white/80 hover:text-gold-500 data-active:text-gold-500',
-          viewport: 'sm:w-(--reka-navigation-menu-viewport-width)',
-          content: 'w-full sm:w-auto',
+          link: 'text-xs uppercase tracking-[0.2em] text-white/80 hover:text-gold-500 data-[state=open]:text-gold-500',
+          linkTrailingIcon: 'text-current',
+          viewportWrapper: 'justify-center',
+          viewport: 'sm:w-[min(56rem,92vw)] sm:left-0 rounded-none bg-ink ring-0 border-t border-gold-500/40 shadow-2xl shadow-black/50',
+          content: 'w-full',
         }"
       >
         <template #watches-content>
-          <div class="grid w-[min(90vw,52rem)] grid-cols-3 gap-8 p-8">
-            <div class="col-span-1">
-              <p class="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-muted">{{ t('nav.brands') }}</p>
-              <ul class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+          <div class="grid grid-cols-[2fr_1fr_1fr] gap-10 p-10 text-white">
+            <div>
+              <p class="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-white/50">{{ t('nav.brands') }}</p>
+              <ul class="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
                 <li v-for="brand in topBrands" :key="brand.slug">
-                  <NuxtLink :to="localePath(`/brands/${brand.slug}`)" class="hover:text-gold-700">{{ brand.name }}</NuxtLink>
+                  <NuxtLink :to="localePath(`/brands/${brand.slug}`)" class="text-white/80 transition-colors hover:text-gold-500">
+                    {{ brand.name }}
+                  </NuxtLink>
                 </li>
               </ul>
-              <NuxtLink :to="localePath('/brands')" class="mt-4 inline-block text-xs uppercase tracking-wider underline">
+              <NuxtLink
+                :to="localePath('/brands')"
+                class="mt-6 inline-block border-b border-gold-500 pb-0.5 text-xs uppercase tracking-[0.2em] text-gold-500 hover:text-gold-300"
+              >
                 {{ t('brands.all') }}
               </NuxtLink>
             </div>
             <div v-for="column in menuColumns" :key="column.title">
-              <p class="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-muted">{{ column.title }}</p>
-              <ul class="space-y-2 text-sm">
+              <p class="mb-5 text-xs font-medium uppercase tracking-[0.2em] text-white/50">{{ column.title }}</p>
+              <ul class="space-y-3 text-sm">
                 <li v-for="item in column.links" :key="item.label">
-                  <NuxtLink :to="item.to" class="hover:text-gold-700">{{ item.label }}</NuxtLink>
+                  <NuxtLink :to="item.to" class="text-white/80 transition-colors hover:text-gold-500">{{ item.label }}</NuxtLink>
                 </li>
               </ul>
             </div>
@@ -158,6 +170,7 @@ const announcementLink = useSiteLink()
         <UNavigationMenu
           :items="mobileLinks"
           orientation="vertical"
+          variant="link"
           class="-mx-2.5"
           :ui="{
             link: 'py-3 text-base text-white/80 before:bg-transparent hover:text-gold-500 hover:before:bg-white/5 data-active:text-gold-500 data-active:before:bg-transparent',
