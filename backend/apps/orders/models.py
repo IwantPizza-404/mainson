@@ -1,5 +1,5 @@
 import secrets
-from decimal import Decimal
+from decimal import ROUND_HALF_UP, Decimal
 
 from django.conf import settings
 from django.core.validators import MinValueValidator, RegexValidator
@@ -153,7 +153,10 @@ class Order(TimeStampedModel):
 
     @property
     def total_in_currency(self) -> Decimal:
-        return (self.total * self.exchange_rate).quantize(Decimal("1"))
+        amount = self.total * self.exchange_rate
+        # Как на витрине: сумы округляем до тысяч, остальное — до целых
+        step = Decimal("1000") if self.currency == "UZS" else Decimal("1")
+        return (amount / step).quantize(Decimal("1"), rounding=ROUND_HALF_UP) * step
 
 
 class OrderItem(models.Model):

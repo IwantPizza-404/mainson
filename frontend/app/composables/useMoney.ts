@@ -9,8 +9,11 @@ export function useMoney() {
 
   function format(amountUsd: string | number | null | undefined): string {
     if (amountUsd === null || amountUsd === undefined) return ''
-    const value = currency.convert(Number(amountUsd))
-    const code = currency.current
+    return formatIn(currency.convert(Number(amountUsd)), currency.current)
+  }
+
+  /** Сумма в конкретной валюте — например, по курсу, зафиксированному в заказе. */
+  function formatIn(value: number, code: string): string {
     const formatted = new Intl.NumberFormat(LOCALE_FORMATS[locale.value] ?? 'en-US', {
       style: 'currency',
       currency: code,
@@ -21,5 +24,5 @@ export function useMoney() {
     return locale.value === 'ru' ? formatted.replace('UZS', 'сум') : formatted
   }
 
-  return { format }
+  return { format, formatIn }
 }

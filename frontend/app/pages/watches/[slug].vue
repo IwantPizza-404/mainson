@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ProductDetail } from '~/types/catalog'
 
+import { useCartStore } from '~/stores/cart'
+
 const route = useRoute()
 const { t, locale } = useI18n()
 const api = useApi()
@@ -24,6 +26,21 @@ const breadcrumbs = computed(() => [
   { label: product.value?.brand.name, to: localePath({ path: '/watches', query: { brand: product.value?.brand.slug } }) },
   { label: product.value?.name },
 ])
+
+const cart = useCartStore()
+const toast = useToast()
+const inCart = computed(() => !!product.value && cart.has(product.value.slug))
+
+function addToCart() {
+  if (!product.value) return
+  cart.add(product.value.slug)
+  toast.add({
+    title: t('cart.added'),
+    description: `${product.value.brand.name} ${product.value.name}`,
+    icon: 'i-lucide-check',
+    actions: [{ label: t('cart.goToCart'), to: localePath('/cart'), color: 'neutral', variant: 'outline' }],
+  })
+}
 
 const activeImage = ref(0)
 const images = computed(() => product.value?.images ?? [])
@@ -54,21 +71,21 @@ const specs = computed(() => {
   return rows.filter(([, value]) => value !== null && value !== undefined && value !== '')
 })
 
-/** Заказ через мессенджер — пока нет корзины и онлайн-оплаты. */
-const orderMessage = computed(() => {
+/** Вопрос по товару в мессенджер — с названием и ссылкой. */
+const questionMessage = computed(() => {
   const p = product.value
   if (!p) return ''
   const url = `${config.public.siteUrl}${localePath(`/watches/${p.slug}`)}`
-  return t('product.orderMessage', { name: `${p.brand.name} ${p.name}`, ref: p.reference, url })
+  return t('product.questionMessage', { name: `${p.brand.name} ${p.name}`, ref: p.reference, url })
 })
 const telegramLink = computed(() =>
   config.public.telegramUsername
-    ? `https://t.me/${config.public.telegramUsername}?text=${encodeURIComponent(orderMessage.value)}`
+    ? `https://t.me/${config.public.telegramUsername}?text=${encodeURIComponent(questionMessage.value)}`
     : null,
 )
 const whatsappLink = computed(() =>
   config.public.whatsappNumber
-    ? `https://wa.me/${String(config.public.whatsappNumber)}?text=${encodeURIComponent(orderMessage.value)}`
+    ? `https://wa.me/${String(config.public.whatsappNumber)}?text=${encodeURIComponent(questionMessage.value)}`
     : null,
 )
 
@@ -126,30 +143,32 @@ useSeoMeta({
           <UBadge :label="product.condition.label" color="neutral" variant="soft" size="sm" />
         </div>
 
-        <div v-if="product.availability.value !== 'sold_out'" class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div v-if="product.availability.value !== 'sold_out'" class="mt-8 space-y-3">
           <UButton
-            v-if="telegramLink"
-            :to="telegramLink"
-            target="_blank"
-            :label="t('product.orderTelegram')"
-            icon="i-lucide-send"
-            color="neutral"
-            size="xl"
-            block
-            class="flex-1 bg-ink text-gold-500 hover:bg-stone-800"
-          />
-          <UButton
-            v-if="whatsappLink"
-            :to="whatsappLink"
-            target="_blank"
-            :label="t('product.orderWhatsapp')"
-            icon="i-lucide-message-circle"
+            v-if="inCart"
+            :to="localePath('/cart')"
+            :label="t('cart.inCart')"
+            icon="i-lucide-shopping-bag"
             color="neutral"
             variant="outline"
             size="xl"
             block
-            class="flex-1"
           />
+          <UButton
+            v-else
+            :label="t('cart.add')"
+            icon="i-lucide-shopping-bag"
+            color="neutral"
+            size="xl"
+            block
+            class="bg-ink text-gold-500 hover:bg-stone-800"
+            @click="addToCart"
+          />
+          <div v-if="telegramLink || whatsappLink" class="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
+            <span>{{ t('product.askQuestion') }}</span>
+            <UButton v-if="telegramLink" :to="telegramLink" target="_blank" label="Telegram" icon="i-lucide-send" variant="link" color="neutral" />
+            <UButton v-if="whatsappLink" :to="whatsappLink" target="_blank" label="WhatsApp" icon="i-lucide-message-circle" variant="link" color="neutral" />
+          </div>
         </div>
         <p v-else class="mt-8 text-sm text-muted">{{ t('product.soldOutHint') }}</p>
 

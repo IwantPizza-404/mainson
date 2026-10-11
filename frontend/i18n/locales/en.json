@@ -1,33 +1,134 @@
 {
-  "nav": { "watches": "Watches", "brands": "Brands", "preowned": "Pre-owned", "offers": "Offers" },
-  "home": { "title": "Luxury watches", "subtitle": "Authentic timepieces with worldwide delivery", "cta": "Explore the collection" },
+  "nav": {
+    "watches": "Watches",
+    "brands": "Brands",
+    "preowned": "Pre-owned",
+    "offers": "Offers"
+  },
+  "home": {
+    "title": "Luxury watches",
+    "subtitle": "Authentic timepieces with worldwide delivery",
+    "cta": "Explore the collection"
+  },
   "currency": "Currency",
   "language": "Language",
-  "footer": { "rights": "All rights reserved." },
-  "common": { "yes": "Yes", "no": "No" },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No"
+  },
   "catalog": {
     "title": "Watches",
     "description": "Authentic luxury watches: new and pre-owned, in stock and on order.",
     "found": "No watches found | {n} watch | {n} watches",
     "empty": "Nothing matches the selected filters",
     "pagination": "Pages",
-    "sort": { "label": "Sort", "newest": "Newest", "priceAsc": "Price: low to high", "priceDesc": "Price: high to low" }
+    "sort": {
+      "label": "Sort",
+      "newest": "Newest",
+      "priceAsc": "Price: low to high",
+      "priceDesc": "Price: high to low"
+    }
   },
   "filters": {
-    "title": "Filters", "reset": "Reset", "close": "Close", "brand": "Brand", "condition": "Condition",
-    "availability": "Availability", "gender": "For", "movement": "Movement", "caseMaterial": "Case material",
-    "dialColor": "Dial color", "strapMaterial": "Strap", "price": "Price", "from": "From", "to": "To"
+    "title": "Filters",
+    "reset": "Reset",
+    "close": "Close",
+    "brand": "Brand",
+    "condition": "Condition",
+    "availability": "Availability",
+    "gender": "For",
+    "movement": "Movement",
+    "caseMaterial": "Case material",
+    "dialColor": "Dial color",
+    "strapMaterial": "Strap",
+    "price": "Price",
+    "from": "From",
+    "to": "To"
   },
   "product": {
-    "ref": "Ref.", "sale": "Sale", "leadTime": "{days} days",
-    "orderTelegram": "Order via Telegram", "orderWhatsapp": "Order via WhatsApp",
-    "orderMessage": "Hello! I would like to order {name} (ref. {ref}): {url}",
-    "soldOutHint": "This watch has been sold. Contact us and we will find a similar one."
+    "ref": "Ref.",
+    "sale": "Sale",
+    "leadTime": "{days} days",
+    "soldOutHint": "This watch has been sold. Contact us and we will find a similar one.",
+    "askQuestion": "Have a question?",
+    "questionMessage": "Hello! I have a question about {name} (ref. {ref}): {url}"
   },
   "specs": {
-    "title": "Specifications", "reference": "Reference", "movement": "Movement", "caliber": "Caliber",
-    "powerReserve": "Power reserve", "hours": "{n} h", "caseMaterial": "Case material", "diameter": "Case diameter",
-    "thickness": "Case thickness", "glass": "Crystal", "waterResistance": "Water resistance", "dialColor": "Dial",
-    "strap": "Strap / bracelet", "complications": "Functions", "year": "Year", "box": "Original box", "papers": "Papers"
+    "title": "Specifications",
+    "reference": "Reference",
+    "movement": "Movement",
+    "caliber": "Caliber",
+    "powerReserve": "Power reserve",
+    "hours": "{n} h",
+    "caseMaterial": "Case material",
+    "diameter": "Case diameter",
+    "thickness": "Case thickness",
+    "glass": "Crystal",
+    "waterResistance": "Water resistance",
+    "dialColor": "Dial",
+    "strap": "Strap / bracelet",
+    "complications": "Functions",
+    "year": "Year",
+    "box": "Original box",
+    "papers": "Papers"
+  },
+  "cart": {
+    "title": "Cart",
+    "add": "Add to cart",
+    "inCart": "In cart — go to cart",
+    "added": "Added to cart",
+    "goToCart": "Go to cart",
+    "empty": "Your cart is empty",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "checkout": "Proceed to checkout",
+    "deliveryNote": "Delivery is calculated at checkout.",
+    "fixErrors": "Please review the items marked above.",
+    "onOrder": "On order · delivery in {days} days"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "contacts": "Contact details",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "optional": "Optional",
+    "contactMethod": "How should we contact you?",
+    "call": "Phone call",
+    "delivery": "Delivery",
+    "country": "Country",
+    "city": "City",
+    "address": "Address",
+    "deliveryMethod": "Delivery method",
+    "comment": "Comment",
+    "summary": "Your order",
+    "total": "Total",
+    "byManager": "confirmed by manager",
+    "submit": "Place order",
+    "backToCart": "Back to cart",
+    "paymentNote": "No payment now: a manager will contact you to confirm the order and arrange payment.",
+    "errors": {
+      "name": "Please enter your name",
+      "phone": "Enter a phone number in international format",
+      "email": "Invalid email",
+      "required": "Required field",
+      "delivery": "Choose a delivery method",
+      "tooMany": "Too many attempts. Please try again later or contact us.",
+      "generic": "Could not place the order. Please try again."
+    }
+  },
+  "order": {
+    "title": "Order {number}",
+    "thanks": "Thank you for your order!",
+    "managerWillContact": "Our manager will contact you shortly to confirm the details and payment.",
+    "number": "Order",
+    "writeTelegram": "Message us on Telegram",
+    "writeWhatsapp": "Message us on WhatsApp",
+    "contactMessage": "Hello! I placed order {number}.",
+    "bookmark": "Save this page — it always shows the current status of your order.",
+    "continue": "Continue shopping"
   }
 }

@@ -101,6 +101,8 @@ def test_order_snapshots_exchange_rate(watch):
 
     assert created.exchange_rate == Decimal("12000")
     assert created.total_in_currency == Decimal("12000000")
+    created.exchange_rate = Decimal("11897.9")  # 11 897 900 → округление до тысяч, как на сайте
+    assert created.total_in_currency == Decimal("11898000")
 
 
 def test_manager_delivery_price_updates_total(watch):

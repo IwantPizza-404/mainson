@@ -1,33 +1,134 @@
 {
-  "nav": { "watches": "Soatlar", "brands": "Brendlar", "preowned": "Ishlatilgan", "offers": "Takliflar" },
-  "home": { "title": "Hashamatli soatlar", "subtitle": "Butun dunyo bo‘ylab yetkazib beriladigan original soatlar", "cta": "Kolleksiyani ko‘rish" },
+  "nav": {
+    "watches": "Soatlar",
+    "brands": "Brendlar",
+    "preowned": "Ishlatilgan",
+    "offers": "Takliflar"
+  },
+  "home": {
+    "title": "Hashamatli soatlar",
+    "subtitle": "Butun dunyo bo‘ylab yetkazib beriladigan original soatlar",
+    "cta": "Kolleksiyani ko‘rish"
+  },
   "currency": "Valyuta",
   "language": "Til",
-  "footer": { "rights": "Barcha huquqlar himoyalangan." },
-  "common": { "yes": "Ha", "no": "Yo‘q" },
+  "footer": {
+    "rights": "Barcha huquqlar himoyalangan."
+  },
+  "common": {
+    "yes": "Ha",
+    "no": "Yo‘q"
+  },
   "catalog": {
     "title": "Soatlar",
     "description": "Original hashamatli soatlar: yangi va ishlatilgan, mavjud va buyurtma asosida.",
     "found": "Hech narsa topilmadi | {n} ta soat topildi | {n} ta soat topildi",
     "empty": "Tanlangan filtrlar bo‘yicha hech narsa topilmadi",
     "pagination": "Sahifalar",
-    "sort": { "label": "Saralash", "newest": "Yangilari", "priceAsc": "Avval arzonlari", "priceDesc": "Avval qimmatlari" }
+    "sort": {
+      "label": "Saralash",
+      "newest": "Yangilari",
+      "priceAsc": "Avval arzonlari",
+      "priceDesc": "Avval qimmatlari"
+    }
   },
   "filters": {
-    "title": "Filtrlar", "reset": "Tozalash", "close": "Yopish", "brand": "Brend", "condition": "Holati",
-    "availability": "Mavjudlik", "gender": "Kim uchun", "movement": "Mexanizm", "caseMaterial": "Korpus materiali",
-    "dialColor": "Siferblat rangi", "strapMaterial": "Tasma", "price": "Narx", "from": "dan", "to": "gacha"
+    "title": "Filtrlar",
+    "reset": "Tozalash",
+    "close": "Yopish",
+    "brand": "Brend",
+    "condition": "Holati",
+    "availability": "Mavjudlik",
+    "gender": "Kim uchun",
+    "movement": "Mexanizm",
+    "caseMaterial": "Korpus materiali",
+    "dialColor": "Siferblat rangi",
+    "strapMaterial": "Tasma",
+    "price": "Narx",
+    "from": "dan",
+    "to": "gacha"
   },
   "product": {
-    "ref": "Ref.", "sale": "Chegirma", "leadTime": "{days} kun",
-    "orderTelegram": "Telegram orqali buyurtma", "orderWhatsapp": "WhatsApp orqali buyurtma",
-    "orderMessage": "Assalomu alaykum! {name} (ref. {ref}) buyurtma qilmoqchiman: {url}",
-    "soldOutHint": "Bu soat sotilgan. Bizga yozing — o‘xshashini topib beramiz."
+    "ref": "Ref.",
+    "sale": "Chegirma",
+    "leadTime": "{days} kun",
+    "soldOutHint": "Bu soat sotilgan. Bizga yozing — o‘xshashini topib beramiz.",
+    "askQuestion": "Savolingiz bormi?",
+    "questionMessage": "Assalomu alaykum! {name} (ref. {ref}) haqida savolim bor: {url}"
   },
   "specs": {
-    "title": "Xususiyatlar", "reference": "Referens", "movement": "Mexanizm", "caliber": "Kalibr",
-    "powerReserve": "Quvvat zaxirasi", "hours": "{n} soat", "caseMaterial": "Korpus materiali", "diameter": "Korpus diametri",
-    "thickness": "Korpus qalinligi", "glass": "Oyna", "waterResistance": "Suv o‘tkazmasligi", "dialColor": "Siferblat",
-    "strap": "Tasma / bilaguzuk", "complications": "Funksiyalar", "year": "Yil", "box": "Asl quti", "papers": "Hujjatlar"
+    "title": "Xususiyatlar",
+    "reference": "Referens",
+    "movement": "Mexanizm",
+    "caliber": "Kalibr",
+    "powerReserve": "Quvvat zaxirasi",
+    "hours": "{n} soat",
+    "caseMaterial": "Korpus materiali",
+    "diameter": "Korpus diametri",
+    "thickness": "Korpus qalinligi",
+    "glass": "Oyna",
+    "waterResistance": "Suv o‘tkazmasligi",
+    "dialColor": "Siferblat",
+    "strap": "Tasma / bilaguzuk",
+    "complications": "Funksiyalar",
+    "year": "Yil",
+    "box": "Asl quti",
+    "papers": "Hujjatlar"
+  },
+  "cart": {
+    "title": "Savat",
+    "add": "Savatga qo‘shish",
+    "inCart": "Savatda — o‘tish",
+    "added": "Savatga qo‘shildi",
+    "goToCart": "Savatga",
+    "empty": "Savat bo‘sh",
+    "remove": "O‘chirish",
+    "subtotal": "Mahsulotlar",
+    "checkout": "Buyurtma berish",
+    "deliveryNote": "Yetkazib berish narxi keyingi bosqichda.",
+    "fixErrors": "Belgilangan pozitsiyalarni tekshiring.",
+    "onOrder": "Buyurtma asosida · {days} kunda yetkaziladi"
+  },
+  "checkout": {
+    "title": "Buyurtmani rasmiylashtirish",
+    "contacts": "Aloqa ma’lumotlari",
+    "name": "Ism",
+    "phone": "Telefon",
+    "email": "Email",
+    "optional": "Ixtiyoriy",
+    "contactMethod": "Siz bilan qanday bog‘lanaylik?",
+    "call": "Qo‘ng‘iroq",
+    "delivery": "Yetkazib berish",
+    "country": "Mamlakat",
+    "city": "Shahar",
+    "address": "Manzil",
+    "deliveryMethod": "Yetkazib berish usuli",
+    "comment": "Izoh",
+    "summary": "Buyurtmangiz",
+    "total": "Jami",
+    "byManager": "menejer aniqlaydi",
+    "submit": "Buyurtma berish",
+    "backToCart": "Savatga qaytish",
+    "paymentNote": "Hozir to‘lov yo‘q: menejer siz bilan bog‘lanib, buyurtmani tasdiqlaydi va to‘lovni kelishadi.",
+    "errors": {
+      "name": "Ismingizni kiriting",
+      "phone": "Telefon raqamini xalqaro formatda kiriting",
+      "email": "Email noto‘g‘ri",
+      "required": "Majburiy maydon",
+      "delivery": "Yetkazib berish usulini tanlang",
+      "tooMany": "Juda ko‘p urinish. Keyinroq qayta urinib ko‘ring yoki bizga yozing.",
+      "generic": "Buyurtma berib bo‘lmadi. Qayta urinib ko‘ring."
+    }
+  },
+  "order": {
+    "title": "Buyurtma {number}",
+    "thanks": "Buyurtmangiz uchun rahmat!",
+    "managerWillContact": "Menejer tez orada siz bilan bog‘lanib, tafsilotlar va to‘lovni tasdiqlaydi.",
+    "number": "Buyurtma",
+    "writeTelegram": "Telegram orqali yozish",
+    "writeWhatsapp": "WhatsApp orqali yozish",
+    "contactMessage": "Assalomu alaykum! Men {number} buyurtmasini berdim.",
+    "bookmark": "Bu sahifani saqlang — unda buyurtma holati doim ko‘rinadi.",
+    "continue": "Xaridni davom ettirish"
   }
 }

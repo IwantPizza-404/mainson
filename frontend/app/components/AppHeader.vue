@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+import { useCartStore } from '~/stores/cart'
+
 const { t } = useI18n()
 const localePath = useLocalePath()
+const cart = useCartStore()
 
 const links = computed<NavigationMenuItem[]>(() => [
   { label: t('nav.watches'), to: localePath('/watches') },
@@ -31,6 +34,15 @@ const links = computed<NavigationMenuItem[]>(() => [
     <template #right>
       <CurrencySwitcher />
       <LanguageSwitcher />
+      <UChip :text="cart.count" :show="cart.count > 0" size="3xl" color="primary" inset>
+        <UButton
+          :to="localePath('/cart')"
+          icon="i-lucide-shopping-bag"
+          :aria-label="t('cart.title')"
+          variant="ghost"
+          class="text-white hover:bg-white/10"
+        />
+      </UChip>
     </template>
 
     <template #body>
