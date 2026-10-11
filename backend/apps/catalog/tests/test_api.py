@@ -129,3 +129,20 @@ def test_brands_with_product_counts(client):
     assert [(b["slug"], b["product_count"]) for b in data] == [("rolex", 1)]
     assert client.get(f"{URL}/brands/rolex").json()["product_count"] == 1
     assert client.get(f"{URL}/brands/empty").status_code == 404
+
+
+def test_filters_scoped_to_brand(client):
+    WatchSpecsFactory(
+        product__brand=BrandFactory(slug="rolex"),
+        product__price=Decimal("9000"),
+        dial_color=SpecOptionFactory(kind=SpecOption.Kind.DIAL_COLOR, slug="green"),
+    )
+    WatchSpecsFactory(
+        product__price=Decimal("500"),
+        dial_color=SpecOptionFactory(kind=SpecOption.Kind.DIAL_COLOR, slug="white"),
+    )
+
+    data = client.get(f"{URL}/filters", {"brand": "rolex"}).json()
+
+    assert [o["slug"] for o in data["dial_colors"]] == ["green"]
+    assert data["price"] == {"min": "9000.00", "max": "9000.00"}

@@ -1,6 +1,24 @@
 <script setup lang="ts">
-const { t } = useI18n()
-const localePath = useLocalePath()
+import type { Component } from 'vue'
+import type { HomeSection } from '~/types/catalog'
+
+const { t, locale } = useI18n()
+const api = useApi()
+
+const { data: sections } = await useAsyncData('home', () => api<HomeSection[]>('/content/home'), {
+  watch: [locale],
+  default: () => [],
+})
+
+// Секции главной собираются в админке; порядок — как там
+const components: Record<string, Component> = {
+  hero: resolveComponent('HomeHero') as Component,
+  trust: resolveComponent('HomeTrust') as Component,
+  products: resolveComponent('HomeProducts') as Component,
+  tiles: resolveComponent('HomeTiles') as Component,
+  brands: resolveComponent('HomeBrands') as Component,
+  banner: resolveComponent('HomeBanner') as Component,
+}
 
 useSeoMeta({
   title: () => t('home.title'),
@@ -9,17 +27,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <section class="bg-ink text-white">
-    <UContainer class="py-32 text-center md:py-44">
-      <h1 class="font-serif text-5xl md:text-7xl">{{ t('home.title') }}</h1>
-      <p class="mt-6 text-lg text-white/70">{{ t('home.subtitle') }}</p>
-      <UButton
-        :to="localePath('/watches')"
-        :label="t('home.cta')"
-        variant="outline"
-        size="xl"
-        class="mt-10 px-10 ring-gold-500 text-gold-500 hover:bg-gold-500 hover:text-ink"
-      />
-    </UContainer>
-  </section>
+  <div>
+    <template v-for="section in sections" :key="section.id">
+      <component :is="components[section.kind]" v-if="components[section.kind]" :section="section" />
+    </template>
+  </div>
 </template>

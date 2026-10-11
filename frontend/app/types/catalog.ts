@@ -21,3 +21,10 @@ export type CheckoutOptions = Schemas['CheckoutOptionsOut']
 export type DeliveryMethod = Schemas['DeliveryMethodOut']
 export type OrderPayload = Schemas['OrderIn']
 export type Order = Schemas['OrderOut']
+
+// Контент
+export type Brand = Schemas['BrandOut']
+export type HomeSection = Schemas['HomeSectionOut']
+export type SectionItem = Schemas['SectionItemOut']
+export type ResponsiveImage = Schemas['ResponsiveImageOut']
+export type SiteSettings = Schemas['SiteSettingsOut']

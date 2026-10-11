@@ -32,7 +32,7 @@ function asString(value: LocationQueryValue | LocationQueryValue[] | undefined):
  * Состояние каталога (фильтры, сортировка, страница) живёт в URL:
  * ссылкой на подборку можно поделиться, а поисковики видят отфильтрованные страницы.
  */
-export function useCatalogQuery() {
+export function useCatalogQuery(fixed: { brand?: string } = {}) {
   const route = useRoute()
   const router = useRouter()
 
@@ -55,6 +55,7 @@ export function useCatalogQuery() {
   /** Параметры запроса к API каталога. */
   const apiQuery = computed(() => ({
     ...lists.value,
+    ...(fixed.brand ? { brand: [fixed.brand] } : {}),
     price_min: priceMin.value,
     price_max: priceMax.value,
     sort: sort.value,

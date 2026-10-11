@@ -96,9 +96,14 @@ def get_product(request, slug: str):
 
 
 @router.get("/filters", response=FiltersOut)
-def get_filters(request):
-    """Значения для фильтров: только то, что реально встречается у опубликованных товаров."""
+def get_filters(request, brand: str | None = None):
+    """Значения для фильтров: только то, что реально встречается у опубликованных товаров.
+
+    brand — для страницы бренда: варианты только по товарам этого бренда.
+    """
     products = Product.objects.published()
+    if brand:
+        products = products.filter(brand__slug=brand)
     specs = WatchSpecs.objects.filter(product__in=products)
 
     def used_options(kind: SpecOption.Kind, field: str):

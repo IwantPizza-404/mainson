@@ -15,9 +15,6 @@ export default defineNuxtConfig({
       // Адрес API для браузера — NUXT_PUBLIC_API_BASE
       apiBase: 'http://localhost:8000/api/v1',
       siteUrl: 'https://maison.uz',
-      // Контакты для заказа через мессенджер — NUXT_PUBLIC_TELEGRAM_USERNAME, NUXT_PUBLIC_WHATSAPP_NUMBER
-      telegramUsername: '',
-      whatsappNumber: '',
     },
   },
 

@@ -2,12 +2,14 @@
 import type { ProductDetail } from '~/types/catalog'
 
 import { useCartStore } from '~/stores/cart'
+import { useSiteStore } from '~/stores/site'
 
 const route = useRoute()
 const { t, locale } = useI18n()
 const api = useApi()
 const localePath = useLocalePath()
 const config = useRuntimeConfig()
+const site = useSiteStore()
 
 const slug = computed(() => String(route.params.slug))
 
@@ -78,16 +80,8 @@ const questionMessage = computed(() => {
   const url = `${config.public.siteUrl}${localePath(`/watches/${p.slug}`)}`
   return t('product.questionMessage', { name: `${p.brand.name} ${p.name}`, ref: p.reference, url })
 })
-const telegramLink = computed(() =>
-  config.public.telegramUsername
-    ? `https://t.me/${config.public.telegramUsername}?text=${encodeURIComponent(questionMessage.value)}`
-    : null,
-)
-const whatsappLink = computed(() =>
-  config.public.whatsappNumber
-    ? `https://wa.me/${String(config.public.whatsappNumber)}?text=${encodeURIComponent(questionMessage.value)}`
-    : null,
-)
+const telegramLink = computed(() => site.telegramLink(questionMessage.value))
+const whatsappLink = computed(() => site.whatsappLink(questionMessage.value))
 
 useSeoMeta({
   title: () => product.value?.seo_title || `${product.value?.brand.name} ${product.value?.name}`,

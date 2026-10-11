@@ -119,6 +119,8 @@ export interface paths {
         /**
          * Get Filters
          * @description Значения для фильтров: только то, что реально встречается у опубликованных товаров.
+         *
+         *     brand — для страницы бренда: варианты только по товарам этого бренда.
          */
         get: operations["apps_catalog_api_get_filters"];
         put?: never;
@@ -957,7 +959,9 @@ export interface operations {
     };
     apps_catalog_api_get_filters: {
         parameters: {
-            query?: never;
+            query?: {
+                brand?: string | null;
+            };
             header?: never;
             path?: never;
             cookie?: never;

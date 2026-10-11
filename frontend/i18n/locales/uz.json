@@ -8,12 +8,16 @@
   "home": {
     "title": "Hashamatli soatlar",
     "subtitle": "Butun dunyo bo‘ylab yetkazib beriladigan original soatlar",
-    "cta": "Kolleksiyani ko‘rish"
+    "cta": "Kolleksiyani ko‘rish",
+    "viewAll": "Barchasini ko‘rish"
   },
   "currency": "Valyuta",
   "language": "Til",
   "footer": {
-    "rights": "Barcha huquqlar himoyalangan."
+    "rights": "Barcha huquqlar himoyalangan.",
+    "shop": "Do‘kon",
+    "contacts": "Kontaktlar",
+    "visit": "Manzil"
   },
   "common": {
     "yes": "Ha",
@@ -130,5 +134,24 @@
     "contactMessage": "Assalomu alaykum! Men {number} buyurtmasini berdim.",
     "bookmark": "Bu sahifani saqlang — unda buyurtma holati doim ko‘rinadi.",
     "continue": "Xaridni davom ettirish"
+  },
+  "menu": {
+    "forWhom": "Kim uchun",
+    "men": "Erkaklar",
+    "women": "Ayollar",
+    "unisex": "Uniseks",
+    "collections": "To‘plamlar",
+    "all": "Barcha soatlar",
+    "new": "Yangi",
+    "inStock": "Mavjud",
+    "onOrder": "Buyurtma asosida"
+  },
+  "brands": {
+    "title": "Brendlar",
+    "description": "Maison’dagi hashamatli soat brendlari.",
+    "all": "Barcha brendlar",
+    "count": "Soat yo‘q | {n} ta soat | {n} ta soat",
+    "pageTitle": "{name} soatlari",
+    "pageDescription": "Butun dunyo bo‘ylab yetkazib beriladigan original {name} soatlari."
   }
 }

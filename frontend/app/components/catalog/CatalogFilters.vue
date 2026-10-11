@@ -3,7 +3,7 @@ import type { AccordionItem } from '@nuxt/ui'
 import type { ListFilterKey } from '~/composables/useCatalogQuery'
 import type { CatalogFilters, SpecOption } from '~/types/catalog'
 
-const props = defineProps<{ filters: CatalogFilters }>()
+const props = defineProps<{ filters: CatalogFilters; hideBrand?: boolean }>()
 
 const { t } = useI18n()
 const catalog = useCatalogQuery()
@@ -25,7 +25,7 @@ const groups = computed<FilterItem[]>(() => {
     ['strap_material', t('filters.strapMaterial'), fromSpec(props.filters.strap_materials)],
   ]
   return all
-    .filter(([, , options]) => options.length)
+    .filter(([key, , options]) => options.length && !(props.hideBrand && key === 'brand'))
     .map(([key, label, options]) => ({ key, label, options, value: key }))
 })
 

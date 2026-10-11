@@ -451,7 +451,24 @@
       "get": {
         "operationId": "apps_catalog_api_get_filters",
         "summary": "Get Filters",
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "brand",
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Brand"
+            },
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -464,7 +481,7 @@
             }
           }
         },
-        "description": "Значения для фильтров: только то, что реально встречается у опубликованных товаров.",
+        "description": "Значения для фильтров: только то, что реально встречается у опубликованных товаров.\n\nbrand — для страницы бренда: варианты только по товарам этого бренда.",
         "tags": [
           "catalog"
         ]

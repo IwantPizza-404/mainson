@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { BadgeProps } from '@nuxt/ui'
+import { useSiteStore } from '~/stores/site'
 import type { Order } from '~/types/catalog'
 
 const route = useRoute()
 const { t, locale } = useI18n()
 const api = useApi()
 const localePath = useLocalePath()
-const config = useRuntimeConfig()
+const site = useSiteStore()
 const { formatIn } = useMoney()
 
 const token = String(route.params.token)
@@ -34,16 +35,8 @@ function money(amountUsd: string | null | undefined) {
 }
 
 const message = computed(() => t('order.contactMessage', { number: order.value?.number }))
-const telegramLink = computed(() =>
-  config.public.telegramUsername
-    ? `https://t.me/${config.public.telegramUsername}?text=${encodeURIComponent(message.value)}`
-    : null,
-)
-const whatsappLink = computed(() =>
-  config.public.whatsappNumber
-    ? `https://wa.me/${String(config.public.whatsappNumber)}?text=${encodeURIComponent(message.value)}`
-    : null,
-)
+const telegramLink = computed(() => site.telegramLink(message.value))
+const whatsappLink = computed(() => site.whatsappLink(message.value))
 
 useSeoMeta({ title: () => t('order.title', { number: order.value?.number }), robots: 'noindex' })
 </script>

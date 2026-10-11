@@ -8,12 +8,16 @@
   "home": {
     "title": "Luxury watches",
     "subtitle": "Authentic timepieces with worldwide delivery",
-    "cta": "Explore the collection"
+    "cta": "Explore the collection",
+    "viewAll": "View all"
   },
   "currency": "Currency",
   "language": "Language",
   "footer": {
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "shop": "Shop",
+    "contacts": "Contacts",
+    "visit": "Visit us"
   },
   "common": {
     "yes": "Yes",
@@ -130,5 +134,24 @@
     "contactMessage": "Hello! I placed order {number}.",
     "bookmark": "Save this page — it always shows the current status of your order.",
     "continue": "Continue shopping"
+  },
+  "menu": {
+    "forWhom": "For",
+    "men": "Men",
+    "women": "Women",
+    "unisex": "Unisex",
+    "collections": "Collections",
+    "all": "All watches",
+    "new": "New",
+    "inStock": "In stock",
+    "onOrder": "On order"
+  },
+  "brands": {
+    "title": "Brands",
+    "description": "Luxury watch brands available at Maison.",
+    "all": "All brands",
+    "count": "No watches | {n} watch | {n} watches",
+    "pageTitle": "{name} watches",
+    "pageDescription": "Authentic {name} watches with worldwide delivery."
   }
 }
