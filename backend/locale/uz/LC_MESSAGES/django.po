@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 21:33+0500\n"
+"POT-Creation-Date: 2026-10-11 21:55+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: apps/catalog/admin.py:27 apps/catalog/models.py:170
+#: apps/catalog/admin.py:27 apps/catalog/models.py:174
 msgid "products"
 msgstr "mahsulotlar"
 
@@ -61,7 +61,7 @@ msgstr "Nashr"
 msgid "SEO"
 msgstr "SEO"
 
-#: apps/catalog/admin.py:152 apps/catalog/models.py:146
+#: apps/catalog/admin.py:152 apps/catalog/models.py:150
 msgid "availability"
 msgstr "mavjudlik"
 
@@ -83,291 +83,291 @@ msgstr "Nashrdan olish"
 msgid "Unpublished: %d"
 msgstr "Nashrdan olindi: %d"
 
-#: apps/catalog/apps.py:8 config/settings/base.py:202
+#: apps/catalog/apps.py:8 config/settings/base.py:212
 msgid "Catalog"
 msgstr "Katalog"
 
-#: apps/catalog/models.py:12 apps/catalog/models.py:32
-#: apps/catalog/models.py:73 apps/catalog/models.py:115
+#: apps/catalog/models.py:16 apps/catalog/models.py:36
+#: apps/catalog/models.py:77 apps/catalog/models.py:119
 msgid "name"
 msgstr "nomi"
 
-#: apps/catalog/models.py:13 apps/catalog/models.py:33
-#: apps/catalog/models.py:74 apps/catalog/models.py:116
+#: apps/catalog/models.py:17 apps/catalog/models.py:37
+#: apps/catalog/models.py:78 apps/catalog/models.py:120
 msgid "slug"
 msgstr "manzil (slug)"
 
-#: apps/catalog/models.py:14
+#: apps/catalog/models.py:18
 msgid "logo"
 msgstr "logotip"
 
-#: apps/catalog/models.py:15
+#: apps/catalog/models.py:19
 msgid "country"
 msgstr "mamlakat"
 
-#: apps/catalog/models.py:16 apps/catalog/models.py:120
+#: apps/catalog/models.py:20 apps/catalog/models.py:124
 msgid "description"
 msgstr "tavsif"
 
-#: apps/catalog/models.py:17 apps/catalog/models.py:42
+#: apps/catalog/models.py:21 apps/catalog/models.py:46
 msgid "active"
 msgstr "faol"
 
-#: apps/catalog/models.py:18 apps/catalog/models.py:43
-#: apps/catalog/models.py:75 apps/catalog/models.py:304
+#: apps/catalog/models.py:22 apps/catalog/models.py:47
+#: apps/catalog/models.py:79 apps/catalog/models.py:308
 msgid "position"
 msgstr "tartib"
 
-#: apps/catalog/models.py:21 apps/catalog/models.py:113
+#: apps/catalog/models.py:25 apps/catalog/models.py:117
 msgid "brand"
 msgstr "brend"
 
-#: apps/catalog/models.py:22
+#: apps/catalog/models.py:26
 msgid "brands"
 msgstr "brendlar"
 
-#: apps/catalog/models.py:36
+#: apps/catalog/models.py:40
 msgid "parent"
 msgstr "yuqori kategoriya"
 
-#: apps/catalog/models.py:46 apps/catalog/models.py:110
+#: apps/catalog/models.py:50 apps/catalog/models.py:114
 msgid "category"
 msgstr "kategoriya"
 
-#: apps/catalog/models.py:47
+#: apps/catalog/models.py:51
 msgid "categories"
 msgstr "kategoriyalar"
 
-#: apps/catalog/models.py:55
+#: apps/catalog/models.py:59
 msgid "Only one level of nesting is allowed."
 msgstr "Faqat bir darajali ichma-ichlikka ruxsat beriladi."
 
-#: apps/catalog/models.py:66
+#: apps/catalog/models.py:70
 msgid "Case material"
 msgstr "Korpus materiali"
 
-#: apps/catalog/models.py:67
+#: apps/catalog/models.py:71
 msgid "Strap material"
 msgstr "Tasma materiali"
 
-#: apps/catalog/models.py:68
+#: apps/catalog/models.py:72
 msgid "Dial color"
 msgstr "Siferblat rangi"
 
-#: apps/catalog/models.py:69
+#: apps/catalog/models.py:73
 msgid "Glass"
 msgstr "Oyna"
 
-#: apps/catalog/models.py:70
+#: apps/catalog/models.py:74
 msgid "Complication"
 msgstr "Funksiya"
 
-#: apps/catalog/models.py:72
+#: apps/catalog/models.py:76
 msgid "kind"
 msgstr "turi"
 
-#: apps/catalog/models.py:78
+#: apps/catalog/models.py:82
 msgid "specification option"
 msgstr "xususiyat qiymati"
 
-#: apps/catalog/models.py:79
+#: apps/catalog/models.py:83
 msgid "specification options"
 msgstr "xususiyatlar ma’lumotnomasi"
 
-#: apps/catalog/models.py:96
+#: apps/catalog/models.py:100
 msgid "New"
 msgstr "Yangi"
 
-#: apps/catalog/models.py:97
+#: apps/catalog/models.py:101
 msgid "Pre-owned"
 msgstr "Ishlatilgan"
 
-#: apps/catalog/models.py:100
+#: apps/catalog/models.py:104
 msgid "In stock"
 msgstr "Mavjud"
 
-#: apps/catalog/models.py:101
+#: apps/catalog/models.py:105
 msgid "On order"
 msgstr "Buyurtma asosida"
 
-#: apps/catalog/models.py:102
+#: apps/catalog/models.py:106
 msgid "Sold out"
 msgstr "Sotilgan"
 
-#: apps/catalog/models.py:105
+#: apps/catalog/models.py:109
 msgid "Men"
 msgstr "Erkaklar uchun"
 
-#: apps/catalog/models.py:106
+#: apps/catalog/models.py:110
 msgid "Women"
 msgstr "Ayollar uchun"
 
-#: apps/catalog/models.py:107
+#: apps/catalog/models.py:111
 msgid "Unisex"
 msgstr "Uniseks"
 
-#: apps/catalog/models.py:118
+#: apps/catalog/models.py:122
 msgid "reference"
 msgstr "referens"
 
-#: apps/catalog/models.py:118
+#: apps/catalog/models.py:122
 msgid "Model reference"
 msgstr "Model artikuli"
 
-#: apps/catalog/models.py:124
+#: apps/catalog/models.py:128
 msgid "price, USD"
 msgstr "narx, USD"
 
-#: apps/catalog/models.py:130
+#: apps/catalog/models.py:134
 msgid "old price, USD"
 msgstr "eski narx, USD"
 
-#: apps/catalog/models.py:135
+#: apps/catalog/models.py:139
 msgid "Crossed-out price shown for discounted items."
 msgstr "Chegirmadagi mahsulotlar uchun chizilgan narx."
 
-#: apps/catalog/models.py:139
+#: apps/catalog/models.py:143
 msgid "condition"
 msgstr "holati"
 
-#: apps/catalog/models.py:142
+#: apps/catalog/models.py:146
 msgid "gender"
 msgstr "jins"
 
-#: apps/catalog/models.py:152
+#: apps/catalog/models.py:156
 msgid "stock quantity"
 msgstr "ombordagi soni"
 
-#: apps/catalog/models.py:154
+#: apps/catalog/models.py:158
 msgid "lead time, days"
 msgstr "yetkazib berish muddati, kun"
 
-#: apps/catalog/models.py:157
+#: apps/catalog/models.py:161
 msgid "Delivery time for items on order."
 msgstr "Buyurtma asosidagi mahsulotlar uchun yetkazib berish muddati."
 
-#: apps/catalog/models.py:160
+#: apps/catalog/models.py:164
 msgid "published"
 msgstr "nashr qilingan"
 
-#: apps/catalog/models.py:161
+#: apps/catalog/models.py:165
 msgid "featured"
 msgstr "tavsiya etilgan"
 
-#: apps/catalog/models.py:163
+#: apps/catalog/models.py:167
 msgid "SEO title"
 msgstr "SEO sarlavha"
 
-#: apps/catalog/models.py:164
+#: apps/catalog/models.py:168
 msgid "SEO description"
 msgstr "SEO tavsif"
 
-#: apps/catalog/models.py:169 apps/catalog/models.py:221
-#: apps/catalog/models.py:300
+#: apps/catalog/models.py:173 apps/catalog/models.py:225
+#: apps/catalog/models.py:304
 msgid "product"
 msgstr "mahsulot"
 
-#: apps/catalog/models.py:194
+#: apps/catalog/models.py:198
 msgid "Old price must be greater than the price."
 msgstr "Eski narx joriy narxdan katta bo‘lishi kerak."
 
-#: apps/catalog/models.py:196
+#: apps/catalog/models.py:200
 msgid "Set the quantity for an item in stock."
 msgstr "Mavjud mahsulot uchun sonini kiriting."
 
-#: apps/catalog/models.py:198
+#: apps/catalog/models.py:202
 msgid "Set the lead time for an item on order."
 msgstr "Buyurtma asosidagi mahsulot uchun yetkazib berish muddatini kiriting."
 
-#: apps/catalog/models.py:215
+#: apps/catalog/models.py:219
 msgid "Automatic"
 msgstr "Avtomatik"
 
-#: apps/catalog/models.py:216
+#: apps/catalog/models.py:220
 msgid "Manual winding"
 msgstr "Qo‘lda buraladigan"
 
-#: apps/catalog/models.py:217
+#: apps/catalog/models.py:221
 msgid "Quartz"
 msgstr "Kvarts"
 
-#: apps/catalog/models.py:218
+#: apps/catalog/models.py:222
 msgid "Solar"
 msgstr "Quyosh batareyasi"
 
-#: apps/catalog/models.py:224
+#: apps/catalog/models.py:228
 msgid "movement"
 msgstr "mexanizm"
 
-#: apps/catalog/models.py:225
+#: apps/catalog/models.py:229
 msgid "caliber"
 msgstr "kalibr"
 
-#: apps/catalog/models.py:227
+#: apps/catalog/models.py:231
 msgid "power reserve, hours"
 msgstr "quvvat zaxirasi, soat"
 
-#: apps/catalog/models.py:232
+#: apps/catalog/models.py:236
 msgid "case material"
 msgstr "korpus materiali"
 
-#: apps/catalog/models.py:240
+#: apps/catalog/models.py:244
 msgid "case diameter, mm"
 msgstr "korpus diametri, mm"
 
-#: apps/catalog/models.py:243
+#: apps/catalog/models.py:247
 msgid "case thickness, mm"
 msgstr "korpus qalinligi, mm"
 
-#: apps/catalog/models.py:247
+#: apps/catalog/models.py:251
 msgid "glass"
 msgstr "oyna"
 
-#: apps/catalog/models.py:255
+#: apps/catalog/models.py:259
 msgid "water resistance, m"
 msgstr "suv o‘tkazmasligi, m"
 
-#: apps/catalog/models.py:260
+#: apps/catalog/models.py:264
 msgid "dial color"
 msgstr "siferblat rangi"
 
-#: apps/catalog/models.py:269
+#: apps/catalog/models.py:273
 msgid "strap / bracelet material"
 msgstr "tasma / bilaguzuk materiali"
 
-#: apps/catalog/models.py:278
+#: apps/catalog/models.py:282
 msgid "complications"
 msgstr "funksiyalar"
 
-#: apps/catalog/models.py:284
+#: apps/catalog/models.py:288
 msgid "year"
 msgstr "yil"
 
-#: apps/catalog/models.py:285
+#: apps/catalog/models.py:289
 msgid "original box"
 msgstr "asl quti"
 
-#: apps/catalog/models.py:286
+#: apps/catalog/models.py:290
 msgid "papers / warranty card"
 msgstr "hujjatlar / kafolat taloni"
 
-#: apps/catalog/models.py:288
+#: apps/catalog/models.py:292
 msgid "serial number"
 msgstr "seriya raqami"
 
-#: apps/catalog/models.py:291 apps/catalog/models.py:292
+#: apps/catalog/models.py:295 apps/catalog/models.py:296
 msgid "watch specifications"
 msgstr "soat xususiyatlari"
 
-#: apps/catalog/models.py:302 apps/catalog/models.py:307
+#: apps/catalog/models.py:306 apps/catalog/models.py:311
 msgid "image"
 msgstr "rasm"
 
-#: apps/catalog/models.py:303
+#: apps/catalog/models.py:307
 msgid "alt text"
 msgstr "muqobil matn"
 
-#: apps/catalog/models.py:308
+#: apps/catalog/models.py:312
 msgid "images"
 msgstr "rasmlar"
 
@@ -375,46 +375,119 @@ msgstr "rasmlar"
 msgid "created at"
 msgstr "yaratilgan"
 
-#: apps/core/models.py:9
+#: apps/core/models.py:9 apps/currency/models.py:41
 msgid "updated at"
 msgstr "o‘zgartirilgan"
 
-#: config/settings/base.py:113
+#: apps/currency/admin.py:24
+msgid "effective rate"
+msgstr "amaldagi kurs"
+
+#: apps/currency/admin.py:28
+msgid "Update from Central Bank"
+msgstr "MB dan yangilash"
+
+#: apps/currency/admin.py:33
+#, python-format
+msgid "Rates updated: %s"
+msgstr "Kurslar yangilandi: %s"
+
+#: apps/currency/admin.py:36
+#, python-format
+msgid "Could not load rates: %s"
+msgstr "Kurslarni yuklab bo‘lmadi: %s"
+
+#: apps/currency/apps.py:8
+#| msgid "reference"
+msgid "Currencies"
+msgstr "referens"
+
+#: apps/currency/models.py:15
+msgid "currency"
+msgstr "valyuta"
+
+#: apps/currency/models.py:17
+msgid "official rate"
+msgstr "rasmiy kurs"
+
+#: apps/currency/models.py:21
+msgid "Units of currency per 1 USD, updated automatically."
+msgstr "1 USD uchun valyuta birligi, avtomatik yangilanadi."
+
+#: apps/currency/models.py:24
+msgid "manual rate"
+msgstr "qo‘lda kiritilgan kurs"
+
+#: apps/currency/models.py:30
+msgid "If set, used instead of the official rate."
+msgstr "Agar kiritilsa, rasmiy kurs o‘rniga ishlatiladi."
+
+#: apps/currency/models.py:33
+msgid "markup, %"
+msgstr "ustama, %"
+
+#: apps/currency/models.py:38
+msgid "Added to the rate, e.g. to cover conversion costs."
+msgstr "Kursga qo‘shiladi, masalan konvertatsiya xarajatlarini qoplash uchun."
+
+#: apps/currency/models.py:40
+#, fuzzy
+#| msgid "updated at"
+msgid "rate date"
+msgstr "o‘zgartirilgan"
+
+#: apps/currency/models.py:44
+msgid "exchange rate"
+msgstr "valyuta kursi"
+
+#: apps/currency/models.py:45
+msgid "exchange rates"
+msgstr "valyuta kurslari"
+
+#: config/settings/base.py:116
 msgid "English"
 msgstr "Inglizcha"
 
-#: config/settings/base.py:114
+#: config/settings/base.py:117
 msgid "Uzbek"
 msgstr "O‘zbekcha"
 
-#: config/settings/base.py:115
+#: config/settings/base.py:118
 msgid "Russian"
 msgstr "Ruscha"
 
-#: config/settings/base.py:205
+#: config/settings/base.py:215
 msgid "Products"
 msgstr "Mahsulotlar"
 
-#: config/settings/base.py:210
+#: config/settings/base.py:220
 msgid "Brands"
 msgstr "Brendlar"
 
-#: config/settings/base.py:215
+#: config/settings/base.py:225
 msgid "Categories"
 msgstr "Kategoriyalar"
 
-#: config/settings/base.py:220
+#: config/settings/base.py:230
 msgid "Specification options"
 msgstr "Xususiyatlar ma’lumotnomasi"
 
-#: config/settings/base.py:227
+#: config/settings/base.py:237
+msgid "Settings"
+msgstr "Sozlamalar"
+
+#: config/settings/base.py:240
+msgid "Exchange rates"
+msgstr "Valyuta kurslari"
+
+#: config/settings/base.py:247
 msgid "Users & access"
 msgstr "Foydalanuvchilar va ruxsatlar"
 
-#: config/settings/base.py:230
+#: config/settings/base.py:250
 msgid "Users"
 msgstr "Foydalanuvchilar"
 
-#: config/settings/base.py:235
+#: config/settings/base.py:255
 msgid "Groups"
 msgstr "Guruhlar"

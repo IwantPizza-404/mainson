@@ -3,6 +3,7 @@
 from pathlib import Path
 
 import environ
+from celery.schedules import crontab
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
@@ -43,6 +44,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "apps.core",
     "apps.catalog",
+    "apps.currency",
 ]
 
 INSTALLED_APPS = UNFOLD_APPS + DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -167,6 +169,13 @@ CELERY_TASK_ACKS_LATE = True
 CELERY_TASK_REJECT_ON_WORKER_LOST = True
 CELERY_WORKER_PREFETCH_MULTIPLIER = 1
 CELERY_TIMEZONE = TIME_ZONE
+CELERY_BEAT_SCHEDULE = {
+    # ЦБ публикует курсы раз в день; второй запуск — подстраховка
+    "update-exchange-rates": {
+        "task": "apps.currency.tasks.update_exchange_rates",
+        "schedule": crontab(hour="9,15", minute=30),
+    },
+}
 
 # --- Внешние сервисы ----------------------------------------------------------
 
@@ -221,6 +230,16 @@ UNFOLD = {
                         "title": _("Specification options"),
                         "icon": "tune",
                         "link": reverse_lazy("admin:catalog_specoption_changelist"),
+                    },
+                ],
+            },
+            {
+                "title": _("Settings"),
+                "items": [
+                    {
+                        "title": _("Exchange rates"),
+                        "icon": "currency_exchange",
+                        "link": reverse_lazy("admin:currency_exchangerate_changelist"),
                     },
                 ],
             },

@@ -112,6 +112,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/currency/rates": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Rates
+         * @description Курсы для пересчёта цен на витрине: единиц валюты за 1 USD.
+         */
+        get: operations["apps_currency_api_get_rates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -374,6 +394,17 @@ export interface components {
             /** Max */
             max: string | null;
         };
+        /** RatesOut */
+        RatesOut: {
+            /** Base */
+            base: string;
+            /** Rates */
+            rates: {
+                [key: string]: string;
+            };
+            /** Updated At */
+            updated_at: string | null;
+        };
     };
     responses: never;
     parameters: never;
@@ -519,6 +550,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["FiltersOut"];
+                };
+            };
+        };
+    };
+    apps_currency_api_get_rates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RatesOut"];
                 };
             };
         };

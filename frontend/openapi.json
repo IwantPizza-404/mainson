@@ -437,6 +437,29 @@
           "catalog"
         ]
       }
+    },
+    "/api/v1/currency/rates": {
+      "get": {
+        "operationId": "apps_currency_api_get_rates",
+        "summary": "Get Rates",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RatesOut"
+                }
+              }
+            }
+          }
+        },
+        "description": "Курсы для пересчёта цен на витрине: единиц валюты за 1 USD.",
+        "tags": [
+          "currency"
+        ]
+      }
     }
   },
   "components": {
@@ -1311,6 +1334,40 @@
           "max"
         ],
         "title": "PriceRange",
+        "type": "object"
+      },
+      "RatesOut": {
+        "properties": {
+          "base": {
+            "title": "Base",
+            "type": "string"
+          },
+          "rates": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "title": "Rates",
+            "type": "object"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "required": [
+          "base",
+          "rates",
+          "updated_at"
+        ],
+        "title": "RatesOut",
         "type": "object"
       }
     }

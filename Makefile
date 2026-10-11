@@ -3,7 +3,7 @@ COMPOSE = docker compose -f infra/docker-compose.yml
 BACK = cd backend && uv run
 FRONT = cd frontend && pnpm
 
-.PHONY: help up down setup migrate superuser seed messages api-types backend frontend test lint format
+.PHONY: help up down setup migrate superuser seed messages api-types rates worker backend frontend test lint format
 
 help:  ## Показать команды
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
@@ -35,6 +35,12 @@ api-types:  ## Сгенерировать TS-типы API для фронтен�
 
 superuser:  ## Создать администратора
 	$(BACK) python manage.py createsuperuser
+
+rates:  ## Загрузить курсы валют из ЦБ Узбекистана
+	$(BACK) python manage.py update_rates
+
+worker:  ## Celery: фоновые задачи + расписание (курсы валют)
+	$(BACK) celery -A config worker --beat --loglevel=info
 
 backend:  ## Запустить Django (http://localhost:8000/admin)
 	$(BACK) python manage.py runserver 8000
